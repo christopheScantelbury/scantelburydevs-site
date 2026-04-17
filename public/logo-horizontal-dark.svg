@@ -1,0 +1,18 @@
+<svg width="320" height="72" viewBox="0 0 320 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Hexagon mark -->
+  <path d="M36 4L64 20V52L36 68L8 52V20L36 4Z" stroke="#00D4FF" stroke-width="1.5" fill="none" opacity="0.3"/>
+  <path d="M36 12L58 24V48L36 60L14 48V24L36 12Z" fill="#0A0F1E" stroke="#00D4FF" stroke-width="1" opacity="0.7"/>
+  <rect x="22" y="24" width="20" height="4" rx="2" fill="#00D4FF"/>
+  <rect x="30" y="33" width="20" height="4" rx="2" fill="#00D4FF"/>
+  <rect x="22" y="42" width="20" height="4" rx="2" fill="#00D4FF"/>
+  <line x1="42" y1="28" x2="30" y2="33" stroke="#00D4FF" stroke-width="1.5" stroke-linecap="round" opacity="0.55"/>
+  <line x1="30" y1="37" x2="42" y2="42" stroke="#00D4FF" stroke-width="1.5" stroke-linecap="round" opacity="0.55"/>
+  <!-- Wordmark -->
+  <text x="80" y="31" font-family="'Syne', 'Arial Black', sans-serif" font-weight="800" font-size="22" fill="#F0F4FA" letter-spacing="-0.5">Scantelbury</text>
+  <text x="80" y="31" font-family="'Syne', 'Arial Black', sans-serif" font-weight="800" font-size="22" fill="#F0F4FA" letter-spacing="-0.5">
+    <tspan fill="#F0F4FA">Scantelbury</tspan>
+  </text>
+  <text x="80" y="56" font-family="'Syne', 'Arial Black', sans-serif" font-weight="800" font-size="22" fill="#00D4FF" letter-spacing="-0.5">Devs</text>
+  <!-- Tagline -->
+  <text x="82" y="68" font-family="'DM Mono', 'Courier New', monospace" font-weight="400" font-size="9" fill="#8B9DB7" letter-spacing="3">BUILD · MIGRATE · INNOVATE</text>
+</svg>
