@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&family=Inter:wght@300;400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS CUSTOM PROPERTIES (use in non-Tailwind contexts) ── */
+:root {
+  --navy:        #0A0F1E;
+  --navy-mid:    #111827;
+  --navy-card:   #141C2F;
+  --accent:      #00D4FF;
+  --accent-dark: #0088CC;
+  --accent-glow: rgba(0, 212, 255, 0.12);
+  --steel:       #8B9DB7;
+  --steel-light: #C4D2E6;
+  --offwhite:    #F0F4FA;
+  --border:      rgba(0, 212, 255, 0.12);
+  --border-soft: rgba(255, 255, 255, 0.06);
+}
+
+/* ── BASE ── */
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--navy);
+  color: var(--offwhite);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── UTILITY CLASSES ── */
+@layer components {
+
+  /* Label tag */
+  .label-tag {
+    @apply font-mono text-[10px] tracking-[0.22em] text-cyan uppercase inline-block mb-4 opacity-80;
+  }
+
+  /* Section title */
+  .section-title {
+    @apply font-display font-[800] text-[clamp(30px,4vw,46px)] tracking-tight leading-tight mb-4;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-cyan text-navy font-mono text-[13px] font-medium
+           px-8 py-3.5 rounded-lg tracking-[0.06em] transition-all duration-200
+           hover:opacity-90 hover:-translate-y-px;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 border border-cyan/35 text-cyan font-mono text-[13px]
+           px-8 py-3.5 rounded-lg tracking-[0.06em] transition-all duration-200
+           hover:bg-cyan/10 hover:border-cyan/60;
+  }
+
+  /* Cards */
+  .card {
+    @apply bg-navy-card border border-white/[0.06] rounded-2xl transition-all duration-300;
+  }
+
+  .card-hover {
+    @apply hover:border-cyan/12 hover:-translate-y-1;
+  }
+
+  /* Tag pill */
+  .tag-pill {
+    @apply font-mono text-[10px] tracking-[0.08em] px-2.5 py-1 rounded
+           bg-cyan/[0.08] border border-cyan/[0.18] text-cyan;
+  }
+
+  /* Form elements */
+  .form-input {
+    @apply w-full px-4 py-3 bg-white/[0.04] border border-white/10 rounded-lg
+           text-offwhite text-sm font-sans outline-none transition-colors duration-200
+           placeholder:text-steel focus:border-cyan/40;
+  }
+
+  /* Grid background */
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(0,212,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+}
