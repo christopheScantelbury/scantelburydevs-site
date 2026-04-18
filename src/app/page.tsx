@@ -61,6 +61,26 @@ const t = {
   },
 }
 
+// Ícones de serviço com aria-hidden (decorativos)
+const IconCode = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
+    <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+  </svg>
+)
+const IconMigrate = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
+    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
+  </svg>
+)
+const IconCustom = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="3"/>
+    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
+    <path d="M15.54 8.46a5 5 0 0 1 0 7.07M8.46 8.46a5 5 0 0 0 0 7.07"/>
+  </svg>
+)
+
 export default function Home() {
   const [lang, setLang] = useState<Lang>('pt')
   const [menuOpen, setMenuOpen] = useState(false)
@@ -82,23 +102,24 @@ export default function Home() {
 
       {/* ── NAV ── */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-navy/90 backdrop-blur-md border-b border-cyan/[0.12]">
-        <div className="flex items-center justify-between px-5 md:px-12 h-[64px]">
-          <a href="#hero" onClick={() => setMenuOpen(false)}>
+        <div className="flex items-center justify-between px-5 md:px-12 h-16">
+          <a href="#hero" onClick={() => setMenuOpen(false)} className="flex items-center min-h-[44px]">
             <Logo />
           </a>
 
           {/* Desktop links */}
           <div className="hidden md:flex items-center gap-8">
             {(['services','process','about','cases'] as const).map(s => (
-              <a key={s} href={`#${s}`} className="font-mono text-[13px] text-steel hover:text-offwhite transition-colors tracking-[0.04em]">
+              <a key={s} href={`#${s}`}
+                className="font-mono text-[13px] text-steel hover:text-offwhite transition-colors tracking-[0.04em] min-h-[44px] flex items-center">
                 {tx(t.nav[s])}
               </a>
             ))}
             <a href="#contact"><Button size="sm">{tx(t.nav.cta)}</Button></a>
             <div className="flex gap-1 ml-2">
               {(['pt','en'] as Lang[]).map(l => (
-                <button key={l} onClick={() => setLang(l)}
-                  className={`font-mono text-[10px] tracking-[0.1em] px-2 py-1 rounded border transition-all ${lang===l ? 'bg-cyan/10 text-cyan border-cyan/30' : 'text-steel border-cyan/12 hover:text-offwhite'}`}>
+                <button key={l} onClick={() => setLang(l)} aria-label={`Mudar idioma para ${l.toUpperCase()}`}
+                  className={`font-mono text-[10px] tracking-[0.1em] px-2 min-h-[36px] min-w-[36px] rounded border transition-all ${lang===l ? 'bg-cyan/10 text-cyan border-cyan/30' : 'text-steel border-cyan/12 hover:text-offwhite'}`}>
                   {l.toUpperCase()}
                 </button>
               ))}
@@ -106,15 +127,16 @@ export default function Home() {
           </div>
 
           {/* Mobile: lang + hamburger */}
-          <div className="flex md:hidden items-center gap-3">
+          <div className="flex md:hidden items-center gap-2">
             {(['pt','en'] as Lang[]).map(l => (
-              <button key={l} onClick={() => setLang(l)}
-                className={`font-mono text-[10px] tracking-[0.1em] px-2 py-1 rounded border transition-all ${lang===l ? 'bg-cyan/10 text-cyan border-cyan/30' : 'text-steel border-cyan/12'}`}>
+              <button key={l} onClick={() => setLang(l)} aria-label={`Idioma ${l.toUpperCase()}`}
+                className={`font-mono text-[10px] tracking-[0.1em] px-2 py-1 min-h-[36px] min-w-[36px] rounded border transition-all ${lang===l ? 'bg-cyan/10 text-cyan border-cyan/30' : 'text-steel border-cyan/12'}`}>
                 {l.toUpperCase()}
               </button>
             ))}
-            <button onClick={() => setMenuOpen(v => !v)}
-              className="w-9 h-9 flex flex-col items-center justify-center gap-[5px] rounded-lg border border-white/10">
+            {/* auditoria: hamburger com min 44x44px */}
+            <button onClick={() => setMenuOpen(v => !v)} aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
+              className="w-11 h-11 flex flex-col items-center justify-center gap-[5px] rounded-lg border border-white/10">
               <span className={`w-4 h-[1.5px] bg-offwhite transition-all duration-200 ${menuOpen ? 'rotate-45 translate-y-[6.5px]' : ''}`} />
               <span className={`w-4 h-[1.5px] bg-offwhite transition-all duration-200 ${menuOpen ? 'opacity-0' : ''}`} />
               <span className={`w-4 h-[1.5px] bg-offwhite transition-all duration-200 ${menuOpen ? '-rotate-45 -translate-y-[6.5px]' : ''}`} />
@@ -127,7 +149,7 @@ export default function Home() {
           <div className="md:hidden border-t border-white/[0.06] bg-navy-mid px-5 py-4 flex flex-col gap-1">
             {(['services','process','about','cases'] as const).map(s => (
               <a key={s} href={`#${s}`} onClick={() => setMenuOpen(false)}
-                className="font-mono text-[13px] text-steel hover:text-offwhite py-3 border-b border-white/[0.04] tracking-[0.04em]">
+                className="font-mono text-[13px] text-steel hover:text-offwhite py-3.5 border-b border-white/[0.04] tracking-[0.04em] min-h-[44px] flex items-center">
                 {tx(t.nav[s])}
               </a>
             ))}
@@ -139,24 +161,27 @@ export default function Home() {
       </nav>
 
       {/* ── HERO ── */}
-      <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 md:px-12 pt-[100px] pb-16 overflow-hidden">
-        <div className="absolute inset-0 bg-grid opacity-100" />
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-glow-cyan pointer-events-none" />
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-navy to-transparent" />
+      {/* auditoria: padding vertical mínimo 120px desktop / 80px mobile */}
+      <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 md:px-12 pt-[120px] md:pt-[140px] pb-20 md:pb-[120px] overflow-hidden">
+        <div className="absolute inset-0 bg-grid opacity-100" aria-hidden="true" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-glow-cyan pointer-events-none" aria-hidden="true" />
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-navy to-transparent" aria-hidden="true" />
 
         <div className="relative z-10 max-w-3xl w-full">
           <div className="font-mono text-[10px] md:text-[11px] tracking-[0.25em] text-cyan uppercase mb-5 flex items-center justify-center gap-3">
-            <span className="w-6 md:w-8 h-px bg-cyan/40" />
+            <span className="w-6 md:w-8 h-px bg-cyan/40" aria-hidden="true" />
             {tx(t.hero.eyebrow)}
-            <span className="w-6 md:w-8 h-px bg-cyan/40" />
+            <span className="w-6 md:w-8 h-px bg-cyan/40" aria-hidden="true" />
           </div>
 
-          <h1 className="font-display font-[800] text-[clamp(36px,6vw,76px)] leading-[1.05] tracking-[-1.5px] md:tracking-[-2px] mb-5">
+          {/* auditoria: hero-title com clamp fluido clamp(2rem, 8vw, 5rem) */}
+          <h1 className="font-display font-[800] mb-5" style={{ fontSize: 'clamp(2rem, 8vw, 5rem)', letterSpacing: '-0.02em', lineHeight: '1.05' }}>
             {tx(t.hero.title1)}<br />
             <span className="text-cyan">{tx(t.hero.title2)}</span>
           </h1>
 
-          <p className="text-[16px] md:text-[18px] text-steel-light max-w-xl mx-auto mb-8 md:mb-10 leading-[1.65] font-light">
+          {/* auditoria: body text em DM Sans (font-sans), não mono */}
+          <p className="font-sans text-[16px] md:text-[18px] text-steel-light max-w-xl mx-auto mb-8 md:mb-10 leading-[1.65] font-light">
             {tx(t.hero.sub)}
           </p>
 
@@ -170,15 +195,15 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Stats */}
-        <div className="relative z-10 grid grid-cols-2 md:flex md:flex-row gap-6 md:gap-12 mt-14 md:mt-20 pt-8 md:pt-10 border-t border-white/[0.06] w-full max-w-lg md:max-w-none">
+        {/* Stats — 2x2 no mobile, linha no desktop */}
+        <div className="relative z-10 grid grid-cols-2 md:flex md:flex-row gap-6 md:gap-12 mt-14 md:mt-20 pt-8 md:pt-10 border-t border-white/[0.06] w-full max-w-sm md:max-w-none" role="list" aria-label="Destaques">
           {[
             { n: '10+', l: t.hero.stat1l },
             { n: '3',   l: t.hero.stat2l },
             { n: 'SC',  l: t.hero.stat3l },
             { n: '100%',l: t.hero.stat4l },
           ].map(s => (
-            <div key={s.n} className="text-center md:text-center">
+            <div key={s.n} className="text-center" role="listitem">
               <div className="font-display font-[800] text-2xl md:text-3xl text-cyan">{s.n}</div>
               <div className="font-mono text-[9px] md:text-[10px] text-steel tracking-[0.15em] uppercase mt-1.5">{tx(s.l)}</div>
             </div>
@@ -187,34 +212,38 @@ export default function Home() {
       </section>
 
       {/* ── SERVICES ── */}
-      <section id="services" className="py-20 md:py-24 px-5 md:px-12 max-w-[1200px] mx-auto">
-        <div className="text-center mb-12 md:mb-16">
-          <p className="label-tag">{tx(t.services.label)}</p>
-          <h2 className="section-title">
-            {tx(t.services.title).split(' ').slice(0,-2).join(' ')}{' '}
-            <span className="text-cyan">{tx(t.services.title).split(' ').slice(-2).join(' ')}</span>
-          </h2>
-          <p className="text-steel max-w-md mx-auto text-[15px]">{tx(t.services.desc)}</p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
-          {[
-            { name: t.services.s1name, desc: t.services.s1desc, tags: ['Web','Mobile','API REST','Cloud'], icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" strokeWidth="1.5" strokeLinecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>) },
-            { name: t.services.s2name, desc: t.services.s2desc, tags: ['Legacy','Cloud Migration','Database','Zero Downtime'], icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" strokeWidth="1.5" strokeLinecap="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>) },
-            { name: t.services.s3name, desc: t.services.s3desc, tags: ['Integrações','Automação','ERP','B2B'], icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" strokeWidth="1.5" strokeLinecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M8.46 8.46a5 5 0 0 0 0 7.07"/></svg>) },
-          ].map((s, i) => (
-            <Card key={i} hover className="group p-7 md:p-9 relative">
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100 rounded-t-2xl" />
-              <div className="w-12 h-12 bg-cyan/[0.08] border border-cyan/20 rounded-xl flex items-center justify-center mb-5">{s.icon}</div>
-              <h3 className="font-display font-[700] text-[17px] md:text-[18px] text-offwhite mb-3 leading-tight">{tx(s.name)}</h3>
-              <p className="text-[13px] md:text-[14px] text-steel leading-[1.65] mb-5">{tx(s.desc)}</p>
-              <div className="flex flex-wrap gap-1.5">{s.tags.map(tag => <Badge key={tag}>{tag}</Badge>)}</div>
-            </Card>
-          ))}
+      {/* auditoria: seção alternada com bg #0F1929 */}
+      <section id="services" className="py-20 md:py-24 px-5 md:px-12 bg-navy-card border-y border-white/[0.06]">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="text-center mb-12 md:mb-16">
+            <p className="label-tag">{tx(t.services.label)}</p>
+            <h2 className="section-title">
+              {tx(t.services.title).split(' ').slice(0,-2).join(' ')}{' '}
+              <span className="text-cyan">{tx(t.services.title).split(' ').slice(-2).join(' ')}</span>
+            </h2>
+            <p className="font-sans text-steel max-w-md mx-auto text-[15px]">{tx(t.services.desc)}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+            {[
+              { name: t.services.s1name, desc: t.services.s1desc, tags: ['Web','Mobile','API REST','Cloud'], icon: <IconCode /> },
+              { name: t.services.s2name, desc: t.services.s2desc, tags: ['Legacy','Cloud Migration','Database','Zero Downtime'], icon: <IconMigrate /> },
+              { name: t.services.s3name, desc: t.services.s3desc, tags: ['Integrações','Automação','ERP','B2B'], icon: <IconCustom /> },
+            ].map((s, i) => (
+              <Card key={i} hover className="group p-7 md:p-9 relative bg-navy">
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100 rounded-t-2xl" aria-hidden="true" />
+                <div className="w-12 h-12 bg-cyan/[0.08] border border-cyan/20 rounded-xl flex items-center justify-center mb-5">{s.icon}</div>
+                <h3 className="font-display font-[700] text-[17px] md:text-[18px] text-offwhite mb-3 leading-tight">{tx(s.name)}</h3>
+                {/* auditoria: descrição em DM Sans (font-sans), não mono */}
+                <p className="font-sans text-[14px] text-steel-muted leading-[1.65] mb-5">{tx(s.desc)}</p>
+                <div className="flex flex-wrap gap-1.5">{s.tags.map(tag => <Badge key={tag}>{tag}</Badge>)}</div>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* ── PROCESS ── */}
-      <section id="process" className="py-20 md:py-24 px-5 md:px-12 bg-navy-mid border-y border-white/[0.06]">
+      <section id="process" className="py-20 md:py-24 px-5 md:px-12 bg-navy border-b border-white/[0.06]">
         <div className="max-w-[1000px] mx-auto">
           <div className="text-center mb-12 md:mb-16">
             <p className="label-tag">{lang === 'pt' ? 'Como trabalhamos' : 'How we work'}</p>
@@ -223,7 +252,7 @@ export default function Home() {
               <span className="text-cyan">{lang === 'pt' ? 'transparente e direto' : 'transparent, direct process'}</span>
             </h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
               { n:'01', t:{pt:'Descoberta',en:'Discovery'}, d:{pt:'Entendemos profundamente o problema, o contexto do negócio e os objetivos técnicos.',en:'We deeply understand the problem, business context and technical objectives.'} },
               { n:'02', t:{pt:'Planejamento',en:'Planning'}, d:{pt:'Definimos escopo, arquitetura e cronograma. Sem surpresas no meio do caminho.',en:'We define scope, architecture and timeline. No surprises along the way.'} },
@@ -231,9 +260,9 @@ export default function Home() {
               { n:'04', t:{pt:'Entrega & Suporte',en:'Delivery & Support'}, d:{pt:'Deploy, documentação e suporte pós-entrega. O projeto não termina no go-live.',en:"Deploy, documentation and post-delivery support. The project doesn't end at go-live."} },
             ].map(s => (
               <div key={s.n} className="text-center px-2 md:px-4">
-                <div className="w-14 h-14 md:w-16 md:h-16 rounded-full border border-cyan/30 bg-navy flex items-center justify-center mx-auto mb-4 md:mb-5 font-mono text-sm md:text-base text-cyan">{s.n}</div>
+                <div className="w-14 h-14 md:w-16 md:h-16 rounded-full border border-cyan/30 bg-navy-card flex items-center justify-center mx-auto mb-4 md:mb-5 font-mono text-sm md:text-base text-cyan" aria-hidden="true">{s.n}</div>
                 <div className="font-display font-[700] text-[14px] md:text-[15px] text-offwhite mb-2">{tx(s.t)}</div>
-                <p className="text-[12px] md:text-[13px] text-steel leading-[1.55]">{tx(s.d)}</p>
+                <p className="font-sans text-[12px] md:text-[13px] text-steel-muted leading-[1.6]">{tx(s.d)}</p>
               </div>
             ))}
           </div>
@@ -241,49 +270,51 @@ export default function Home() {
       </section>
 
       {/* ── ABOUT ── */}
-      <section id="about" className="py-20 md:py-24 px-5 md:px-12 max-w-[1200px] mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
-          <div>
-            <p className="label-tag">{tx(t.about.label)}</p>
-            <h2 className="section-title">
-              {tx(t.about.title).split(' ').slice(0,-2).join(' ')}{' '}
-              <span className="text-cyan">{tx(t.about.title).split(' ').slice(-2).join(' ')}</span>
-            </h2>
-            <p className="text-steel-light text-[15px] md:text-[16px] leading-[1.75] mb-4">{tx(t.about.p1)}</p>
-            <p className="text-steel-light text-[15px] md:text-[16px] leading-[1.75] mb-8">{tx(t.about.p2)}</p>
-            <div className="flex flex-col gap-4">
-              {[
-                {pt:'Empresa ativa desde 2022, CNPJ: 44.967.160/0001-80', en:'Company active since 2022, CNPJ: 44.967.160/0001-80'},
-                {pt:'Especialistas em desenvolvimento, migração e soluções customizadas', en:'Specialists in development, migration and custom solutions'},
-                {pt:'Comprometidos com qualidade de código e resultados de negócio', en:'Committed to code quality and business outcomes'},
-              ].map((h, i) => (
-                <div key={i} className="flex items-start gap-3.5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-cyan mt-2 flex-shrink-0" />
-                  <p className="text-[13px] md:text-[14px] text-steel-light leading-relaxed">{tx(h)}</p>
-                </div>
-              ))}
+      <section id="about" className="py-20 md:py-24 px-5 md:px-12 bg-navy-card border-b border-white/[0.06]">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
+            <div>
+              <p className="label-tag">{tx(t.about.label)}</p>
+              <h2 className="section-title">
+                {tx(t.about.title).split(' ').slice(0,-2).join(' ')}{' '}
+                <span className="text-cyan">{tx(t.about.title).split(' ').slice(-2).join(' ')}</span>
+              </h2>
+              <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.75] mb-4">{tx(t.about.p1)}</p>
+              <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.75] mb-8">{tx(t.about.p2)}</p>
+              <div className="flex flex-col gap-4">
+                {[
+                  {pt:'Empresa ativa desde 2022, CNPJ: 44.967.160/0001-80', en:'Company active since 2022, CNPJ: 44.967.160/0001-80'},
+                  {pt:'Especialistas em desenvolvimento, migração e soluções customizadas', en:'Specialists in development, migration and custom solutions'},
+                  {pt:'Comprometidos com qualidade de código e resultados de negócio', en:'Committed to code quality and business outcomes'},
+                ].map((h, i) => (
+                  <div key={i} className="flex items-start gap-3.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-cyan mt-2 flex-shrink-0" aria-hidden="true" />
+                    <p className="font-sans text-[13px] md:text-[14px] text-steel-light leading-relaxed">{tx(h)}</p>
+                  </div>
+                ))}
+              </div>
             </div>
+            <Card className="p-7 md:p-10 relative overflow-hidden bg-navy">
+              <div className="absolute -top-10 -right-10 w-48 h-48 bg-glow-cyan pointer-events-none" aria-hidden="true" />
+              <div className="w-[64px] h-[64px] md:w-[72px] md:h-[72px] rounded-full bg-gradient-to-br from-cyan-dark to-cyan flex items-center justify-center font-display font-[800] text-[20px] md:text-[22px] text-navy mb-5" aria-hidden="true">CG</div>
+              <div className="font-display font-[700] text-[17px] md:text-[18px] text-offwhite mb-1">Christophe Scantelbury</div>
+              <div className="font-mono text-[11px] text-cyan tracking-[0.12em] mb-4 md:mb-5">{tx(t.about.role)}</div>
+              <p className="font-sans text-[13px] md:text-[14px] text-steel-muted leading-[1.65] mb-5">{tx(t.about.bio)}</p>
+              <a href="https://linkedin.com/in/christophe-alexander-scantelbury-neves-gaia-3593bab6/" target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 font-mono text-[11px] text-cyan tracking-[0.1em] border border-cyan/25 px-4 py-2.5 rounded-lg hover:bg-cyan/10 transition-colors min-h-[44px]">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="#00D4FF" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+                LinkedIn
+              </a>
+              <div className="mt-5 pt-5 border-t border-white/[0.06] font-mono text-[11px] text-steel tracking-[0.1em]">
+                <span aria-label="Localização">📍</span> Blumenau, Santa Catarina — Brasil
+              </div>
+            </Card>
           </div>
-          <Card className="p-7 md:p-10 relative overflow-hidden">
-            <div className="absolute -top-10 -right-10 w-48 h-48 bg-glow-cyan pointer-events-none" />
-            <div className="w-[64px] h-[64px] md:w-[72px] md:h-[72px] rounded-full bg-gradient-to-br from-cyan-dark to-cyan flex items-center justify-center font-display font-[800] text-[20px] md:text-[22px] text-navy mb-5">CG</div>
-            <div className="font-display font-[700] text-[17px] md:text-[18px] text-offwhite mb-1">Christophe Scantelbury</div>
-            <div className="font-mono text-[11px] text-cyan tracking-[0.12em] mb-4 md:mb-5">{tx(t.about.role)}</div>
-            <p className="text-[13px] md:text-[14px] text-steel leading-[1.65] mb-5">{tx(t.about.bio)}</p>
-            <a href="https://linkedin.com/in/christophe-alexander-scantelbury-neves-gaia-3593bab6/" target="_blank"
-              className="inline-flex items-center gap-2 font-mono text-[11px] text-cyan tracking-[0.1em] border border-cyan/25 px-4 py-2 rounded-lg hover:bg-cyan/10 transition-colors">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="#00D4FF"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-              LinkedIn
-            </a>
-            <div className="mt-5 pt-5 border-t border-white/[0.06] font-mono text-[11px] text-steel tracking-[0.1em]">
-              📍 Blumenau, Santa Catarina — Brasil
-            </div>
-          </Card>
         </div>
       </section>
 
       {/* ── CASES ── */}
-      <section id="cases" className="py-20 md:py-24 px-5 md:px-12 bg-navy-mid border-y border-white/[0.06]">
+      <section id="cases" className="py-20 md:py-24 px-5 md:px-12 bg-navy border-b border-white/[0.06]">
         <div className="max-w-[1200px] mx-auto">
           <div className="text-center mb-12 md:mb-16">
             <p className="label-tag">{lang === 'pt' ? 'Portfólio' : 'Portfolio'}</p>
@@ -291,7 +322,7 @@ export default function Home() {
               {lang === 'pt' ? 'Projetos que ' : 'Projects we '}
               <span className="text-cyan">{lang === 'pt' ? 'fizemos acontecer' : 'made happen'}</span>
             </h2>
-            <p className="text-steel max-w-md mx-auto text-[15px]">
+            <p className="font-sans text-steel max-w-md mx-auto text-[15px]">
               {lang === 'pt' ? 'Cases reais em breve. Enquanto isso, conheça os tipos de projeto que resolvemos.' : 'Real cases coming soon. Meanwhile, see the types of projects we solve.'}
             </p>
           </div>
@@ -304,7 +335,7 @@ export default function Home() {
               <Card key={i} hover className="p-6 md:p-8">
                 <Badge variant={c.bv} className="mb-4 md:mb-5">{tx(c.badge)}</Badge>
                 <h3 className="font-display font-[700] text-[16px] md:text-[17px] text-offwhite mb-2.5 leading-tight">{tx(c.title)}</h3>
-                <p className="text-[13px] text-steel leading-relaxed mb-4 md:mb-5">{tx(c.desc)}</p>
+                <p className="font-sans text-[13px] text-steel-muted leading-relaxed mb-4 md:mb-5">{tx(c.desc)}</p>
                 <div className="font-mono text-[11px] text-cyan tracking-[0.08em] before:content-['→_']">{tx(c.result)}</div>
               </Card>
             ))}
@@ -313,58 +344,63 @@ export default function Home() {
       </section>
 
       {/* ── CONTACT ── */}
-      <section id="contact" className="py-20 md:py-24 px-5 md:px-12 max-w-[1200px] mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-start">
-          <div>
-            <p className="label-tag">{tx(t.contact.label)}</p>
-            <h2 className="section-title">
-              {tx(t.contact.title).split(' ').slice(0,-1).join(' ')}{' '}
-              <span className="text-cyan">{tx(t.contact.title).split(' ').slice(-1)}</span>
-            </h2>
-            <p className="text-steel text-[15px] md:text-[16px] leading-[1.7] mb-8 md:mb-10">{tx(t.contact.desc)}</p>
-            <div className="flex flex-col gap-3 md:gap-4">
-              {[
-                { href:'https://wa.me/5547997352380', label:'WhatsApp', value:'+55 (47) 99735-2380', icon:(<svg width="18" height="18" viewBox="0 0 24 24" fill="#00D4FF"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>) },
-                { href:'mailto:contato@scantelburydevs.com.br', label:'E-mail', value:'contato@scantelburydevs.com.br', icon:(<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" strokeWidth="1.5" strokeLinecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>) },
-                { href:'https://linkedin.com/in/christophe-alexander-scantelbury-neves-gaia-3593bab6/', label:'LinkedIn', value:'Christophe Scantelbury', icon:(<svg width="18" height="18" viewBox="0 0 24 24" fill="#00D4FF"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>) },
-              ].map(ch => (
-                <a key={ch.label} href={ch.href} target="_blank"
-                  className="flex items-center gap-4 p-4 bg-navy-card border border-white/[0.06] rounded-xl hover:border-cyan/12 hover:bg-cyan/[0.02] transition-all">
-                  <div className="w-10 h-10 rounded-[10px] bg-cyan/[0.08] border border-cyan/20 flex items-center justify-center flex-shrink-0">{ch.icon}</div>
-                  <div className="min-w-0">
-                    <span className="font-mono text-[10px] text-steel tracking-[0.12em] uppercase block">{ch.label}</span>
-                    <span className="text-[13px] md:text-[14px] text-offwhite font-medium block mt-0.5 truncate">{ch.value}</span>
-                  </div>
-                </a>
-              ))}
+      <section id="contact" className="py-20 md:py-24 px-5 md:px-12 bg-navy-card border-b border-white/[0.06]">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-start">
+            <div>
+              <p className="label-tag">{tx(t.contact.label)}</p>
+              <h2 className="section-title">
+                {tx(t.contact.title).split(' ').slice(0,-1).join(' ')}{' '}
+                <span className="text-cyan">{tx(t.contact.title).split(' ').slice(-1)}</span>
+              </h2>
+              <p className="font-sans text-steel-muted text-[15px] md:text-[16px] leading-[1.7] mb-8 md:mb-10">{tx(t.contact.desc)}</p>
+              <div className="flex flex-col gap-3 md:gap-4">
+                {[
+                  { href:'https://wa.me/5547997352380', label:'WhatsApp', value:'+55 (47) 99735-2380',
+                    icon:(<svg width="18" height="18" viewBox="0 0 24 24" fill="#00D4FF" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>) },
+                  { href:'mailto:contato@scantelburydevs.com.br', label:'E-mail', value:'contato@scantelburydevs.com.br',
+                    icon:(<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>) },
+                  { href:'https://linkedin.com/in/christophe-alexander-scantelbury-neves-gaia-3593bab6/', label:'LinkedIn', value:'Christophe Scantelbury',
+                    icon:(<svg width="18" height="18" viewBox="0 0 24 24" fill="#00D4FF" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>) },
+                ].map(ch => (
+                  <a key={ch.label} href={ch.href} target="_blank" rel="noopener noreferrer" aria-label={`${ch.label}: ${ch.value}`}
+                    className="flex items-center gap-4 p-4 bg-navy border border-white/[0.06] rounded-xl hover:border-cyan/25 hover:bg-navy-border transition-all min-h-[64px]">
+                    <div className="w-10 h-10 rounded-[10px] bg-cyan/[0.08] border border-cyan/20 flex items-center justify-center flex-shrink-0">{ch.icon}</div>
+                    <div className="min-w-0">
+                      <span className="font-mono text-[10px] text-steel tracking-[0.12em] uppercase block">{ch.label}</span>
+                      <span className="font-sans text-[13px] md:text-[14px] text-offwhite font-medium block mt-0.5 truncate">{ch.value}</span>
+                    </div>
+                  </a>
+                ))}
+              </div>
             </div>
+            <Card className="p-6 md:p-10 bg-navy">
+              <div className="font-display font-[700] text-[18px] md:text-[20px] text-offwhite mb-6 md:mb-7">{tx(t.contact.formTitle)}</div>
+              <form onSubmit={handleWhatsApp} className="flex flex-col gap-4 md:gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="name" className="font-mono text-[10px] text-steel tracking-[0.15em] uppercase block mb-2">{tx(t.contact.nameLbl)}</label>
+                    <Input id="name" name="name" placeholder={lang === 'pt' ? 'Seu nome' : 'Your name'} />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="font-mono text-[10px] text-steel tracking-[0.15em] uppercase block mb-2">E-mail</label>
+                    <Input id="email" name="email" type="email" placeholder="email@empresa.com" />
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="type" className="font-mono text-[10px] text-steel tracking-[0.15em] uppercase block mb-2">{tx(t.contact.typeLbl)}</label>
+                  <Select id="type" name="type">
+                    {t.contact.types[lang].map(o => <option key={o}>{o}</option>)}
+                  </Select>
+                </div>
+                <div>
+                  <label htmlFor="message" className="font-mono text-[10px] text-steel tracking-[0.15em] uppercase block mb-2">{tx(t.contact.msgLbl)}</label>
+                  <Textarea id="message" name="message" placeholder={lang === 'pt' ? 'Descreva brevemente seu desafio...' : 'Briefly describe your challenge...'} />
+                </div>
+                <Button type="submit" size="lg" className="w-full mt-1">{tx(t.contact.submit)}</Button>
+              </form>
+            </Card>
           </div>
-          <Card className="p-6 md:p-10">
-            <div className="font-display font-[700] text-[18px] md:text-[20px] text-offwhite mb-6 md:mb-7">{tx(t.contact.formTitle)}</div>
-            <form onSubmit={handleWhatsApp} className="flex flex-col gap-4 md:gap-5">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="font-mono text-[10px] text-steel tracking-[0.15em] uppercase block mb-2">{tx(t.contact.nameLbl)}</label>
-                  <Input name="name" placeholder={lang === 'pt' ? 'Seu nome' : 'Your name'} />
-                </div>
-                <div>
-                  <label className="font-mono text-[10px] text-steel tracking-[0.15em] uppercase block mb-2">E-mail</label>
-                  <Input name="email" type="email" placeholder="email@empresa.com" />
-                </div>
-              </div>
-              <div>
-                <label className="font-mono text-[10px] text-steel tracking-[0.15em] uppercase block mb-2">{tx(t.contact.typeLbl)}</label>
-                <Select name="type">
-                  {t.contact.types[lang].map(o => <option key={o}>{o}</option>)}
-                </Select>
-              </div>
-              <div>
-                <label className="font-mono text-[10px] text-steel tracking-[0.15em] uppercase block mb-2">{tx(t.contact.msgLbl)}</label>
-                <Textarea name="message" placeholder={lang === 'pt' ? 'Descreva brevemente seu desafio...' : 'Briefly describe your challenge...'} />
-              </div>
-              <Button type="submit" size="lg" className="w-full mt-1">{tx(t.contact.submit)}</Button>
-            </form>
-          </Card>
         </div>
       </section>
 
@@ -374,7 +410,7 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-10 md:mb-12">
             <div className="col-span-2 md:col-span-1">
               <Logo className="mb-4" />
-              <p className="text-[13px] text-steel leading-[1.65] max-w-[260px]">
+              <p className="font-sans text-[13px] text-steel-muted leading-[1.65] max-w-[260px]">
                 {lang === 'pt' ? 'Desenvolvimento de aplicações, migração de sistemas e soluções customizadas. Blumenau, SC.' : 'Application development, system migration and custom solutions. Blumenau, SC.'}
               </p>
             </div>
@@ -387,7 +423,9 @@ export default function Home() {
                 <div className="font-mono text-[10px] tracking-[0.18em] text-cyan uppercase mb-4">{tx(col.title)}</div>
                 <ul className="flex flex-col gap-2.5">
                   {col.links.map(l => (
-                    <li key={l.pt}><a href={l.href} className="text-[13px] text-steel hover:text-offwhite transition-colors">{tx(l)}</a></li>
+                    <li key={l.pt}>
+                      <a href={l.href} className="font-sans text-[13px] text-steel hover:text-offwhite transition-colors min-h-[36px] flex items-center">{tx(l)}</a>
+                    </li>
                   ))}
                 </ul>
               </div>

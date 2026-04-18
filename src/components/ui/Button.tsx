@@ -12,14 +12,16 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={cn(
-          'inline-flex items-center justify-center gap-2 font-mono tracking-[0.06em] rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed',
+          // auditoria: min-h-[44px] para touch target WCAG 2.5.5
+          'inline-flex items-center justify-center gap-2 font-mono tracking-[0.06em] rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]',
           {
             // variant
             'bg-cyan text-navy font-medium hover:opacity-90 hover:-translate-y-px': variant === 'primary',
-            'border border-cyan/35 text-cyan hover:bg-cyan/10 hover:border-cyan/60': variant === 'outline',
+            // auditoria: outline com bg semi-transparente para melhor visibilidade em dark mode
+            'border border-cyan/40 text-cyan bg-cyan/[0.05] hover:bg-cyan/15 hover:border-cyan/70': variant === 'outline',
             'text-steel hover:text-offwhite': variant === 'ghost',
-            // size
-            'text-[11px] px-4 py-2': size === 'sm',
+            // size — auditoria: sm e md com min-w adequado para toque
+            'text-[11px] px-4 min-w-[44px]': size === 'sm',
             'text-[13px] px-6 py-3': size === 'md',
             'text-[14px] px-8 py-3.5': size === 'lg',
           },

@@ -1,18 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&family=Inter:wght@300;400;500&display=swap');
+/* auditoria: preconnect declarado no layout.tsx; font-display=swap via parâmetro da URL */
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&family=Syne:wght@800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ── CSS CUSTOM PROPERTIES (use in non-Tailwind contexts) ── */
+/* ── CSS CUSTOM PROPERTIES ── */
 :root {
   --navy:        #0A0F1E;
   --navy-mid:    #111827;
-  --navy-card:   #141C2F;
+  --navy-card:   #0F1929;   /* auditoria: superfície de card */
+  --navy-border: #1A2235;   /* auditoria: inputs e separadores */
+  --navy-hover:  #243044;   /* auditoria: hover de cards */
   --accent:      #00D4FF;
   --accent-dark: #0088CC;
   --accent-glow: rgba(0, 212, 255, 0.12);
   --steel:       #8B9DB7;
+  --steel-muted: #8899AA;   /* auditoria: body text em dark mode */
   --steel-light: #C4D2E6;
   --offwhite:    #F0F4FA;
   --border:      rgba(0, 212, 255, 0.12);
@@ -25,46 +29,67 @@ html { scroll-behavior: smooth; }
 body {
   background-color: var(--navy);
   color: var(--offwhite);
-  font-family: 'Inter', sans-serif;
+  font-family: 'DM Sans', sans-serif; /* auditoria: DM Sans para prosa */
   -webkit-font-smoothing: antialiased;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+/* auditoria: focus-visible ring acessível — nunca outline:none sem substituto */
+:focus-visible {
+  outline: 2px solid #00D4FF;
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
 /* ── UTILITY CLASSES ── */
 @layer components {
 
-  /* Label tag */
+  /* Label tag — DM Mono correto para labels técnicos */
   .label-tag {
     @apply font-mono text-[10px] tracking-[0.22em] text-cyan uppercase inline-block mb-4 opacity-80;
   }
 
-  /* Section title */
+  /* auditoria: section-title com clamp correto e letter-spacing negativo */
   .section-title {
-    @apply font-display font-[800] text-[clamp(30px,4vw,46px)] tracking-tight leading-tight mb-4;
+    @apply font-display font-[800] leading-[1.15] mb-4;
+    font-size: clamp(1.75rem, 5vw, 2.75rem);
+    letter-spacing: -0.02em;
+  }
+
+  /* auditoria: hero-title com clamp fluido mobile→desktop */
+  .hero-title {
+    font-size: clamp(2rem, 8vw, 5rem);
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
   }
 
   /* Buttons */
   .btn-primary {
     @apply inline-flex items-center gap-2 bg-cyan text-navy font-mono text-[13px] font-medium
            px-8 py-3.5 rounded-lg tracking-[0.06em] transition-all duration-200
-           hover:opacity-90 hover:-translate-y-px;
+           hover:opacity-90 hover:-translate-y-px min-h-touch;
   }
 
   .btn-outline {
     @apply inline-flex items-center gap-2 border border-cyan/35 text-cyan font-mono text-[13px]
            px-8 py-3.5 rounded-lg tracking-[0.06em] transition-all duration-200
-           hover:bg-cyan/10 hover:border-cyan/60;
+           hover:bg-cyan/10 hover:border-cyan/60 min-h-touch;
   }
 
-  /* Cards */
+  /* auditoria: cards com superfície #0F1929, hover com box-shadow cyan */
   .card {
     @apply bg-navy-card border border-white/[0.06] rounded-2xl transition-all duration-300;
   }
 
   .card-hover {
-    @apply hover:border-cyan/12 hover:-translate-y-1;
+    @apply hover:border-cyan/[0.45] hover:-translate-y-1;
+    @apply hover:shadow-[0_0_24px_rgba(0,212,255,0.08)];
   }
 
-  /* Tag pill */
+  /* Tag pill — DM Mono correto para tags */
   .tag-pill {
     @apply font-mono text-[10px] tracking-[0.08em] px-2.5 py-1 rounded
            bg-cyan/[0.08] border border-cyan/[0.18] text-cyan;
@@ -72,9 +97,14 @@ body {
 
   /* Form elements */
   .form-input {
-    @apply w-full px-4 py-3 bg-white/[0.04] border border-white/10 rounded-lg
+    @apply w-full px-4 py-3 border rounded-lg
            text-offwhite text-sm font-sans outline-none transition-colors duration-200
-           placeholder:text-steel focus:border-cyan/40;
+           placeholder:text-steel min-h-touch;
+    background-color: var(--navy-border);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  .form-input:focus {
+    border-color: rgba(0, 212, 255, 0.4);
   }
 
   /* Grid background */

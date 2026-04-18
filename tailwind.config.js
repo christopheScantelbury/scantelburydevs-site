@@ -8,7 +8,9 @@ module.exports = {
         navy: {
           DEFAULT: '#0A0F1E',
           mid:     '#111827',
-          card:    '#141C2F',
+          card:    '#0F1929',   // auditoria: superfície de cards
+          border:  '#1A2235',   // auditoria: bordas sutis, inputs
+          hover:   '#243044',   // auditoria: hover states
         },
         cyan: {
           DEFAULT: '#00D4FF',
@@ -18,6 +20,7 @@ module.exports = {
         steel: {
           DEFAULT: '#8B9DB7',
           light:   '#C4D2E6',
+          muted:   '#8899AA',   // auditoria: body text em dark mode
         },
         offwhite: '#F0F4FA',
       },
@@ -25,14 +28,19 @@ module.exports = {
       fontFamily: {
         display: ['Syne', 'sans-serif'],
         mono:    ['DM Mono', 'monospace'],
-        sans:    ['Inter', 'sans-serif'],
+        sans:    ['DM Sans', 'sans-serif'],  // auditoria: trocar Inter por DM Sans
       },
       fontWeight: {
         display: '800',
       },
       letterSpacing: {
-        tag:  '0.22em',
-        mono: '0.08em',
+        tag:      '0.22em',
+        mono:     '0.08em',
+        display:  '-0.02em',  // auditoria: tracking negativo para Syne 800
+      },
+      lineHeight: {
+        display:  '1.05',   // auditoria: h1
+        heading:  '1.15',   // auditoria: h2
       },
       // ── BORDER ────────────────────────────────────────
       borderColor: {
@@ -51,6 +59,13 @@ module.exports = {
       },
       backgroundSize: {
         'grid': '48px 48px',
+      },
+      // ── SPACING ───────────────────────────────────────
+      minHeight: {
+        touch: '44px',  // auditoria: WCAG 2.5.5 touch target
+      },
+      minWidth: {
+        touch: '44px',
       },
       // ── ANIMATION ─────────────────────────────────────
       animation: {
