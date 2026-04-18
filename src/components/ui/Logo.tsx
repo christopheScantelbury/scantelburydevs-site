@@ -6,16 +6,19 @@ interface LogoProps {
 }
 
 export function Logo({ size = 'md', className }: LogoProps) {
-  const heights = { sm: 28, md: 36, lg: 48 }
-  const h = heights[size]
+  const sizes = {
+    sm: { mark: 22, text: 'text-[15px]' },
+    md: { mark: 28, text: 'text-[18px]' },
+    lg: { mark: 38, text: 'text-[24px]' },
+  }
+  const s = sizes[size]
   return (
-    <img
-      src="/logo-horizontal-dark.svg"
-      alt="ScantelburyDevs"
-      height={h}
-      style={{ height: h, width: 'auto' }}
-      className={cn(className)}
-    />
+    <div className={cn('flex items-center gap-2', className)}>
+      <img src="/logo-mark.svg" alt="" width={s.mark} height={s.mark} aria-hidden="true" />
+      <span className={cn('font-display font-[800] tracking-tight text-offwhite leading-none', s.text)}>
+        Scantelbury<span className="text-cyan">Devs</span>
+      </span>
+    </div>
   )
 }
 

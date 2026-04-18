@@ -28,7 +28,7 @@ module.exports = {
       fontFamily: {
         display: ['Syne', 'sans-serif'],
         mono:    ['DM Mono', 'monospace'],
-        sans:    ['DM Sans', 'sans-serif'],  // auditoria: trocar Inter por DM Sans
+        sans:    ['Inter', 'sans-serif'],
       },
       fontWeight: {
         display: '800',

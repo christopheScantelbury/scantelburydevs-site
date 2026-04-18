@@ -305,12 +305,6 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-navy to-transparent" aria-hidden="true" />
 
         <div className="relative z-10 max-w-4xl w-full">
-          <div className="font-mono text-[10px] md:text-[11px] tracking-[0.25em] text-cyan uppercase mb-6 flex items-center justify-center gap-3">
-            <span className="w-6 md:w-8 h-px bg-cyan/40" aria-hidden="true" />
-            {tx(t.hero.eyebrow)}
-            <span className="w-6 md:w-8 h-px bg-cyan/40" aria-hidden="true" />
-          </div>
-
           {/* h1 com clamp proporcional — não estoura containers em nenhum viewport */}
           <h1 className="font-display font-[800] leading-[1.08] mb-6"
             style={{ fontSize: 'clamp(36px, 5vw, 62px)', letterSpacing: '-0.02em' }}>

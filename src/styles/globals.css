@@ -1,5 +1,5 @@
 /* auditoria: preconnect declarado no layout.tsx; font-display=swap via parâmetro da URL */
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&family=Syne:wght@800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500&family=Syne:wght@800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -29,7 +29,7 @@ html { scroll-behavior: smooth; }
 body {
   background-color: var(--navy);
   color: var(--offwhite);
-  font-family: 'DM Sans', sans-serif; /* auditoria: DM Sans para prosa */
+  font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   font-size: 1rem;
   line-height: 1.65;
