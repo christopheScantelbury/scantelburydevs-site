@@ -195,8 +195,8 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Stats — 2x2 no mobile, linha no desktop */}
-        <div className="relative z-10 grid grid-cols-2 md:flex md:flex-row gap-6 md:gap-12 mt-14 md:mt-20 pt-8 md:pt-10 border-t border-white/[0.06] w-full max-w-sm md:max-w-none" role="list" aria-label="Destaques">
+        {/* Stats — 2x2 no mobile, linha centralizada no desktop */}
+        <div className="relative z-10 grid grid-cols-2 md:flex md:flex-row md:justify-center gap-8 md:gap-16 mt-14 md:mt-20 pt-8 md:pt-10 border-t border-white/[0.06] w-full max-w-3xl" role="list" aria-label="Destaques">
           {[
             { n: '10+', l: t.hero.stat1l },
             { n: '3',   l: t.hero.stat2l },
