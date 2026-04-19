@@ -548,9 +548,9 @@ export default function Home() {
       {/* ── FOOTER ── */}
       <footer className="border-t border-white/[0.06] bg-navy-mid">
         <div className="max-w-[1200px] mx-auto px-5 md:px-12 pt-10 md:pt-12 pb-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-10 md:mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-[1.4fr_1fr_1fr_1fr] gap-8 md:gap-12 mb-10 md:mb-12">
             <div className="col-span-2 md:col-span-1">
-              <Logo className="mb-4" />
+              <Logo size="sm" className="mb-4" />
               <p className="font-sans text-[13px] text-steel-muted leading-[1.65] max-w-[260px]">
                 {lang === 'pt' ? 'Desenvolvimento, migração e soluções customizadas. Blumenau, SC.' : 'Development, migration and custom solutions. Blumenau, SC.'}
               </p>

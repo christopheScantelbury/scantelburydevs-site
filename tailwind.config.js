@@ -26,7 +26,7 @@ module.exports = {
       },
       // ── TYPOGRAPHY ────────────────────────────────────
       fontFamily: {
-        display: ['Syne', 'sans-serif'],
+        display: ['Inter', 'sans-serif'],
         mono:    ['DM Mono', 'monospace'],
         sans:    ['Inter', 'sans-serif'],
       },

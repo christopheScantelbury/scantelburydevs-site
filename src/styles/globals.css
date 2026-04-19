@@ -1,5 +1,5 @@
 /* auditoria: preconnect declarado no layout.tsx; font-display=swap via parâmetro da URL */
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500&family=Syne:wght@800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -57,12 +57,12 @@ body {
     letter-spacing: -0.02em;
   }
 
-  /* auditoria: hero-title com clamp fluido mobile→desktop */
+  /* hero-title com clamp fluido mobile→desktop */
   .hero-title {
     font-size: clamp(2rem, 8vw, 5rem);
-    font-family: 'Syne', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-weight: 800;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
     line-height: 1.05;
   }
 
