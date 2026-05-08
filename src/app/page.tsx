@@ -12,9 +12,9 @@ type Lang = 'pt' | 'en'
 const t = {
   nav: {
     services: { pt: 'Serviços', en: 'Services' },
+    produtos: { pt: 'Produtos', en: 'Products' },
     process:  { pt: 'Como trabalhamos', en: 'Process' },
     about:    { pt: 'Sobre', en: 'About' },
-    cases:    { pt: 'Cases', en: 'Cases' },
     cta:      { pt: 'Fale conosco', en: 'Get in touch' },
   },
   hero: {
@@ -25,7 +25,7 @@ const t = {
     cta1:    { pt: 'Iniciar Projeto', en: 'Start a Project' },
     cta2:    { pt: 'Ver Serviços', en: 'Our Services' },
     stat1l:  { pt: 'Anos de experiência', en: 'Years of experience' },
-    stat2l:  { pt: 'Áreas de atuação', en: 'Service areas' },
+    stat2l:  { pt: 'Produtos em produção', en: 'Products live' },
     stat3l:  { pt: 'Base em Blumenau', en: 'Based in Blumenau' },
     stat4l:  { pt: 'Foco em qualidade', en: 'Quality focused' },
   },
@@ -249,7 +249,7 @@ export default function Home() {
 
           {/* Desktop */}
           <div className="hidden md:flex items-center gap-8">
-            {(['services','process','about','cases'] as const).map(s => (
+            {(['services','produtos','process','about'] as const).map(s => (
               <a key={s} href={`#${s}`}
                 className="font-mono text-[13px] text-steel hover:text-offwhite transition-colors tracking-[0.04em] min-h-[44px] flex items-center">
                 {tx(t.nav[s])}
@@ -285,7 +285,7 @@ export default function Home() {
 
         {menuOpen && (
           <div className="md:hidden border-t border-white/[0.06] bg-navy-mid px-5 py-4 flex flex-col gap-1">
-            {(['services','process','about','cases'] as const).map(s => (
+            {(['services','produtos','process','about'] as const).map(s => (
               <a key={s} href={`#${s}`} onClick={() => setMenuOpen(false)}
                 className="font-mono text-[13px] text-steel hover:text-offwhite py-3.5 border-b border-white/[0.04] tracking-[0.04em] min-h-[44px] flex items-center">
                 {tx(t.nav[s])}
@@ -330,7 +330,7 @@ export default function Home() {
         <div className="relative z-10 flex flex-wrap justify-center gap-8 md:gap-14 mt-16 pt-10 border-t border-white/[0.06] w-full max-w-2xl" role="list" aria-label="Destaques">
           {[
             { n: '10+', l: t.hero.stat1l },
-            { n: '3',   l: t.hero.stat2l },
+            { n: '4',   l: t.hero.stat2l },
             { n: 'SC',  l: t.hero.stat3l },
             { n: '100%',l: t.hero.stat4l },
           ].map(s => (
@@ -455,31 +455,127 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── CASES ── */}
-      <section id="cases" className="py-20 md:py-24 px-5 md:px-12 bg-navy border-b border-white/[0.06]">
-        <div className="max-w-[1200px] mx-auto">
+      {/* ── PRODUTOS ── */}
+      <section id="produtos" className="py-20 md:py-24 px-5 md:px-12 bg-navy border-b border-white/[0.06] relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-glow-cyan pointer-events-none -translate-y-1/3 translate-x-1/4" aria-hidden="true" />
+        <div className="max-w-[1200px] mx-auto relative">
           <div className="text-center mb-12 md:mb-16">
-            <p className="label-tag">{lang === 'pt' ? 'Portfólio' : 'Portfolio'}</p>
+            <p className="label-tag">{lang === 'pt' ? 'Produtos em produção' : 'Live products'}</p>
             <h2 className="section-title">
-              {lang === 'pt' ? <>Projetos que <span className="text-cyan">fizemos acontecer</span></> : <>Projects we <span className="text-cyan">made happen</span></>}
+              {lang === 'pt' ? <>Software nosso, <span className="text-cyan">no ar agora</span></> : <>Our software, <span className="text-cyan">live right now</span></>}
             </h2>
-            <p className="font-sans text-steel max-w-md mx-auto text-[15px]">
-              {lang === 'pt' ? 'Cases reais em breve. Veja os tipos de projeto que dominamos.' : 'Real cases coming soon. See the types of projects we master.'}
+            <p className="font-sans text-steel max-w-xl mx-auto text-[15px]">
+              {lang === 'pt'
+                ? 'Não falamos só de teoria. Construímos, lançamos e operamos produtos reais — usados por clientes reais todos os dias.'
+                : "We don't just talk theory. We ship, run and operate real products — used by real customers every day."}
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
             {[
-              { badge:{pt:'Desenvolvimento',en:'Development'}, bv:'cyan' as const, title:{pt:'Plataforma de Gestão B2B',en:'B2B Management Platform'}, desc:{pt:'Sistema web completo com módulos de contratos, faturamento e relatórios. Do zero ao go-live em 4 meses.',en:'Full web system with contract, billing and reporting modules. Zero to go-live in 4 months.'}, result:{pt:'60% menos tempo de processo',en:'60% faster processes'} },
-              { badge:{pt:'Migração',en:'Migration'}, bv:'blue' as const, title:{pt:'Modernização de ERP Legado',en:'Legacy ERP Modernization'}, desc:{pt:'Migração de sistema on-premise para cloud com reescrita gradual e zero interrupção.',en:'On-premise to cloud migration with gradual rewrite and zero business interruption.'}, result:{pt:'100% integridade dos dados',en:'100% data integrity'} },
-              { badge:{pt:'Customizado',en:'Custom'}, bv:'steel' as const, title:{pt:'Integração Multi-sistema',en:'Multi-system Integration'}, desc:{pt:'Integração de ERP, e-commerce e logística via API, eliminando retrabalho manual.',en:'ERP, e-commerce and logistics integration via API, eliminating manual rework.'}, result:{pt:'80% menos operações manuais',en:'80% fewer manual ops'} },
-            ].map((c, i) => (
-              <Card key={i} hover className="p-6 md:p-8">
-                <Badge variant={c.bv} className="mb-4 md:mb-5">{tx(c.badge)}</Badge>
-                <h3 className="font-display font-[700] text-[16px] md:text-[17px] text-offwhite mb-2.5 leading-tight">{tx(c.title)}</h3>
-                <p className="font-sans text-[13px] text-steel-muted leading-relaxed mb-4 md:mb-5">{tx(c.desc)}</p>
-                <div className="font-mono text-[11px] text-cyan tracking-[0.08em]">→ {tx(c.result)}</div>
-              </Card>
+              {
+                badge: { pt: 'Fiscal · SaaS', en: 'Fiscal · SaaS' },
+                bv: 'cyan' as const,
+                name: 'NotaFácil',
+                tagline: { pt: 'Emissão de NFS-e do MEI, sem complicação.', en: 'MEI invoice issuance, made simple.' },
+                desc: { pt: 'Plataforma + API REST para emissão automatizada de NFS-e Nacional. Suporte a 5.000+ municípios, certificado A1 protegido em AWS, webhooks assinados.', en: 'Platform + REST API for automated NFS-e issuance. Supports 5,000+ municipalities, A1 certificate stored in AWS, signed webhooks.' },
+                tags: ['Go', 'Fiber', 'PostgreSQL', 'AWS KMS', 'Stripe'],
+                accent: 'from-cyan to-[#0088CC]',
+                href: 'https://www.emitirnotafacil.com.br/',
+                logo: '/N',
+              },
+              {
+                badge: { pt: 'IA · E-commerce', en: 'AI · E-commerce' },
+                bv: 'blue' as const,
+                name: 'Descrição AI',
+                tagline: { pt: 'Seu produto merece uma descrição que vende.', en: 'Your product deserves a description that sells.' },
+                desc: { pt: 'Geração automática de título, descrição e bullets em ~10 segundos. Pronto para colar no Mercado Livre, Shopee e lojas próprias. API para integração em larga escala.', en: 'Auto-generates title, description and bullets in ~10s. Ready to paste into marketplaces. API for large-scale integration.' },
+                tags: ['Next.js', 'OpenAI', 'Supabase', 'Stripe'],
+                accent: 'from-[#7C6FFF] to-[#00D4FF]',
+                href: 'https://descricaoai.com.br/',
+                logo: '/D',
+              },
+              {
+                badge: { pt: 'Eventos · Logística', en: 'Events · Logistics' },
+                bv: 'steel' as const,
+                name: 'EventGear',
+                tagline: { pt: 'Controle total dos equipamentos do seu evento.', en: 'Total control over your event equipment.' },
+                desc: { pt: 'Gestão de inventário técnico para produtoras de eventos. Rastreamento de equipamentos, reservas, devoluções e relatórios — tudo num só lugar.', en: 'Technical inventory management for event producers. Equipment tracking, bookings, returns and reports — all in one place.' },
+                tags: ['Next.js', 'Node.js', 'PostgreSQL', 'Docker'],
+                accent: 'from-[#00C85A] to-[#00D4FF]',
+                href: 'https://eventgear-web.h1dq2d.easypanel.host/',
+                logo: '/E',
+              },
+              {
+                badge: { pt: 'Agendamento · IA', en: 'Scheduling · AI' },
+                bv: 'cyan' as const,
+                name: 'Agenda Inteligente',
+                tagline: { pt: 'Sua agenda, organizada por uma IA que entende contexto.', en: 'Your calendar, organized by an AI that understands context.' },
+                desc: { pt: 'Plataforma de agendamento com camada inteligente: sugestão de horários, lembretes automáticos, integrações e gestão multi-cliente para profissionais e clínicas.', en: 'Smart scheduling platform: time suggestions, automated reminders, integrations and multi-client management for professionals and clinics.' },
+                tags: ['Next.js', 'Node.js', 'AI', 'Cloud'],
+                accent: 'from-[#F0B414] to-[#00D4FF]',
+                href: 'https://agendainteligentefrontend.agendainteligenteapp.cloud/',
+                logo: '/A',
+              },
+            ].map((p) => (
+              <a
+                key={p.name}
+                href={p.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${lang === 'pt' ? 'Visitar' : 'Visit'} ${p.name}`}
+                className="group block"
+              >
+                <Card hover className="p-6 md:p-8 h-full flex flex-col relative overflow-hidden bg-navy-card">
+                  {/* Top accent bar */}
+                  <div className={`absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r ${p.accent} opacity-60 group-hover:opacity-100 transition-opacity duration-300`} aria-hidden="true" />
+
+                  <div className="flex items-start justify-between gap-4 mb-5">
+                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${p.accent} flex items-center justify-center font-display font-[800] text-[18px] text-navy shadow-lg flex-shrink-0`} aria-hidden="true">
+                      {p.logo}
+                    </div>
+                    <Badge variant={p.bv}>{tx(p.badge)}</Badge>
+                  </div>
+
+                  <h3 className="font-display font-[800] text-[20px] md:text-[22px] text-offwhite mb-2 leading-tight">
+                    {p.name}
+                  </h3>
+                  <p className="font-sans text-cyan text-[13px] md:text-[14px] mb-3 leading-snug">
+                    {tx(p.tagline)}
+                  </p>
+                  <p className="font-sans text-[13px] md:text-[14px] text-steel-muted leading-[1.65] mb-5 flex-1">
+                    {tx(p.desc)}
+                  </p>
+
+                  <div className="flex flex-wrap gap-1.5 mb-5">
+                    {p.tags.map(t => <Badge key={t} variant="steel">{t}</Badge>)}
+                  </div>
+
+                  <div className="flex items-center justify-between pt-4 border-t border-white/[0.06]">
+                    <span className="font-mono text-[10px] text-steel tracking-[0.15em] uppercase truncate max-w-[180px] md:max-w-[220px]">
+                      {p.href.replace(/^https?:\/\//, '').replace(/\/$/, '')}
+                    </span>
+                    <span className="font-mono text-[11px] text-cyan tracking-[0.08em] flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
+                      {lang === 'pt' ? 'Visitar' : 'Visit'}
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                        <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                      </svg>
+                    </span>
+                  </div>
+                </Card>
+              </a>
             ))}
+          </div>
+
+          <div className="text-center mt-12 md:mt-14">
+            <p className="font-sans text-[14px] text-steel-muted mb-4">
+              {lang === 'pt' ? 'Quer construir o próximo com a gente?' : 'Want to build the next one with us?'}
+            </p>
+            <a href="#contact">
+              <Button variant="outline" size="md">
+                {lang === 'pt' ? 'Iniciar um projeto →' : 'Start a project →'}
+              </Button>
+            </a>
           </div>
         </div>
       </section>
@@ -557,7 +653,7 @@ export default function Home() {
             </div>
             {[
               { title:{pt:'Serviços',en:'Services'}, links:[{pt:'Desenvolvimento',en:'Development',href:'#services'},{pt:'Migração',en:'Migration',href:'#services'},{pt:'Soluções Custom',en:'Custom Solutions',href:'#services'}] },
-              { title:{pt:'Empresa',en:'Company'}, links:[{pt:'Sobre',en:'About',href:'#about'},{pt:'Cases',en:'Cases',href:'#cases'},{pt:'Processo',en:'Process',href:'#process'}] },
+              { title:{pt:'Empresa',en:'Company'}, links:[{pt:'Sobre',en:'About',href:'#about'},{pt:'Produtos',en:'Products',href:'#produtos'},{pt:'Processo',en:'Process',href:'#process'}] },
               { title:{pt:'Contato',en:'Contact'}, links:[{pt:'WhatsApp',en:'WhatsApp',href:'https://wa.me/5547997352380'},{pt:'E-mail',en:'E-mail',href:'mailto:contato@scantelburydevs.com.br'},{pt:'LinkedIn',en:'LinkedIn',href:'https://linkedin.com/in/christophe-alexander-scantelbury-neves-gaia-3593bab6/'}] },
             ].map(col => (
               <div key={col.title.pt}>
