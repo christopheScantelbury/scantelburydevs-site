@@ -482,7 +482,7 @@ export default function Home() {
                 tags: ['Go', 'Fiber', 'PostgreSQL', 'AWS KMS', 'Stripe'],
                 accent: 'from-cyan to-[#0088CC]',
                 href: 'https://www.emitirnotafacil.com.br/',
-                logo: '/products/notafacil.png',
+                logo: '/products/notafacil.svg',
                 logoBg: 'bg-white',
               },
               {
