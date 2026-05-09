@@ -3,7 +3,7 @@ import Script from 'next/script'
 import { Analytics } from '@vercel/analytics/react'
 import '@/styles/globals.css'
 
-const SITE_URL = 'https://scantelburydevs.com.br'
+const SITE_URL = 'https://www.scantelburydevs.com.br'
 const SITE_NAME = 'ScantelburyDevs'
 const DEFAULT_TITLE = 'ScantelburyDevs — Software que funciona. Time que entrega.'
 const DEFAULT_DESC =
