@@ -1,0 +1,103 @@
+name: Notify Search Engines
+
+on:
+  deployment_status:
+
+jobs:
+  notify:
+    # Só dispara quando o Vercel reporta success no ambiente Production
+    if: >-
+      github.event.deployment_status.state == 'success' &&
+      github.event.deployment.environment == 'Production'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    env:
+      SITE_HOST: www.scantelburydevs.com.br
+      INDEXNOW_KEY: e6f805a0dac67bc9dd774eabec01fdc6
+      # URLs canônicas a notificar (espelham o sitemap.xml)
+      URLS: |
+        https://www.scantelburydevs.com.br/
+
+    steps:
+      - name: Aguardar propagação do CDN
+        run: sleep 30
+
+      - name: Verificar se o sitemap está acessível
+        run: |
+          set -e
+          status=$(curl -s -o /dev/null -w "%{http_code}" "https://${SITE_HOST}/sitemap.xml")
+          echo "GET /sitemap.xml → $status"
+          test "$status" = "200"
+
+      - name: Notificar IndexNow (Bing, Yandex, Naver, Seznam)
+        run: |
+          # Monta JSON com lista de URLs
+          urlList=$(echo "$URLS" | grep -v '^$' | jq -R . | jq -s .)
+          payload=$(jq -n \
+            --arg host "$SITE_HOST" \
+            --arg key "$INDEXNOW_KEY" \
+            --arg keyLocation "https://$SITE_HOST/$INDEXNOW_KEY.txt" \
+            --argjson urlList "$urlList" \
+            '{host:$host, key:$key, keyLocation:$keyLocation, urlList:$urlList}')
+
+          echo "Payload:"
+          echo "$payload"
+
+          response=$(curl -sS -w "\nHTTP %{http_code}" -X POST \
+            -H "Content-Type: application/json; charset=utf-8" \
+            -d "$payload" \
+            https://api.indexnow.org/IndexNow)
+
+          echo "Resposta IndexNow:"
+          echo "$response"
+
+      # ─────────────────────────────────────────────────────────────
+      # Google Indexing API (opcional, requer secret GOOGLE_INDEXING_SA_JSON)
+      # ─────────────────────────────────────────────────────────────
+      # Como ativar:
+      # 1. https://console.cloud.google.com → criar projeto → APIs → ativar
+      #    "Indexing API"
+      # 2. IAM & Admin → Service Accounts → criar service account
+      # 3. Gerar chave JSON e baixar
+      # 4. No Search Console, adicionar o e-mail da service account como
+      #    "Proprietário" da propriedade www.scantelburydevs.com.br
+      # 5. Em Settings → Secrets and variables → Actions, criar secret
+      #    GOOGLE_INDEXING_SA_JSON com o conteúdo do JSON
+      # 6. Descomentar o bloco abaixo
+      #
+      # - name: Notificar Google Indexing API
+      #   if: ${{ secrets.GOOGLE_INDEXING_SA_JSON != '' }}
+      #   env:
+      #     GOOGLE_INDEXING_SA_JSON: ${{ secrets.GOOGLE_INDEXING_SA_JSON }}
+      #   run: |
+      #     echo "$GOOGLE_INDEXING_SA_JSON" > /tmp/sa.json
+      #     # Gerar token JWT e trocar por access_token
+      #     access_token=$(node -e '
+      #       const fs = require("fs");
+      #       const crypto = require("crypto");
+      #       const sa = JSON.parse(fs.readFileSync("/tmp/sa.json", "utf8"));
+      #       const now = Math.floor(Date.now() / 1000);
+      #       const header = Buffer.from(JSON.stringify({alg:"RS256",typ:"JWT"})).toString("base64url");
+      #       const claim = Buffer.from(JSON.stringify({
+      #         iss: sa.client_email,
+      #         scope: "https://www.googleapis.com/auth/indexing",
+      #         aud: "https://oauth2.googleapis.com/token",
+      #         exp: now + 3600, iat: now
+      #       })).toString("base64url");
+      #       const sig = crypto.createSign("RSA-SHA256").update(header+"."+claim).sign(sa.private_key, "base64url");
+      #       const jwt = header+"."+claim+"."+sig;
+      #       fetch("https://oauth2.googleapis.com/token", {
+      #         method:"POST",
+      #         headers:{"Content-Type":"application/x-www-form-urlencoded"},
+      #         body:`grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=${jwt}`
+      #       }).then(r=>r.json()).then(j=>process.stdout.write(j.access_token||""));
+      #     ')
+      #     echo "$URLS" | grep -v '^$' | while read -r url; do
+      #       curl -sS -X POST \
+      #         -H "Authorization: Bearer $access_token" \
+      #         -H "Content-Type: application/json" \
+      #         -d "{\"url\":\"$url\",\"type\":\"URL_UPDATED\"}" \
+      #         https://indexing.googleapis.com/v3/urlNotifications:publish
+      #       echo " ← $url"
+      #     done

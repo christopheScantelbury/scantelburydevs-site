@@ -64,6 +64,36 @@ O site inclui:
 | `NEXT_PUBLIC_GA_ID` | não | ID do Google Analytics 4 (`G-XXXXXXXXXX`). Sem isso, GA4 não é injetado. |
 | `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | não | Token de verificação do Google Search Console (apenas o valor do `content`, sem o `<meta>`). |
 
+### Pipeline de notificação automática (a cada deploy)
+
+Existe uma GitHub Action em `.github/workflows/notify-search-engines.yml`
+que dispara automaticamente quando o deploy do Vercel chega ao status
+**success** em **Production** (via evento `deployment_status` do GitHub).
+
+A cada deploy ela:
+
+1. Aguarda 30s para o CDN propagar
+2. Confere que `/sitemap.xml` está respondendo 200
+3. Envia as URLs para a **IndexNow API**, que notifica de uma só vez:
+   - Bing
+   - Yandex
+   - Naver
+   - Seznam
+4. (Opcional, comentado) Notifica a **Google Indexing API** — requer
+   service account com a Indexing API ativada e adicionada como
+   Proprietário da propriedade no Search Console. Veja instruções
+   passo-a-passo dentro do próprio arquivo do workflow.
+
+> **Nota sobre Google:** o endpoint clássico `google.com/ping?sitemap=`
+> foi descontinuado em 2023. Hoje o canal automático para o Google é o
+> próprio `lastmod` do sitemap, que é atualizado a cada build. Para
+> indexação ativa de URL específica, use a Indexing API ou solicite
+> manualmente em Search Console → Inspeção de URL.
+
+A chave do IndexNow está em `public/<KEY>.txt` e referenciada no
+workflow como `INDEXNOW_KEY`. Se for substituída, atualizar nos dois
+lugares e fazer um deploy antes do próximo run da action.
+
 ### Submeter ao Google
 
 1. Acessar https://search.google.com/search-console
