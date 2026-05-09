@@ -482,7 +482,8 @@ export default function Home() {
                 tags: ['Go', 'Fiber', 'PostgreSQL', 'AWS KMS', 'Stripe'],
                 accent: 'from-cyan to-[#0088CC]',
                 href: 'https://www.emitirnotafacil.com.br/',
-                logo: '/N',
+                logo: '/products/notafacil.png',
+                logoBg: 'bg-white',
               },
               {
                 badge: { pt: 'IA · E-commerce', en: 'AI · E-commerce' },
@@ -493,7 +494,8 @@ export default function Home() {
                 tags: ['Next.js', 'OpenAI', 'Supabase', 'Stripe'],
                 accent: 'from-[#7C6FFF] to-[#00D4FF]',
                 href: 'https://descricaoai.com.br/',
-                logo: '/D',
+                logo: '/products/descricaoai.svg',
+                logoBg: 'bg-white',
               },
               {
                 badge: { pt: 'Eventos · Logística', en: 'Events · Logistics' },
@@ -502,9 +504,10 @@ export default function Home() {
                 tagline: { pt: 'Controle total dos equipamentos do seu evento.', en: 'Total control over your event equipment.' },
                 desc: { pt: 'Gestão de inventário técnico para produtoras de eventos. Rastreamento de equipamentos, reservas, devoluções e relatórios — tudo num só lugar.', en: 'Technical inventory management for event producers. Equipment tracking, bookings, returns and reports — all in one place.' },
                 tags: ['Next.js', 'Node.js', 'PostgreSQL', 'Docker'],
-                accent: 'from-[#00C85A] to-[#00D4FF]',
+                accent: 'from-[#F59E0B] to-[#0C1220]',
                 href: 'https://eventgear-web.h1dq2d.easypanel.host/',
-                logo: '/E',
+                logo: '/products/eventgear.svg',
+                logoBg: 'bg-[#0C1220]',
               },
               {
                 badge: { pt: 'Agendamento · IA', en: 'Scheduling · AI' },
@@ -513,9 +516,10 @@ export default function Home() {
                 tagline: { pt: 'Sua agenda, organizada por uma IA que entende contexto.', en: 'Your calendar, organized by an AI that understands context.' },
                 desc: { pt: 'Plataforma de agendamento com camada inteligente: sugestão de horários, lembretes automáticos, integrações e gestão multi-cliente para profissionais e clínicas.', en: 'Smart scheduling platform: time suggestions, automated reminders, integrations and multi-client management for professionals and clinics.' },
                 tags: ['Next.js', 'Node.js', 'AI', 'Cloud'],
-                accent: 'from-[#F0B414] to-[#00D4FF]',
+                accent: 'from-[#7C3AED] to-[#10B981]',
                 href: 'https://agendainteligentefrontend.agendainteligenteapp.cloud/',
-                logo: '/A',
+                logo: '/products/agenda.svg',
+                logoBg: 'bg-white',
               },
             ].map((p) => (
               <a
@@ -531,8 +535,9 @@ export default function Home() {
                   <div className={`absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r ${p.accent} opacity-60 group-hover:opacity-100 transition-opacity duration-300`} aria-hidden="true" />
 
                   <div className="flex items-start justify-between gap-4 mb-5">
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${p.accent} flex items-center justify-center font-display font-[800] text-[18px] text-navy shadow-lg flex-shrink-0`} aria-hidden="true">
-                      {p.logo}
+                    <div className={`w-14 h-14 rounded-xl ${p.logoBg} flex items-center justify-center shadow-lg flex-shrink-0 overflow-hidden border border-white/10 p-1.5`}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={p.logo} alt={`${p.name} logo`} className="w-full h-full object-contain" />
                     </div>
                     <Badge variant={p.bv}>{tx(p.badge)}</Badge>
                   </div>

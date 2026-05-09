@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="dai-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="120" fill="url(#dai-bg)"/>
+  <!-- text lines representing description -->
+  <rect x="112" y="168" width="220" height="20" rx="10" fill="white" opacity="0.95"/>
+  <rect x="112" y="216" width="288" height="14" rx="7" fill="white" opacity="0.7"/>
+  <rect x="112" y="252" width="260" height="14" rx="7" fill="white" opacity="0.7"/>
+  <rect x="112" y="288" width="200" height="14" rx="7" fill="white" opacity="0.7"/>
+  <!-- AI sparkle, large -->
+  <path d="M384 128 L398 168 L438 182 L398 196 L384 236 L370 196 L330 182 L370 168 Z" fill="white"/>
+  <!-- small sparkle -->
+  <path d="M340 320 L347 340 L367 347 L347 354 L340 374 L333 354 L313 347 L333 340 Z" fill="white" opacity="0.85"/>
+  <!-- mini sparkle -->
+  <path d="M408 360 L412 372 L424 376 L412 380 L408 392 L404 380 L392 376 L404 372 Z" fill="white" opacity="0.7"/>
+</svg>
