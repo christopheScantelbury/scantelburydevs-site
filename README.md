@@ -43,6 +43,36 @@ npm install
 npm run dev
 ```
 
+## SEO & Analytics
+
+O site inclui:
+
+- **Metadata completa** (title template, description, keywords, OG, Twitter) em `src/app/layout.tsx`
+- **JSON-LD** Schema.org (`Organization`, `WebSite`, `ItemList` de produtos)
+- **`/sitemap.xml`** dinâmico (`src/app/sitemap.ts`)
+- **`/robots.txt`** dinâmico (`src/app/robots.ts`)
+- **`/manifest.webmanifest`** (`src/app/manifest.ts`)
+- **OG/Twitter image** 1200×630 gerada dinamicamente (`src/app/opengraph-image.tsx`)
+- **Vercel Web Analytics** (sempre ativo)
+- **Google Analytics 4** (opcional, via env var)
+- **Google Search Console verification** (opcional, via env var)
+
+### Variáveis de ambiente (Vercel)
+
+| Variável | Obrigatória | Descrição |
+|---|---|---|
+| `NEXT_PUBLIC_GA_ID` | não | ID do Google Analytics 4 (`G-XXXXXXXXXX`). Sem isso, GA4 não é injetado. |
+| `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | não | Token de verificação do Google Search Console (apenas o valor do `content`, sem o `<meta>`). |
+
+### Submeter ao Google
+
+1. Acessar https://search.google.com/search-console
+2. Adicionar propriedade pelo prefixo da URL: `https://scantelburydevs.com.br/`
+3. Escolher o método **HTML tag** e copiar o valor do atributo `content`
+4. Definir `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` na Vercel com esse valor → redeploy
+5. Voltar ao Search Console e clicar em **Verificar**
+6. Dentro do Search Console: **Sitemaps → Adicionar sitemap → `sitemap.xml`**
+
 ## Deploy no Vercel + GitHub
 
 ```bash
