@@ -13,49 +13,72 @@ const t = {
   nav: {
     services: { pt: 'Serviços', en: 'Services' },
     produtos: { pt: 'Produtos', en: 'Products' },
-    process:  { pt: 'Como trabalhamos', en: 'Process' },
-    about:    { pt: 'Sobre', en: 'About' },
-    cta:      { pt: 'Fale conosco', en: 'Get in touch' },
+    pricing:  { pt: 'Como cobramos', en: 'Engagement' },
+    process:  { pt: 'Processo', en: 'Process' },
+    about:    { pt: 'Empresa', en: 'Company' },
+    cta:      { pt: 'Agendar conversa', en: 'Book a call' },
   },
   hero: {
-    eyebrow: { pt: 'Blumenau, SC — Brasil', en: 'Blumenau, SC — Brazil' },
-    title1:  { pt: 'Software que funciona.', en: 'Software that works.' },
-    title2:  { pt: 'Time que entrega.', en: 'Team that delivers.' },
-    sub:     { pt: 'Desenvolvemos aplicações, migramos sistemas e construímos soluções customizadas. Do MVP ao enterprise — com qualidade e prazo.', en: 'We build applications, migrate systems and craft custom solutions. From MVP to enterprise — quality and on time.' },
-    cta1:    { pt: 'Iniciar Projeto', en: 'Start a Project' },
-    cta2:    { pt: 'Ver Serviços', en: 'Our Services' },
-    stat1l:  { pt: 'Anos de experiência', en: 'Years of experience' },
-    stat2l:  { pt: 'Produtos em produção', en: 'Products live' },
-    stat3l:  { pt: 'Base em Blumenau', en: 'Based in Blumenau' },
-    stat4l:  { pt: 'Foco em qualidade', en: 'Quality focused' },
+    title1:  { pt: 'Construímos, lançamos', en: 'We build, ship' },
+    title2:  { pt: 'e operamos software em produção.', en: 'and operate software in production.' },
+    sub:     { pt: 'Engenharia de software para empresas que dependem de sistemas críticos. Fiscal, e-commerce, agendamento, gestão e integrações — do MVP ao enterprise, com responsabilidade pela operação.', en: 'Software engineering for companies that depend on mission-critical systems. Fiscal, e-commerce, scheduling, operations and integrations — from MVP to enterprise, with operational accountability.' },
+    cta1:    { pt: 'Agendar diagnóstico', en: 'Book a discovery call' },
+    cta2:    { pt: 'Ver produtos', en: 'See products' },
+    stat1l:  { pt: 'Anos em produção', en: 'Years in production' },
+    stat2l:  { pt: 'SaaS com clientes pagantes', en: 'SaaS with paying customers' },
+    stat3l:  { pt: 'Atendimento remoto', en: 'Remote across' },
+    stat4l:  { pt: 'Operação contínua', en: 'Continuous ops' },
+  },
+  stack: {
+    label: { pt: 'Stack técnico', en: 'Technical stack' },
+    title: { pt: 'Mesma engenharia que opera nossos produtos', en: 'The same engineering that runs our products' },
+    desc:  { pt: 'Tecnologias maduras, em produção todos os dias. Sem hype — só o que escala e sustenta operação.', en: 'Mature technologies, running every day. No hype — only what scales and sustains operations.' },
   },
   services: {
     label: { pt: 'O que fazemos', en: 'What we do' },
     title: { pt: 'Serviços que entregam resultado', en: 'Services that deliver results' },
-    desc:  { pt: 'Cada projeto é tratado com rigor de engenharia e atenção aos detalhes do seu negócio.', en: 'Every project is handled with engineering rigor and attention to your business needs.' },
+    desc:  { pt: 'Cada projeto é tratado com rigor de engenharia e responsabilidade pela operação. Não entregamos código e desaparecemos — ficamos do lado em produção.', en: 'Every project handled with engineering rigor and operational accountability. We don\'t ship and disappear — we stay with you in production.' },
     s1name: { pt: 'Desenvolvimento de Aplicações', en: 'Application Development' },
-    s1desc: { pt: 'Criamos aplicações web e mobile sob medida, desde levantamento de requisitos até o deploy em produção. Stack moderna, código limpo e arquitetura escalável.', en: 'We build custom web and mobile applications, from requirements to production. Modern stack, clean code and scalable architecture.' },
+    s1desc: { pt: 'Aplicações web, mobile e APIs sob medida — do levantamento ao deploy em produção. Stack moderna, código limpo, observabilidade desde o dia 1.', en: 'Custom web, mobile and API applications — from discovery to production deploy. Modern stack, clean code, observability from day one.' },
     s2name: { pt: 'Migração de Sistemas', en: 'System Migration' },
-    s2desc: { pt: 'Modernizamos sistemas legados com zero downtime. Migramos bancos de dados, infraestrutura e aplicações garantindo integridade de dados e continuidade de negócio.', en: 'We modernize legacy systems with zero downtime. Database, infrastructure and application migrations ensuring data integrity and business continuity.' },
-    s3name: { pt: 'Soluções Customizadas', en: 'Custom Solutions' },
-    s3desc: { pt: 'Quando o software pronto não resolve, desenvolvemos a solução exata para o seu problema. Integrações, automações, ferramentas internas e sistemas sob demanda.', en: "When off-the-shelf doesn't work, we build the exact solution for your problem. Integrations, automations, internal tools and on-demand systems." },
+    s2desc: { pt: 'Modernização de sistemas legados com zero downtime. Migramos bancos, infraestrutura e aplicações garantindo integridade de dados e continuidade do negócio.', en: 'Legacy system modernization with zero downtime. Database, infrastructure and application migrations ensuring data integrity and business continuity.' },
+    s3name: { pt: 'Integrações & Automações', en: 'Integrations & Automation' },
+    s3desc: { pt: 'ERPs, marketplaces, gateways de pagamento, APIs fiscais e LLMs. Quando o sistema pronto não resolve, conectamos o que existe ou construímos sob medida.', en: 'ERPs, marketplaces, payment gateways, fiscal APIs and LLMs. When off-the-shelf doesn\'t fit, we connect what exists or build it for you.' },
+  },
+  pricing: {
+    label: { pt: 'Como cobramos', en: 'Engagement models' },
+    title: { pt: 'Três formas de trabalhar com a gente', en: 'Three ways to work with us' },
+    desc:  { pt: 'Sem caixa-preta. Você escolhe o modelo que casa com a maturidade do seu projeto e a previsibilidade que precisa.', en: 'No black box. Choose the model that fits your project maturity and the predictability you need.' },
+    p1name: { pt: 'Projeto fechado', en: 'Fixed-scope project' },
+    p1desc: { pt: 'Escopo, prazo e valor definidos antes de começar. Ideal para MVPs, migrations e entregas com objetivo claro.', en: 'Scope, timeline and price set before we start. Ideal for MVPs, migrations and well-defined deliverables.' },
+    p1tags: ['MVP', 'Migrations', 'POCs'],
+    p2name: { pt: 'Sprint contínuo', en: 'Continuous sprints' },
+    p2desc: { pt: 'Ciclos de 2 semanas com prioridades flexíveis. Ideal para evolução de produto, manutenção e novas features sob demanda.', en: 'Two-week cycles with flexible priorities. Ideal for product evolution, maintenance and on-demand features.' },
+    p2tags: ['Evolução', 'Manutenção', 'Backlog ativo'],
+    p3name: { pt: 'Squad alocado', en: 'Dedicated squad' },
+    p3desc: { pt: 'Time dedicado por período (3, 6 ou 12 meses). Ideal para produto enterprise, áreas de tecnologia em escala e roadmap longo.', en: 'Dedicated team for a period (3, 6 or 12 months). Ideal for enterprise products, scaling tech teams and long-term roadmaps.' },
+    p3tags: ['Enterprise', 'Time dedicado', 'Long-term'],
+    cta:   { pt: 'Discutir o modelo certo →', en: 'Discuss the right model →' },
   },
   about: {
-    label: { pt: 'Sobre a empresa', en: 'About us' },
-    title: { pt: 'Tecnologia com propósito real', en: 'Technology with real purpose' },
-    p1:    { pt: 'A ScantelburyDevs é uma empresa de tecnologia especializada em transformar desafios de software em soluções que funcionam. Nascemos para ser o parceiro técnico que empresas precisam — sem burocracia, com resultado.', en: 'ScantelburyDevs is a technology company specialized in turning software challenges into solutions that work. We exist to be the technical partner that companies need — no bureaucracy, just results.' },
-    p2:    { pt: 'Com base em Blumenau, SC, combinamos profundidade técnica com visão de negócio. Cada projeto é tratado como se fosse o nosso — porque quando você cresce, nós crescemos junto.', en: 'Based in Blumenau, SC, we combine technical depth with business vision. Every project is treated as if it were our own — because when you grow, we grow together.' },
+    label: { pt: 'A empresa', en: 'The company' },
+    title: { pt: 'Engenharia técnica com responsabilidade pela operação', en: 'Technical engineering with operational accountability' },
+    p1:    { pt: 'A ScantelburyDevs é uma empresa de engenharia de software especializada em sistemas críticos. Atendemos empresas que dependem de software confiável: fiscal, e-commerce, agendamento, gestão e integrações entre sistemas.', en: 'ScantelburyDevs is a software engineering company specialized in mission-critical systems. We serve companies that depend on reliable software: fiscal, e-commerce, scheduling, operations and system integrations.' },
+    p2:    { pt: 'Operamos remotamente em todo o Brasil. Combinamos profundidade técnica, visão de produto e responsabilidade pela operação — mais que entregar código, levamos o sistema até produção e ficamos do lado quando ele está rodando.', en: 'We operate remotely across Brazil. We combine technical depth, product vision and operational accountability — beyond shipping code, we take the system to production and stay with you while it runs.' },
+    h1:    { pt: 'Operando produtos em produção desde 2022', en: 'Operating products in production since 2022' },
+    h2:    { pt: 'Especialistas em backend técnico, integrações fiscais e plataformas SaaS', en: 'Specialists in technical backend, fiscal integrations and SaaS platforms' },
+    h3:    { pt: 'Responsabilidade pelo código, pela operação e pelo resultado', en: 'Accountable for code, operations and outcomes' },
   },
   contact: {
-    label:     { pt: 'Entre em contato', en: 'Get in touch' },
-    title:     { pt: 'Vamos construir juntos', en: "Let's build together" },
-    desc:      { pt: 'Tem um projeto em mente? Quer migrar um sistema crítico? Fale com a gente — sem compromisso.', en: 'Have a project in mind? Need to migrate a critical system? Talk to us — no commitment.' },
+    label:     { pt: 'Próximo passo', en: 'Next step' },
+    title:     { pt: 'Agendar um diagnóstico', en: 'Book a discovery call' },
+    desc:      { pt: 'Conversa de 30 minutos para entender seu contexto, mapear o escopo e decidir se faz sentido continuar. Sem compromisso, sem proposta automática.', en: 'A 30-minute conversation to understand your context, scope the problem and decide if it makes sense to move forward. No commitment, no auto-generated proposal.' },
     formTitle: { pt: 'Conte-nos sobre seu projeto', en: 'Tell us about your project' },
     nameLbl:   { pt: 'Nome', en: 'Name' },
     typeLbl:   { pt: 'Tipo de projeto', en: 'Project type' },
     msgLbl:    { pt: 'Mensagem', en: 'Message' },
-    submit:    { pt: 'Enviar via WhatsApp →', en: 'Send via WhatsApp →' },
-    types:     { pt: ['Selecione...','Desenvolvimento de Aplicação','Migração de Sistema','Solução Customizada','Outro'], en: ['Select...','Application Development','System Migration','Custom Solution','Other'] },
+    submit:    { pt: 'Iniciar conversa →', en: 'Start the conversation →' },
+    types:     { pt: ['Selecione...','Desenvolvimento de aplicação','Migração de sistema','Integração / Automação','Squad dedicado','Outro'], en: ['Select...','Application development','System migration','Integration / Automation','Dedicated squad','Other'] },
   },
 }
 
@@ -233,9 +256,15 @@ export default function Home() {
     const email = fd.get('email') || ''
     const type = fd.get('type') || ''
     const msg = fd.get('message') || ''
-    const text = encodeURIComponent(`Olá! Sou ${name} (${email}).\nProjeto: ${type}\n\n${msg}`)
+    const text = encodeURIComponent(
+      `Olá, ScantelburyDevs.\n\nMeu nome é ${name} (${email}).\nTipo de projeto: ${type}\n\nContexto:\n${msg}\n\nGostaria de agendar um diagnóstico.`
+    )
     window.open(`https://wa.me/5547997352380?text=${text}`, '_blank')
   }
+
+  const bookingUrl = `https://wa.me/5547997352380?text=${encodeURIComponent(
+    'Olá, ScantelburyDevs. Gostaria de agendar um diagnóstico de 30 min sobre meu projeto.'
+  )}`
 
   return (
     <div className="bg-navy text-offwhite min-h-screen overflow-x-hidden">
@@ -248,8 +277,8 @@ export default function Home() {
           </a>
 
           {/* Desktop */}
-          <div className="hidden md:flex items-center gap-8">
-            {(['services','produtos','process','about'] as const).map(s => (
+          <div className="hidden md:flex items-center gap-7">
+            {(['services','produtos','pricing','process','about'] as const).map(s => (
               <a key={s} href={`#${s}`}
                 className="font-mono text-[13px] text-steel hover:text-offwhite transition-colors tracking-[0.04em] min-h-[44px] flex items-center">
                 {tx(t.nav[s])}
@@ -285,7 +314,7 @@ export default function Home() {
 
         {menuOpen && (
           <div className="md:hidden border-t border-white/[0.06] bg-navy-mid px-5 py-4 flex flex-col gap-1">
-            {(['services','produtos','process','about'] as const).map(s => (
+            {(['services','produtos','pricing','process','about'] as const).map(s => (
               <a key={s} href={`#${s}`} onClick={() => setMenuOpen(false)}
                 className="font-mono text-[13px] text-steel hover:text-offwhite py-3.5 border-b border-white/[0.04] tracking-[0.04em] min-h-[44px] flex items-center">
                 {tx(t.nav[s])}
@@ -317,10 +346,10 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-            <a href="#contact" className="w-full sm:w-auto">
+            <a href={bookingUrl} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
               <Button size="lg" className="w-full sm:w-auto">{tx(t.hero.cta1)} →</Button>
             </a>
-            <a href="#services" className="w-full sm:w-auto">
+            <a href="#produtos" className="w-full sm:w-auto">
               <Button variant="outline" size="lg" className="w-full sm:w-auto">{tx(t.hero.cta2)}</Button>
             </a>
           </div>
@@ -329,10 +358,10 @@ export default function Home() {
         {/* Stats — flex-wrap centralizado, funciona em qualquer viewport */}
         <div className="relative z-10 flex flex-wrap justify-center gap-8 md:gap-14 mt-16 pt-10 border-t border-white/[0.06] w-full max-w-2xl" role="list" aria-label="Destaques">
           {[
-            { n: '10+', l: t.hero.stat1l },
-            { n: '4',   l: t.hero.stat2l },
-            { n: 'SC',  l: t.hero.stat3l },
-            { n: '100%',l: t.hero.stat4l },
+            { n: '5+',   l: t.hero.stat1l },
+            { n: '4',    l: t.hero.stat2l },
+            { n: 'BR',   l: t.hero.stat3l },
+            { n: '24/7', l: t.hero.stat4l },
           ].map(s => (
             <div key={s.n} className="text-center" role="listitem">
               <div className="font-display font-[800] text-3xl text-cyan">{s.n}</div>
@@ -342,21 +371,48 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── TRUST BAR / STACK ── */}
+      <section id="stack" aria-label={lang === 'pt' ? 'Stack técnico' : 'Technical stack'}
+        className="relative py-14 md:py-16 px-5 md:px-12 bg-navy border-y border-white/[0.06] overflow-hidden">
+        <div className="max-w-[1200px] mx-auto relative">
+          <div className="text-center mb-8 md:mb-10">
+            <p className="label-tag">{tx(t.stack.label)}</p>
+            <h2 className="font-display font-[700] text-offwhite text-[20px] md:text-[24px] tracking-tight leading-tight max-w-2xl mx-auto">
+              {tx(t.stack.title)}
+            </h2>
+            <p className="font-sans text-steel-muted text-[14px] mt-3 max-w-lg mx-auto">{tx(t.stack.desc)}</p>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-2.5 md:gap-3">
+            {[
+              'Go', 'Node.js', 'TypeScript', 'Next.js', 'React',
+              'PostgreSQL', 'Redis', 'Supabase',
+              'AWS', 'GCP', 'Vercel', 'Docker',
+              'Stripe', 'OpenAI', 'Anthropic', 'RabbitMQ',
+            ].map((tech) => (
+              <span key={tech}
+                className="font-mono text-[11px] md:text-[12px] text-steel-light bg-navy-card border border-white/[0.06] hover:border-cyan/30 hover:text-offwhite transition-colors px-3 py-1.5 rounded-md tracking-[0.04em]">
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── SERVICES ── */}
       <section id="services" className="py-20 md:py-24 px-5 md:px-12 bg-navy-card border-y border-white/[0.06]">
         <div className="max-w-[1200px] mx-auto">
           <div className="text-center mb-12 md:mb-16">
             <p className="label-tag">{tx(t.services.label)}</p>
             <h2 className="section-title">
-              {lang === 'pt' ? <>Serviços que <span className="text-cyan">entregam resultado</span></> : <>Services that <span className="text-cyan">deliver results</span></>}
+              {lang === 'pt' ? <>Serviços com <span className="text-cyan">responsabilidade operacional</span></> : <>Services with <span className="text-cyan">operational accountability</span></>}
             </h2>
-            <p className="font-sans text-steel max-w-md mx-auto text-[15px]">{tx(t.services.desc)}</p>
+            <p className="font-sans text-steel max-w-xl mx-auto text-[15px]">{tx(t.services.desc)}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
             {[
-              { name: t.services.s1name, desc: t.services.s1desc, tags: ['Web','Mobile','API REST','Cloud'], icon: <IconCode /> },
+              { name: t.services.s1name, desc: t.services.s1desc, tags: ['Web','Mobile','API REST','Observabilidade'], icon: <IconCode /> },
               { name: t.services.s2name, desc: t.services.s2desc, tags: ['Legacy','Cloud Migration','Database','Zero Downtime'], icon: <IconMigrate /> },
-              { name: t.services.s3name, desc: t.services.s3desc, tags: ['Integrações','Automação','ERP','B2B'], icon: <IconCustom /> },
+              { name: t.services.s3name, desc: t.services.s3desc, tags: ['ERP','Marketplaces','Pagamentos','LLMs'], icon: <IconCustom /> },
             ].map((s, i) => (
               <Card key={i} hover className="group p-7 md:p-9 relative bg-navy">
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100 rounded-t-2xl" aria-hidden="true" />
@@ -403,16 +459,14 @@ export default function Home() {
             <div>
               <p className="label-tag">{tx(t.about.label)}</p>
               <h2 className="section-title">
-                {lang === 'pt' ? <>Tecnologia com <span className="text-cyan">propósito real</span></> : <>Technology with <span className="text-cyan">real purpose</span></>}
+                {lang === 'pt'
+                  ? <>Engenharia técnica <span className="text-cyan">com responsabilidade pela operação</span></>
+                  : <>Technical engineering <span className="text-cyan">with operational accountability</span></>}
               </h2>
               <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.75] mb-4">{tx(t.about.p1)}</p>
               <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.75] mb-8">{tx(t.about.p2)}</p>
               <div className="flex flex-col gap-4">
-                {[
-                  { pt:'Empresa ativa desde 2022, baseada em Blumenau, SC', en:'Company active since 2022, based in Blumenau, SC' },
-                  { pt:'Especialistas em desenvolvimento, migração e soluções customizadas', en:'Specialists in development, migration and custom solutions' },
-                  { pt:'Compromisso com qualidade de código e resultado de negócio', en:'Committed to code quality and business outcomes' },
-                ].map((h, i) => (
+                {[t.about.h1, t.about.h2, t.about.h3].map((h, i) => (
                   <div key={i} className="flex items-start gap-3.5">
                     <div className="w-1.5 h-1.5 rounded-full bg-cyan mt-2 flex-shrink-0" aria-hidden="true" />
                     <p className="font-sans text-[13px] md:text-[14px] text-steel-light leading-relaxed">{tx(h)}</p>
@@ -421,15 +475,15 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Card institucional (v2) */}
+            {/* Card institucional */}
             <Card className="p-7 md:p-10 relative overflow-hidden bg-navy">
               <div className="absolute -top-10 -right-10 w-48 h-48 bg-glow-cyan pointer-events-none" aria-hidden="true" />
               <div className="grid grid-cols-2 gap-4 mb-7">
                 {[
-                  { n: '2022', l: { pt:'Fundação', en:'Founded' } },
-                  { n: 'EPP',  l: { pt:'Porte', en:'Company size' } },
-                  { n: 'SC',   l: { pt:'Santa Catarina', en:'Santa Catarina' } },
-                  { n: '3+',   l: { pt:'Serviços core', en:'Core services' } },
+                  { n: '2022', l: { pt:'Operando desde', en:'Operating since' } },
+                  { n: '4',    l: { pt:'SaaS em produção', en:'SaaS in production' } },
+                  { n: 'BR',   l: { pt:'Atendimento remoto', en:'Remote across' } },
+                  { n: '24/7', l: { pt:'Operação contínua', en:'Continuous ops' } },
                 ].map(s => (
                   <div key={s.n} className="bg-navy-card rounded-xl p-4 border border-white/[0.05]">
                     <div className="font-display font-[800] text-[26px] text-cyan leading-none mb-1">{s.n}</div>
@@ -438,16 +492,23 @@ export default function Home() {
                 ))}
               </div>
               <div className="border-t border-white/[0.06] pt-5 mb-5">
-                <p className="font-mono text-[10px] text-steel tracking-[0.15em] uppercase mb-3">{lang === 'pt' ? 'Stack tecnológico' : 'Tech stack'}</p>
+                <p className="font-mono text-[10px] text-steel tracking-[0.15em] uppercase mb-3">{lang === 'pt' ? 'Áreas de domínio' : 'Areas of expertise'}</p>
                 <div className="flex flex-wrap gap-2">
-                  {['React','Next.js','Go','Node.js','PostgreSQL','AWS','Docker','TypeScript'].map(tag => (
-                    <Badge key={tag}>{tag}</Badge>
+                  {[
+                    { pt:'Fiscal & NFS-e', en:'Fiscal & e-invoicing' },
+                    { pt:'E-commerce', en:'E-commerce' },
+                    { pt:'SaaS & APIs', en:'SaaS & APIs' },
+                    { pt:'IA aplicada', en:'Applied AI' },
+                    { pt:'Migrações', en:'Migrations' },
+                    { pt:'Integrações', en:'Integrations' },
+                  ].map(tag => (
+                    <Badge key={tag.pt}>{tx(tag)}</Badge>
                   ))}
                 </div>
               </div>
               <div className="border-t border-white/[0.06] pt-5">
                 <p className="font-mono text-[11px] text-steel tracking-[0.08em]">
-                  📍 Blumenau, SC · CNPJ 44.967.160/0001-80
+                  {lang === 'pt' ? '100% remoto · ' : 'Fully remote · '}CNPJ 44.967.160/0001-80
                 </p>
               </div>
             </Card>
@@ -576,10 +637,81 @@ export default function Home() {
             <p className="font-sans text-[14px] text-steel-muted mb-4">
               {lang === 'pt' ? 'Quer construir o próximo com a gente?' : 'Want to build the next one with us?'}
             </p>
-            <a href="#contact">
+            <a href="#pricing">
               <Button variant="outline" size="md">
-                {lang === 'pt' ? 'Iniciar um projeto →' : 'Start a project →'}
+                {lang === 'pt' ? 'Ver como cobramos →' : 'See how we engage →'}
               </Button>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── PRICING / ENGAGEMENT MODELS ── */}
+      <section id="pricing" className="py-20 md:py-24 px-5 md:px-12 bg-navy-card border-b border-white/[0.06]">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="text-center mb-12 md:mb-16">
+            <p className="label-tag">{tx(t.pricing.label)}</p>
+            <h2 className="section-title">
+              {lang === 'pt' ? <>Três formas de <span className="text-cyan">trabalhar com a gente</span></> : <>Three ways to <span className="text-cyan">work with us</span></>}
+            </h2>
+            <p className="font-sans text-steel max-w-xl mx-auto text-[15px]">{tx(t.pricing.desc)}</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+            {[
+              {
+                num: '01',
+                name: t.pricing.p1name,
+                desc: t.pricing.p1desc,
+                tags: t.pricing.p1tags,
+                accent: 'from-cyan to-[#0088CC]',
+                idealLabel: { pt: 'Risco previsível', en: 'Predictable risk' },
+              },
+              {
+                num: '02',
+                name: t.pricing.p2name,
+                desc: t.pricing.p2desc,
+                tags: t.pricing.p2tags,
+                accent: 'from-[#7C6FFF] to-cyan',
+                idealLabel: { pt: 'Mais comum', en: 'Most common' },
+                featured: true,
+              },
+              {
+                num: '03',
+                name: t.pricing.p3name,
+                desc: t.pricing.p3desc,
+                tags: t.pricing.p3tags,
+                accent: 'from-[#00C85A] to-cyan',
+                idealLabel: { pt: 'Para escala', en: 'Built for scale' },
+              },
+            ].map((p) => (
+              <div key={p.num} className={`relative p-7 md:p-9 rounded-2xl bg-navy border ${p.featured ? 'border-cyan/30' : 'border-white/[0.06]'} hover:border-cyan/40 transition-colors flex flex-col`}>
+                {p.featured && (
+                  <div className="absolute -top-2.5 right-6">
+                    <span className="font-mono text-[9px] tracking-[0.18em] uppercase bg-cyan text-navy font-medium px-2.5 py-1 rounded">
+                      {tx(p.idealLabel)}
+                    </span>
+                  </div>
+                )}
+                <div className={`absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r ${p.accent} opacity-60 rounded-t-2xl`} aria-hidden="true" />
+                <div className="font-mono text-[11px] text-steel tracking-[0.18em] mb-4">{p.num}</div>
+                <h3 className="font-display font-[800] text-[20px] text-offwhite mb-3 leading-tight">{tx(p.name)}</h3>
+                <p className="font-sans text-[14px] text-steel-muted leading-[1.65] mb-5 flex-1">{tx(p.desc)}</p>
+                <div className="flex flex-wrap gap-1.5 pt-4 border-t border-white/[0.06]">
+                  {p.tags.map((tag) => <Badge key={tag} variant="steel">{tag}</Badge>)}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12 md:mt-14">
+            <p className="font-sans text-[14px] text-steel-muted mb-4">
+              {lang === 'pt'
+                ? 'Não sabe qual escolher? Conversamos e definimos juntos.'
+                : "Not sure which fits? Let's talk and decide together."}
+            </p>
+            <a href={bookingUrl} target="_blank" rel="noopener noreferrer">
+              <Button size="md">{tx(t.pricing.cta)}</Button>
             </a>
           </div>
         </div>
@@ -592,7 +724,7 @@ export default function Home() {
             <div>
               <p className="label-tag">{tx(t.contact.label)}</p>
               <h2 className="section-title">
-                {lang === 'pt' ? <>Vamos construir <span className="text-cyan">juntos</span></> : <>Let's build <span className="text-cyan">together</span></>}
+                {lang === 'pt' ? <>Agendar um <span className="text-cyan">diagnóstico</span></> : <>Book a <span className="text-cyan">discovery call</span></>}
               </h2>
               <p className="font-sans text-steel-muted text-[15px] md:text-[16px] leading-[1.7] mb-8 md:mb-10">{tx(t.contact.desc)}</p>
               <div className="flex flex-col gap-3 md:gap-4">
@@ -601,7 +733,7 @@ export default function Home() {
                     icon:<svg width="18" height="18" viewBox="0 0 24 24" fill="#00D4FF" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg> },
                   { href:'mailto:contato@scantelburydevs.com.br', label:'E-mail', value:'contato@scantelburydevs.com.br',
                     icon:<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> },
-                  { href:'https://linkedin.com/in/christophe-alexander-scantelbury-neves-gaia-3593bab6/', label:'LinkedIn', value:'ScantelburyDevs',
+                  { href:'https://www.linkedin.com/company/scantelburydevs/', label:'LinkedIn', value:'ScantelburyDevs',
                     icon:<svg width="18" height="18" viewBox="0 0 24 24" fill="#00D4FF" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg> },
                 ].map(ch => (
                   <a key={ch.label} href={ch.href} target="_blank" rel="noopener noreferrer" aria-label={`${ch.label}: ${ch.value}`}
@@ -653,13 +785,13 @@ export default function Home() {
             <div className="col-span-2 md:col-span-1">
               <Logo size="sm" className="mb-4" />
               <p className="font-sans text-[13px] text-steel-muted leading-[1.65] max-w-[260px]">
-                {lang === 'pt' ? 'Desenvolvimento, migração e soluções customizadas. Blumenau, SC.' : 'Development, migration and custom solutions. Blumenau, SC.'}
+                {lang === 'pt' ? 'Engenharia de software para sistemas críticos. Operando produtos em produção desde 2022. 100% remoto, atendemos todo o Brasil.' : 'Software engineering for mission-critical systems. Operating products in production since 2022. Fully remote, serving Brazil-wide.'}
               </p>
             </div>
             {[
-              { title:{pt:'Serviços',en:'Services'}, links:[{pt:'Desenvolvimento',en:'Development',href:'#services'},{pt:'Migração',en:'Migration',href:'#services'},{pt:'Soluções Custom',en:'Custom Solutions',href:'#services'}] },
-              { title:{pt:'Empresa',en:'Company'}, links:[{pt:'Sobre',en:'About',href:'#about'},{pt:'Produtos',en:'Products',href:'#produtos'},{pt:'Processo',en:'Process',href:'#process'}] },
-              { title:{pt:'Contato',en:'Contact'}, links:[{pt:'WhatsApp',en:'WhatsApp',href:'https://wa.me/5547997352380'},{pt:'E-mail',en:'E-mail',href:'mailto:contato@scantelburydevs.com.br'},{pt:'LinkedIn',en:'LinkedIn',href:'https://linkedin.com/in/christophe-alexander-scantelbury-neves-gaia-3593bab6/'}] },
+              { title:{pt:'Serviços',en:'Services'}, links:[{pt:'Desenvolvimento',en:'Development',href:'#services'},{pt:'Migração',en:'Migration',href:'#services'},{pt:'Integrações',en:'Integrations',href:'#services'},{pt:'Como cobramos',en:'Engagement',href:'#pricing'}] },
+              { title:{pt:'Empresa',en:'Company'}, links:[{pt:'Empresa',en:'Company',href:'#about'},{pt:'Produtos',en:'Products',href:'#produtos'},{pt:'Processo',en:'Process',href:'#process'}] },
+              { title:{pt:'Contato',en:'Contact'}, links:[{pt:'WhatsApp',en:'WhatsApp',href:'https://wa.me/5547997352380'},{pt:'E-mail',en:'E-mail',href:'mailto:contato@scantelburydevs.com.br'},{pt:'LinkedIn',en:'LinkedIn',href:'https://www.linkedin.com/company/scantelburydevs/'}] },
             ].map(col => (
               <div key={col.title.pt}>
                 <div className="font-mono text-[10px] tracking-[0.18em] text-cyan uppercase mb-4">{tx(col.title)}</div>
@@ -675,7 +807,7 @@ export default function Home() {
           </div>
           <div className="pt-6 md:pt-8 border-t border-white/[0.06] flex flex-col md:flex-row items-center justify-between gap-3 md:gap-4">
             <p className="font-mono text-[10px] md:text-[11px] text-steel tracking-[0.08em] text-center md:text-left">© 2025 Scantelbury Serviços em TI Ltda · CNPJ 44.967.160/0001-80</p>
-            <p className="font-display font-[700] text-[13px] text-steel">Software que funciona. Time que <span className="text-cyan">entrega.</span></p>
+            <p className="font-display font-[700] text-[13px] text-steel">{lang === 'pt' ? <>Construímos. Lançamos. <span className="text-cyan">Operamos.</span></> : <>We build. We ship. <span className="text-cyan">We operate.</span></>}</p>
           </div>
         </div>
       </footer>

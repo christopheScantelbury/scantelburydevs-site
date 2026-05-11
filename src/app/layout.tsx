@@ -110,7 +110,7 @@ const ORG_JSONLD = {
   description: DEFAULT_DESC,
   sameAs: [
     'https://github.com/christopheScantelbury',
-    'https://linkedin.com/in/christophe-alexander-scantelbury-neves-gaia-3593bab6/',
+    'https://www.linkedin.com/company/scantelburydevs/',
   ],
   contactPoint: [
     {
