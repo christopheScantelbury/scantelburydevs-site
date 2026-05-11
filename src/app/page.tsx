@@ -575,7 +575,7 @@ export default function Home() {
                 desc: { pt: 'Gestão de inventário técnico para produtoras de eventos. Rastreamento de equipamentos, reservas, devoluções e relatórios — tudo num só lugar.', en: 'Technical inventory management for event producers. Equipment tracking, bookings, returns and reports — all in one place.' },
                 tags: ['Next.js', 'Node.js', 'PostgreSQL', 'Docker'],
                 accent: 'from-[#F59E0B] to-[#0C1220]',
-                href: 'https://eventgear-web.h1dq2d.easypanel.host/',
+                href: 'https://eventgear-web-christophescantelburys-projects.vercel.app',
                 logo: '/products/eventgear.svg',
                 logoBg: 'bg-[#0C1220]',
               },
