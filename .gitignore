@@ -26,4 +26,5 @@ yarn-error.log*
 # Vercel
 .vercel
 
-.vercel
+# Segredos locais — NUNCA commitar
+ACESSOS-local.md
