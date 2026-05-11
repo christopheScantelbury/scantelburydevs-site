@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { Resend } from 'resend'
 
 const SYSTEM_PROMPT = `Você é a assistente virtual da ScantelburyDevs — age como uma atendente profissional da empresa, não como um chatbot genérico.
 
@@ -62,5 +63,48 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Erro ao processar sua mensagem.' }, { status: 500 })
   }
 
-  return NextResponse.json({ reply: data?.content?.[0]?.text ?? '' })
+  const reply = data?.content?.[0]?.text ?? ''
+
+  // Dispara email quando o bot encerra a conversa (inclui link do WhatsApp)
+  if (reply.includes('wa.me/5547997352380') && process.env.RESEND_API_KEY) {
+    sendLeadEmail(trimmed, reply).catch(() => {}) // fire-and-forget, não bloqueia a resposta
+  }
+
+  return NextResponse.json({ reply })
+}
+
+// ─── Notificação de lead via email ──────────────────────────────────────────
+
+type Message = { role: 'user' | 'assistant'; content: string }
+
+async function sendLeadEmail(messages: Message[], lastReply: string) {
+  const resend = new Resend(process.env.RESEND_API_KEY)
+
+  // Monta transcrição formatada
+  const transcript = messages
+    .map(m => `${m.role === 'user' ? '👤 Visitante' : '🤖 Bot'}: ${m.content}`)
+    .join('\n\n')
+
+  const html = `
+    <div style="font-family:sans-serif;max-width:600px;margin:0 auto">
+      <h2 style="color:#0A0F1E;background:#00D4FF;padding:16px 20px;border-radius:8px 8px 0 0;margin:0">
+        🔔 Novo lead via chat — ScantelburyDevs
+      </h2>
+      <div style="background:#f9f9f9;padding:20px;border:1px solid #e0e0e0;border-radius:0 0 8px 8px">
+        <h3 style="margin-top:0;color:#333">Transcrição da conversa</h3>
+        <pre style="background:#fff;border:1px solid #ddd;border-radius:4px;padding:16px;white-space:pre-wrap;font-size:13px;line-height:1.6">${transcript.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</pre>
+        <hr style="border:none;border-top:1px solid #e0e0e0;margin:20px 0">
+        <p style="font-size:12px;color:#888;margin:0">
+          Enviado automaticamente pelo chat do site scantelburydevs.com.br
+        </p>
+      </div>
+    </div>
+  `
+
+  await resend.emails.send({
+    from: 'ScantelburyDevs Chat <onboarding@resend.dev>',
+    to: ['christophescantelbury@gmail.com'],
+    subject: '🔔 Novo lead via chat — ScantelburyDevs',
+    html,
+  })
 }
