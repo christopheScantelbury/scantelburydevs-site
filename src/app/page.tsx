@@ -16,6 +16,7 @@ const t = {
     pricing:  { pt: 'Como cobramos', en: 'Engagement' },
     process:  { pt: 'Processo', en: 'Process' },
     about:    { pt: 'Empresa', en: 'Company' },
+    insights: { pt: 'Insights', en: 'Insights' },
     cta:      { pt: 'Agendar conversa', en: 'Book a call' },
   },
   hero: {
@@ -284,6 +285,10 @@ export default function Home() {
                 {tx(t.nav[s])}
               </a>
             ))}
+            <a href="/blog"
+              className="font-mono text-[13px] text-steel hover:text-offwhite transition-colors tracking-[0.04em] min-h-[44px] flex items-center">
+              {tx(t.nav.insights)}
+            </a>
             <a href="#contact"><Button size="sm">{tx(t.nav.cta)}</Button></a>
             <div className="flex gap-1 ml-2">
               {(['pt','en'] as Lang[]).map(l => (
@@ -320,6 +325,10 @@ export default function Home() {
                 {tx(t.nav[s])}
               </a>
             ))}
+            <a href="/blog" onClick={() => setMenuOpen(false)}
+              className="font-mono text-[13px] text-steel hover:text-offwhite py-3.5 border-b border-white/[0.04] tracking-[0.04em] min-h-[44px] flex items-center">
+              {tx(t.nav.insights)}
+            </a>
             <a href="#contact" onClick={() => setMenuOpen(false)} className="mt-3">
               <Button size="sm" className="w-full">{tx(t.nav.cta)}</Button>
             </a>

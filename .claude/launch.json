@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "scantelburydevs-web",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "scantelburydevs_project/scantelburydevs"],
+      "port": 3000
+    }
+  ]
+}
