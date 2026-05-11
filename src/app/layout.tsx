@@ -5,7 +5,7 @@ import '@/styles/globals.css'
 
 const SITE_URL = 'https://www.scantelburydevs.com.br'
 const SITE_NAME = 'ScantelburyDevs'
-const DEFAULT_TITLE = 'ScantelburyDevs — Software que funciona. Time que entrega.'
+const DEFAULT_TITLE = 'ScantelburyDevs — Construímos, lançamos e operamos software em produção'
 const DEFAULT_DESC =
   'ScantelburyDevs: empresa de tecnologia em Blumenau, SC. Desenvolvimento de aplicações, migração de sistemas e soluções customizadas. Produtos em produção: NotaFácil, Descrição AI, EventGear e Agenda Inteligente.'
 

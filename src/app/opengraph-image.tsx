@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'ScantelburyDevs — Software que funciona. Time que entrega.'
+export const alt = 'ScantelburyDevs — Construímos, lançamos e operamos software em produção'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -53,7 +53,7 @@ export default async function Image() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
           <div
             style={{
-              fontSize: 76,
+              fontSize: 64,
               fontWeight: 800,
               lineHeight: 1.05,
               letterSpacing: '-0.025em',
@@ -61,11 +61,11 @@ export default async function Image() {
               flexDirection: 'column',
             }}
           >
-            <span style={{ color: '#F0F4FA' }}>Software que funciona.</span>
-            <span style={{ color: '#00D4FF' }}>Time que entrega.</span>
+            <span style={{ color: '#F0F4FA' }}>Construímos, lançamos</span>
+            <span style={{ color: '#00D4FF' }}>e operamos software em produção.</span>
           </div>
-          <div style={{ fontSize: 26, color: '#8AA0B8', lineHeight: 1.4, maxWidth: 920 }}>
-            Desenvolvimento, migração e soluções customizadas. 4 produtos em produção.
+          <div style={{ fontSize: 24, color: '#8AA0B8', lineHeight: 1.4, maxWidth: 980 }}>
+            Engenharia de software para sistemas críticos. Fiscal, e-commerce, agendamento e gestão.
           </div>
         </div>
 
