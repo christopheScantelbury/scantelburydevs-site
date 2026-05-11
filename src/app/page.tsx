@@ -587,7 +587,7 @@ export default function Home() {
                 desc: { pt: 'Plataforma de agendamento com camada inteligente: sugestão de horários, lembretes automáticos, integrações e gestão multi-cliente para profissionais e clínicas.', en: 'Smart scheduling platform: time suggestions, automated reminders, integrations and multi-client management for professionals and clinics.' },
                 tags: ['Next.js', 'Node.js', 'AI', 'Cloud'],
                 accent: 'from-[#7C3AED] to-[#10B981]',
-                href: 'https://agendainteligentefrontend.agendainteligenteapp.cloud/',
+                href: 'https://agendainteligente-frontend.vercel.app',
                 logo: '/products/agenda.svg',
                 logoBg: 'bg-white',
               },
