@@ -567,30 +567,6 @@ export default function Home() {
                 logo: '/products/descricaoai.svg',
                 logoBg: 'bg-white',
               },
-              {
-                badge: { pt: 'Eventos · Logística', en: 'Events · Logistics' },
-                bv: 'steel' as const,
-                name: 'EventGear',
-                tagline: { pt: 'Controle total dos equipamentos do seu evento.', en: 'Total control over your event equipment.' },
-                desc: { pt: 'Gestão de inventário técnico para produtoras de eventos. Rastreamento de equipamentos, reservas, devoluções e relatórios — tudo num só lugar.', en: 'Technical inventory management for event producers. Equipment tracking, bookings, returns and reports — all in one place.' },
-                tags: ['Next.js', 'Node.js', 'PostgreSQL', 'Docker'],
-                accent: 'from-[#F59E0B] to-[#0C1220]',
-                href: 'https://eventgear-web-christophescantelburys-projects.vercel.app',
-                logo: '/products/eventgear.svg',
-                logoBg: 'bg-[#0C1220]',
-              },
-              {
-                badge: { pt: 'Agendamento · IA', en: 'Scheduling · AI' },
-                bv: 'cyan' as const,
-                name: 'Agenda Inteligente',
-                tagline: { pt: 'Sua agenda, organizada por uma IA que entende contexto.', en: 'Your calendar, organized by an AI that understands context.' },
-                desc: { pt: 'Plataforma de agendamento com camada inteligente: sugestão de horários, lembretes automáticos, integrações e gestão multi-cliente para profissionais e clínicas.', en: 'Smart scheduling platform: time suggestions, automated reminders, integrations and multi-client management for professionals and clinics.' },
-                tags: ['Next.js', 'Node.js', 'AI', 'Cloud'],
-                accent: 'from-[#7C3AED] to-[#10B981]',
-                href: 'https://agendainteligente-frontend.vercel.app',
-                logo: '/products/agenda.svg',
-                logoBg: 'bg-white',
-              },
             ].map((p) => (
               <a
                 key={p.name}
