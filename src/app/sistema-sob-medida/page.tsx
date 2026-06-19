@@ -103,32 +103,54 @@ export default function SistemaSobMedidaLP() {
       </section>
 
       {/* PAIN POINTS */}
-      <section className="max-w-5xl mx-auto px-6 py-16">
-        <h2 className="font-sans text-3xl md:text-4xl font-extrabold text-offwhite mb-12 text-center">
-          Você se identifica com alguma dessas dores?
-        </h2>
+      <section className="max-w-5xl mx-auto px-6 py-20">
+        <div className="text-center mb-14">
+          <h2 className="font-sans text-3xl md:text-5xl font-extrabold text-offwhite mb-4 leading-tight">
+            Algum desses dói<br />
+            <span className="text-cyan">no seu dia a dia?</span>
+          </h2>
+          <p className="text-steel text-base max-w-lg mx-auto">
+            Se você marcou pelo menos um, dá pra resolver.
+          </p>
+        </div>
+
         <div className="grid md:grid-cols-3 gap-6">
-          <Card>
-            <p className="text-cyan font-mono text-xs uppercase tracking-wider mb-3">Operação manual</p>
-            <h3 className="font-sans text-xl font-bold text-offwhite mb-2">Planilhas demais</h3>
+          <div className="relative border border-white/[0.08] rounded-xl p-7 bg-gradient-to-br from-white/[0.03] to-transparent hover:border-cyan/30 transition-colors">
+            <div className="text-4xl mb-4">📊</div>
+            <h3 className="font-sans text-xl font-bold text-offwhite mb-3 leading-snug">
+              Seu time vive preso a planilhas
+            </h3>
             <p className="text-steel text-sm leading-relaxed">
-              Seu time gasta horas todo dia consolidando dados que deveriam estar automatizados num sistema próprio.
+              Funcionários gastam <strong className="text-offwhite">3, 4 horas por dia</strong> copiando dado de um lugar pro outro. Erros acontecem. Cliente reclama. E você sabe que isso devia estar automatizado.
             </p>
-          </Card>
-          <Card>
-            <p className="text-cyan font-mono text-xs uppercase tracking-wider mb-3">Software de prateleira</p>
-            <h3 className="font-sans text-xl font-bold text-offwhite mb-2">Funcionalidade que faltou</h3>
+          </div>
+
+          <div className="relative border border-white/[0.08] rounded-xl p-7 bg-gradient-to-br from-white/[0.03] to-transparent hover:border-cyan/30 transition-colors">
+            <div className="text-4xl mb-4">💸</div>
+            <h3 className="font-sans text-xl font-bold text-offwhite mb-3 leading-snug">
+              Paga por sistema que não te serve
+            </h3>
             <p className="text-steel text-sm leading-relaxed">
-              Você compra licença mensal mas continua precisando de uma feature que o fornecedor não vai entregar.
+              Assina <strong className="text-offwhite">R$ 500, R$ 2 mil por mês</strong> de um sistema pronto que quase atende. A funcionalidade que importa mesmo? O fornecedor nunca vai entregar.
             </p>
-          </Card>
-          <Card>
-            <p className="text-cyan font-mono text-xs uppercase tracking-wider mb-3">Sistema legado</p>
-            <h3 className="font-sans text-xl font-bold text-offwhite mb-2">Software antigo travando</h3>
+          </div>
+
+          <div className="relative border border-white/[0.08] rounded-xl p-7 bg-gradient-to-br from-white/[0.03] to-transparent hover:border-cyan/30 transition-colors">
+            <div className="text-4xl mb-4">⚠️</div>
+            <h3 className="font-sans text-xl font-bold text-offwhite mb-3 leading-snug">
+              Sistema antigo travando tudo
+            </h3>
             <p className="text-steel text-sm leading-relaxed">
-              Aquele sistema de 10 anos atrás que ninguém quer mexer mas que continua sendo o coração da operação.
+              Aquele software de <strong className="text-offwhite">10, 15 anos</strong> que ninguém quer mexer. Lento, sem suporte, mas é o coração do negócio. Você tem medo só de pensar em trocar.
             </p>
-          </Card>
+          </div>
+        </div>
+
+        <div className="text-center mt-10">
+          <a href="#diagnostico"
+             className="inline-block font-mono text-sm text-cyan hover:text-offwhite border-b border-cyan/40 hover:border-offwhite pb-0.5 transition-colors">
+            Quero conversar sobre a minha dor →
+          </a>
         </div>
       </section>
 
@@ -144,32 +166,44 @@ export default function SistemaSobMedidaLP() {
           </p>
 
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="border border-white/[0.08] rounded-lg p-6">
-              <p className="font-mono text-xs text-cyan tracking-wider mb-2">01 · DISCOVERY</p>
-              <h3 className="font-sans text-lg font-bold text-offwhite mb-2">Diagnóstico de 30 minutos — grátis</h3>
+            <div className="relative border border-white/[0.08] rounded-xl p-7 bg-gradient-to-br from-white/[0.03] to-transparent">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="font-sans text-3xl font-extrabold text-cyan">1</span>
+                <span className="font-mono text-xs text-steel uppercase tracking-wider">Conversa inicial</span>
+              </div>
+              <h3 className="font-sans text-xl font-bold text-offwhite mb-2">A gente escuta. De graça.</h3>
               <p className="text-steel text-sm leading-relaxed">
-                Entendemos sua dor, mapeamos processos e dizemos com honestidade se vale a pena construir sob medida ou usar pronto.
+                30 minutos. Você conta o que tá te incomodando, a gente faz pergunta certa. No fim, falamos com honestidade se vale a pena construir do zero ou existe sistema pronto que resolve.
               </p>
             </div>
-            <div className="border border-white/[0.08] rounded-lg p-6">
-              <p className="font-mono text-xs text-cyan tracking-wider mb-2">02 · ESCOPO + ORÇAMENTO</p>
-              <h3 className="font-sans text-lg font-bold text-offwhite mb-2">Proposta clara em 5 dias</h3>
+            <div className="relative border border-white/[0.08] rounded-xl p-7 bg-gradient-to-br from-white/[0.03] to-transparent">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="font-sans text-3xl font-extrabold text-cyan">2</span>
+                <span className="font-mono text-xs text-steel uppercase tracking-wider">Proposta clara</span>
+              </div>
+              <h3 className="font-sans text-xl font-bold text-offwhite mb-2">Em 5 dias você sabe o quanto custa</h3>
               <p className="text-steel text-sm leading-relaxed">
-                Documento com módulos, prazo, valor fechado ou modelo de sprint. Sem caixa-preta.
+                Documento simples: o que vai ser feito, em quanto tempo e quanto custa. Sem letra miúda, sem surpresa no fim. Você compara com o que tá pagando hoje.
               </p>
             </div>
-            <div className="border border-white/[0.08] rounded-lg p-6">
-              <p className="font-mono text-xs text-cyan tracking-wider mb-2">03 · BUILD</p>
-              <h3 className="font-sans text-lg font-bold text-offwhite mb-2">Sprints de 2 semanas</h3>
+            <div className="relative border border-white/[0.08] rounded-xl p-7 bg-gradient-to-br from-white/[0.03] to-transparent">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="font-sans text-3xl font-extrabold text-cyan">3</span>
+                <span className="font-mono text-xs text-steel uppercase tracking-wider">Construção</span>
+              </div>
+              <h3 className="font-sans text-xl font-bold text-offwhite mb-2">Entregas a cada 2 semanas</h3>
               <p className="text-steel text-sm leading-relaxed">
-                Você acompanha em tempo real. Cada sprint entrega algo funcional e testável.
+                Não desaparecemos por 6 meses. A cada 2 semanas você vê algo funcionando e testa de verdade. Mudou de ideia no meio? A gente ajusta sem drama.
               </p>
             </div>
-            <div className="border border-white/[0.08] rounded-lg p-6">
-              <p className="font-mono text-xs text-cyan tracking-wider mb-2">04 · OPERAÇÃO</p>
-              <h3 className="font-sans text-lg font-bold text-offwhite mb-2">Suporte e evolução contínua</h3>
+            <div className="relative border border-white/[0.08] rounded-xl p-7 bg-gradient-to-br from-white/[0.03] to-transparent">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="font-sans text-3xl font-extrabold text-cyan">4</span>
+                <span className="font-mono text-xs text-steel uppercase tracking-wider">Acompanhamento</span>
+              </div>
+              <h3 className="font-sans text-xl font-bold text-offwhite mb-2">Continuamos do seu lado</h3>
               <p className="text-steel text-sm leading-relaxed">
-                Não entregamos código e desaparecemos. Ficamos do lado, monitorando e evoluindo o sistema.
+                Sistema entregue não é fim do projeto. A gente continua monitorando, corrigindo, melhorando — pra que ele cresça junto com seu negócio.
               </p>
             </div>
           </div>
