@@ -210,15 +210,47 @@ export default function SistemaSobMedidaLP() {
         </div>
       </section>
 
-      {/* STACK */}
-      <section className="max-w-5xl mx-auto px-6 py-16 text-center">
-        <p className="font-mono text-xs tracking-[0.15em] text-cyan mb-3 uppercase">Stack técnica</p>
-        <h2 className="font-sans text-3xl font-extrabold text-offwhite mb-6">
-          Tecnologia madura, em produção todos os dias
-        </h2>
-        <p className="text-steel text-base max-w-2xl mx-auto leading-relaxed mb-8">
-          Next.js · React · Node.js · Go · PostgreSQL · Supabase · AWS · Vercel · Railway · Docker
-        </p>
+      {/* TRUST / SOCIAL PROOF */}
+      <section className="max-w-5xl mx-auto px-6 py-20">
+        <div className="text-center mb-12">
+          <p className="font-mono text-xs tracking-[0.15em] text-cyan mb-3 uppercase">Por que confiar</p>
+          <h2 className="font-sans text-3xl md:text-4xl font-extrabold text-offwhite mb-4 leading-tight">
+            A gente usa o que <span className="text-cyan">vende.</span>
+          </h2>
+          <p className="text-steel text-base max-w-2xl mx-auto leading-relaxed">
+            Antes de construir pro seu negócio, construímos pro nosso. Temos 3 sistemas próprios rodando hoje, com clientes reais pagando todo mês — e eles continuam pagando porque o produto funciona.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
+          <div className="text-center border border-white/[0.08] rounded-xl p-7 bg-gradient-to-br from-white/[0.03] to-transparent">
+            <p className="font-sans text-5xl font-extrabold text-cyan mb-2">3</p>
+            <p className="font-sans text-base font-bold text-offwhite mb-1">Sistemas próprios</p>
+            <p className="text-steel text-sm leading-relaxed">
+              NotaFácil, EventGear e Agenda Inteligente — com clientes pagando há anos
+            </p>
+          </div>
+          <div className="text-center border border-white/[0.08] rounded-xl p-7 bg-gradient-to-br from-white/[0.03] to-transparent">
+            <p className="font-sans text-5xl font-extrabold text-cyan mb-2">+5</p>
+            <p className="font-sans text-base font-bold text-offwhite mb-1">Anos em operação</p>
+            <p className="text-steel text-sm leading-relaxed">
+              Sistemas no ar 24 horas, sem cair, sem reclamação travando o cliente
+            </p>
+          </div>
+          <div className="text-center border border-white/[0.08] rounded-xl p-7 bg-gradient-to-br from-white/[0.03] to-transparent">
+            <p className="font-sans text-5xl font-extrabold text-cyan mb-2">0</p>
+            <p className="font-sans text-base font-bold text-offwhite mb-1">Sumir no meio</p>
+            <p className="text-steel text-sm leading-relaxed">
+              Nunca largamos cliente na mão. Sistema seu, suporte nosso — desde sempre.
+            </p>
+          </div>
+        </div>
+
+        <div className="text-center">
+          <Link href="/cases" className="inline-block font-mono text-sm text-cyan hover:text-offwhite border-b border-cyan/40 hover:border-offwhite pb-0.5 transition-colors">
+            Ver nossos 3 sistemas em produção →
+          </Link>
+        </div>
       </section>
 
       {/* FORM CTA */}
