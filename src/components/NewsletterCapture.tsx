@@ -29,7 +29,7 @@ export function NewsletterCapture() {
         }),
       })
       if (!res.ok) throw new Error('fail')
-      trackLead('blog-newsletter')
+      trackLead({ source: 'form', projectType: 'Newsletter / Material rico', lang: 'pt' })
       setDone(true)
     } catch {
       setError('Erro ao enviar. Tente de novo em alguns segundos.')

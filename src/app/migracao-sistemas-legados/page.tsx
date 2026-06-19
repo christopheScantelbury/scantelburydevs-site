@@ -28,7 +28,7 @@ export default function MigracaoLP() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       })
-      trackLead('lp-migracao-legado')
+      trackLead({ source: 'form', projectType: payload.type, lang: 'pt' })
       setDone(true)
       setTimeout(() => { window.location.href = WHATSAPP_URL }, 1200)
     } catch {
