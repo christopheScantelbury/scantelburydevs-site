@@ -2,58 +2,64 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Cases — Produtos em produção',
-  description: 'Estudos de caso reais: NotaFácil (emissão de NFS-e do MEI), EventGear (inventário para produtoras de eventos) e Agenda Inteligente (agendamento com IA). Tecnologia, desafios e resultados.',
+  title: 'Trabalhos que fizemos',
+  description: 'Três sistemas próprios que a ScantelburyDevs construiu e mantém no ar todo dia, com clientes pagantes: NotaFácil (emissão de nota fiscal pra MEI), EventGear (controle de equipamentos em produtoras de eventos) e Agenda Inteligente (agendamento online).',
 }
 
 const cases = [
   {
     slug: 'notafacil',
     name: 'NotaFácil',
-    tagline: 'Emissão automatizada de NFS-e para MEI',
+    tagline: 'Emite nota fiscal pra MEI em segundos',
     url: 'https://www.emitirnotafacil.com.br/',
-    category: 'SaaS B2C · API REST',
-    desafio: 'MEIs brasileiros precisam emitir NFS-e obrigatória desde 2023, mas o portal nacional do governo é confuso, lento e bloqueia emissão em massa. ERPs e marketplaces precisam de uma API confiável.',
-    solucao: 'API REST em Go integrada à Receita Federal Nacional (mTLS + certificado A1) com assinatura digital, fila assíncrona, retry inteligente e webhooks. Dashboard Next.js para emissão manual + planos por volume com cobrança via Stripe.',
+    paraQuem: 'Pra Microempreendedor Individual e contador',
+    problema:
+      'Desde 2023 o MEI brasileiro é obrigado a emitir nota fiscal de serviço. O sistema oficial do governo é confuso, lento e dá erro toda hora. Quem trabalha sozinho perde horas pra emitir 5 notas, e quem tem vários MEIs (contador) não consegue emitir em massa.',
+    solucao:
+      'A gente construiu um sistema que conversa direto com o governo, sem precisar abrir o portal complicado. O MEI emite uma nota em menos de 3 segundos pelo computador ou celular. Quem tem vários cadastros (contador) emite em lote, com poucos cliques.',
     resultados: [
-      'Emissão em < 3 segundos vs. 30s+ do portal oficial',
-      'Tolerante a falhas: 99.9% de uptime mesmo quando a Receita cai',
-      'Suporta múltiplos MEIs por conta (contadores)',
-      'Integração com ERPs via API documentada com OpenAPI 3.0',
+      'Emissão em menos de 3 segundos — no portal oficial leva mais de 30 segundos',
+      'Continua funcionando mesmo quando o sistema do governo cai',
+      'Um contador pode emitir nota de vários clientes na mesma conta',
+      'Outros sistemas (de loja virtual ou gestão) conseguem emitir nota automaticamente',
     ],
-    stack: ['Go (Fiber)', 'PostgreSQL (Supabase)', 'Redis', 'RabbitMQ', 'Next.js 14', 'AWS Secrets Manager', 'Stripe Billing', 'Vercel + Railway'],
+    categoria: 'Programa pra emitir nota fiscal',
   },
   {
     slug: 'eventgear',
     name: 'EventGear',
-    tagline: 'Gestão de inventário para produtoras de eventos',
+    tagline: 'Controle de equipamentos pra produtora de eventos',
     url: 'https://eventgear-web.h1dq2d.easypanel.host/',
-    category: 'SaaS B2B · PWA',
-    desafio: 'Produtoras de eventos perdem equipamento (microfones, cabos, racks) entre eventos. Planilha não acompanha quem pegou o quê, e cada item perdido custa de R$ 500 a R$ 5.000. Não havia ferramenta de mercado focada no fluxo real desse negócio.',
-    solucao: 'PWA mobile-first com leitura de QR Code, checklists de saída/retorno por evento, alocação por técnico, e histórico de cada item. Backend em Spring Boot com PostgreSQL no Railway. Suporta operação offline e sincroniza quando conecta.',
+    paraQuem: 'Pra produtora de eventos, locadora de equipamentos audiovisuais',
+    problema:
+      'Produtora de evento perde equipamento entre uma festa e outra. Microfone, cabo, rack — desaparece e ninguém sabe quem levou. Cada item perdido custa de R$ 500 a R$ 5 mil. A planilha que controlava não dava conta — ninguém sabia mais o que tinha sido emprestado pra quem.',
+    solucao:
+      'Cada equipamento ganhou um adesivo com código de barras (QR Code). O técnico bate a câmera do celular, marca quem pegou e pra qual evento. Quando o evento acaba, a saída e a volta de cada item ficam registradas. Funciona até sem internet — sincroniza quando voltar a conectar.',
     resultados: [
-      'Redução de 70% nas perdas de equipamento',
-      'Checklist de evento que levava 2h vira 15 min',
-      'Responsabilização por técnico — fim do "achei que era do João"',
-      'Roda no celular do técnico, sem precisar de notebook em campo',
+      'Perdas de equipamento caíram 70%',
+      'O check-list de saída de evento que levava 2 horas agora leva 15 minutos',
+      'Cada técnico fica responsável pelo que pegou — acabou o "achei que era do João"',
+      'O técnico usa o celular dele no evento — não precisa carregar notebook',
     ],
-    stack: ['Spring Boot (Java)', 'PostgreSQL', 'Next.js 14 (PWA)', 'Service Workers', 'Railway', 'Vercel'],
+    categoria: 'Sistema pra controlar equipamentos',
   },
   {
     slug: 'agenda-inteligente',
     name: 'Agenda Inteligente',
-    tagline: 'Plataforma de agendamento com camada de IA',
+    tagline: 'Agendamento online que se adapta sozinho',
     url: 'https://agendainteligentefrontend.agendainteligenteapp.cloud/',
-    category: 'SaaS B2B · IA',
-    desafio: 'Clínicas, salões e prestadores de serviço perdem horas reagendando manualmente quando cliente quer mudar horário, ou ficam com slots vazios que poderiam ser preenchidos. Soluções de mercado são caras e engessadas.',
-    solucao: 'Backend Spring Boot com motor de agendamento que considera duração de serviço, disponibilidade de profissional, recursos compartilhados e preferências do cliente. Camada de IA sugere reagendamento ótimo quando o cliente pede mudança. Frontend Next.js com fluxo simples para cliente final.',
+    paraQuem: 'Pra clínica, salão de beleza, prestador de serviço',
+    problema:
+      'Cliente liga pra remarcar, você procura horário livre no caderno. Cliente desmarca, o horário fica vazio e ninguém preenche. Tudo no WhatsApp — uma conversa pra agendar, três pra remarcar, e na correria alguém esquece. Horário perdido é dinheiro perdido.',
+    solucao:
+      'Cliente acessa um link, escolhe horário e fica agendado direto. Se ele quer remarcar, o próprio sistema sugere o melhor horário pra ele e pra você. Quando alguém desmarca, quem estava na fila de espera é avisado automaticamente. E confirma tudo por WhatsApp.',
     resultados: [
-      'Reagendamento automático em 1 clique vs. 3-5 trocas de WhatsApp',
-      'Preenchimento de slots vazios via lista de espera inteligente',
-      'Multi-profissional e multi-recurso (sala, equipamento)',
-      'Integração com WhatsApp Business para confirmações',
+      'Remarcação que levava 5 mensagens vira 1 clique',
+      'Horário cancelado em cima da hora é oferecido pra quem tá esperando',
+      'Funciona com vários profissionais e vários espaços (sala, cadeira) ao mesmo tempo',
+      'Cliente recebe confirmação automática no WhatsApp',
     ],
-    stack: ['Spring Boot (Java)', 'PostgreSQL', 'Next.js 14', 'OpenAI API', 'Easypanel + Vercel'],
+    categoria: 'Sistema de agendamento',
   },
 ]
 
@@ -74,93 +80,89 @@ export default function CasesPage() {
               Scantelbury<span className="text-cyan">Devs</span>
             </span>
           </Link>
-          <Link href="/#contact" className="font-mono text-[13px] text-cyan tracking-[0.05em] hover:text-offwhite transition-colors">
-            Falar com a equipe →
+          <Link href="/sistema-sob-medida#conversar" className="font-mono text-[13px] text-cyan tracking-[0.05em] hover:text-offwhite transition-colors">
+            Falar com a gente →
           </Link>
         </div>
       </nav>
 
       {/* Header */}
       <section className="max-w-4xl mx-auto px-6 pt-16 pb-12">
-        <p className="font-mono text-xs tracking-[0.15em] text-cyan mb-3 uppercase">Cases</p>
+        <p className="font-mono text-xs tracking-[0.15em] text-cyan mb-3 uppercase">Trabalhos nossos</p>
         <h1 className="font-sans text-4xl md:text-5xl font-extrabold text-offwhite mb-4 leading-tight">
-          Produtos que construímos<br />
-          <span className="text-cyan">e operamos em produção.</span>
+          Três sistemas que a gente construiu<br />
+          <span className="text-cyan">e mantém no ar todo dia.</span>
         </h1>
-        <p className="text-steel text-base max-w-lg leading-relaxed">
-          Três SaaS próprios, com clientes pagantes. A mesma engenharia que você contrata para o seu projeto.
+        <p className="text-steel text-base max-w-xl leading-relaxed">
+          A mesma engenharia que entrega pro seu projeto. Aqui você vê de perto: qual era o problema, o que a gente fez, e o que mudou.
         </p>
       </section>
 
       {/* Cases */}
-      <section className="max-w-4xl mx-auto px-6 pb-20 space-y-16">
+      <section className="max-w-4xl mx-auto px-6 pb-20 space-y-12">
         {cases.map((c) => (
-          <article key={c.slug} className="border border-white/[0.08] rounded-lg p-8 md:p-10">
+          <article key={c.slug} className="border border-white/[0.08] rounded-xl p-7 md:p-10 bg-gradient-to-br from-white/[0.03] to-transparent hover:border-cyan/30 transition-colors">
             <div className="flex items-start justify-between gap-4 mb-6 flex-wrap">
               <div>
-                <p className="font-mono text-xs text-cyan uppercase tracking-wider mb-2">{c.category}</p>
-                <h2 className="font-sans text-3xl md:text-4xl font-extrabold text-offwhite mb-1">{c.name}</h2>
+                <p className="font-mono text-xs text-cyan uppercase tracking-wider mb-2">{c.categoria}</p>
+                <h2 className="font-sans text-3xl md:text-4xl font-extrabold text-offwhite mb-2">{c.name}</h2>
                 <p className="text-steel text-base">{c.tagline}</p>
+                <p className="text-steel/70 text-sm italic mt-1">{c.paraQuem}</p>
               </div>
               <a
                 href={c.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono text-xs text-cyan hover:text-offwhite border border-cyan/40 px-3 py-1.5 rounded transition-colors"
+                className="font-mono text-xs text-cyan hover:text-offwhite border border-cyan/40 hover:border-offwhite px-3 py-1.5 rounded transition-colors whitespace-nowrap"
               >
-                Ver em produção →
+                Ver no ar →
               </a>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8 mb-6">
+            <div className="grid md:grid-cols-2 gap-8 mb-8">
               <div>
-                <h3 className="font-mono text-xs uppercase tracking-wider text-cyan mb-2">Desafio</h3>
-                <p className="text-steel text-sm leading-relaxed">{c.desafio}</p>
+                <h3 className="font-sans text-base font-bold text-offwhite mb-3 flex items-center gap-2">
+                  <span className="text-2xl">😩</span> O problema
+                </h3>
+                <p className="text-steel text-sm leading-relaxed">{c.problema}</p>
               </div>
               <div>
-                <h3 className="font-mono text-xs uppercase tracking-wider text-cyan mb-2">Solução</h3>
+                <h3 className="font-sans text-base font-bold text-offwhite mb-3 flex items-center gap-2">
+                  <span className="text-2xl">💡</span> O que a gente fez
+                </h3>
                 <p className="text-steel text-sm leading-relaxed">{c.solucao}</p>
               </div>
             </div>
 
-            <div className="mb-6">
-              <h3 className="font-mono text-xs uppercase tracking-wider text-cyan mb-3">Resultados</h3>
+            <div>
+              <h3 className="font-sans text-base font-bold text-offwhite mb-3 flex items-center gap-2">
+                <span className="text-2xl">📈</span> O que mudou
+              </h3>
               <ul className="space-y-2">
                 {c.resultados.map((r, i) => (
-                  <li key={i} className="text-steel text-sm leading-relaxed flex items-start gap-2">
-                    <span className="text-cyan shrink-0">→</span>
+                  <li key={i} className="text-steel text-sm leading-relaxed flex items-start gap-3">
+                    <span className="text-cyan shrink-0 font-bold">→</span>
                     <span>{r}</span>
                   </li>
                 ))}
               </ul>
-            </div>
-
-            <div>
-              <h3 className="font-mono text-xs uppercase tracking-wider text-cyan mb-3">Stack</h3>
-              <div className="flex flex-wrap gap-2">
-                {c.stack.map((s) => (
-                  <span key={s} className="font-mono text-xs text-steel border border-white/[0.08] px-2.5 py-1 rounded">
-                    {s}
-                  </span>
-                ))}
-              </div>
             </div>
           </article>
         ))}
       </section>
 
       {/* CTA */}
-      <section className="bg-white/[0.015] border-t border-white/[0.06] py-16">
+      <section className="bg-white/[0.015] border-t border-white/[0.06] py-20">
         <div className="max-w-2xl mx-auto px-6 text-center">
-          <h2 className="font-sans text-3xl md:text-4xl font-extrabold text-offwhite mb-4">
-            Seu projeto pode ser o próximo case.
+          <h2 className="font-sans text-3xl md:text-4xl font-extrabold text-offwhite mb-4 leading-tight">
+            Sua empresa pode ser <span className="text-cyan">a próxima.</span>
           </h2>
           <p className="text-steel text-base mb-8 leading-relaxed">
-            Diagnóstico grátis de 30 minutos. Conta seu desafio, devolvemos um plano técnico claro.
+            Uma conversa de 30 minutos sem compromisso. Conta o que tá te incomodando, a gente devolve um plano simples e claro.
           </p>
-          <Link href="/sistema-sob-medida#diagnostico">
-            <span className="inline-block bg-cyan text-navy font-sans font-bold px-6 py-3 rounded hover:bg-cyan/80 transition-colors">
-              Quero meu diagnóstico →
+          <Link href="/sistema-sob-medida#conversar">
+            <span className="inline-block bg-cyan text-navy font-sans font-bold px-7 py-3 rounded hover:bg-cyan/80 transition-colors">
+              Quero conversar sem compromisso →
             </span>
           </Link>
         </div>
@@ -169,7 +171,7 @@ export default function CasesPage() {
       <footer className="border-t border-white/[0.06] py-8">
         <div className="max-w-5xl mx-auto px-6 text-center">
           <p className="text-steel text-xs">
-            ScantelburyDevs · Blumenau, SC · atendimento remoto em todo o Brasil
+            ScantelburyDevs · Blumenau, SC · atendimento em todo o Brasil
           </p>
         </div>
       </footer>
