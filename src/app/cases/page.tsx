@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Trabalhos que fizemos',
-  description: 'Três sistemas próprios que a ScantelburyDevs construiu e mantém no ar todo dia, com clientes pagantes: NotaFácil (emissão de nota fiscal pra MEI), EventGear (controle de equipamentos em produtoras de eventos) e Agenda Inteligente (agendamento online).',
+  description: 'Três sistemas próprios que a ScantelburyDevs construiu e mantém no ar todo dia, com clientes pagantes: NotaFácil (emissão de nota fiscal pra MEI), Descrição AI (geração de descrição de produto com IA) e Agenda Inteligente (agendamento online).',
 }
 
 const cases = [
@@ -11,7 +11,7 @@ const cases = [
     slug: 'notafacil',
     name: 'NotaFácil',
     tagline: 'Emite nota fiscal pra MEI em segundos',
-    url: 'https://www.emitirnotafacil.com.br/',
+    url: 'http://emitirnotafacil.com.br',
     paraQuem: 'Pra Microempreendedor Individual e contador',
     problema:
       'Desde 2023 o MEI brasileiro é obrigado a emitir nota fiscal de serviço. O sistema oficial do governo é confuso, lento e dá erro toda hora. Quem trabalha sozinho perde horas pra emitir 5 notas, e quem tem vários MEIs (contador) não consegue emitir em massa.',
@@ -26,28 +26,28 @@ const cases = [
     categoria: 'Programa pra emitir nota fiscal',
   },
   {
-    slug: 'eventgear',
-    name: 'EventGear',
-    tagline: 'Controle de equipamentos pra produtora de eventos',
-    url: 'https://eventgear-web.h1dq2d.easypanel.host/',
-    paraQuem: 'Pra produtora de eventos, locadora de equipamentos audiovisuais',
+    slug: 'descricao-ai',
+    name: 'Descrição AI',
+    tagline: 'Descrições de produto prontas em segundos com IA',
+    url: 'https://descricaoai.com.br/',
+    paraQuem: 'Pra dono de loja online, e-commerce, marketplace',
     problema:
-      'Produtora de evento perde equipamento entre uma festa e outra. Microfone, cabo, rack — desaparece e ninguém sabe quem levou. Cada item perdido custa de R$ 500 a R$ 5 mil. A planilha que controlava não dava conta — ninguém sabia mais o que tinha sido emprestado pra quem.',
+      'Quem vende online tem centenas de produtos pra cadastrar e cada um precisa de descrição que vende. Escrever uma por uma toma dias. Copiar pronto do fornecedor não converte. Contratar redator dá orçamento alto e demora.',
     solucao:
-      'Cada equipamento ganhou um adesivo com código de barras (QR Code). O técnico bate a câmera do celular, marca quem pegou e pra qual evento. Quando o evento acaba, a saída e a volta de cada item ficam registradas. Funciona até sem internet — sincroniza quando voltar a conectar.',
+      'Você cola o nome do produto e umas características básicas. Em segundos, a inteligência artificial gera uma descrição completa, atrativa, no tom da sua loja e otimizada pra aparecer no Google. Você revisa e usa.',
     resultados: [
-      'Perdas de equipamento caíram 70%',
-      'O check-list de saída de evento que levava 2 horas agora leva 15 minutos',
-      'Cada técnico fica responsável pelo que pegou — acabou o "achei que era do João"',
-      'O técnico usa o celular dele no evento — não precisa carregar notebook',
+      'Descrição que levava 30 minutos pra escrever agora fica pronta em 30 segundos',
+      'Textos otimizados pro Google (SEO) sem você precisar entender do assunto',
+      'Mantém o tom de voz consistente em toda a loja, mesmo com vários produtos',
+      'Pra cadastrar dezenas de produtos numa tarde — sem perder qualidade',
     ],
-    categoria: 'Sistema pra controlar equipamentos',
+    categoria: 'Sistema de descrição de produto com IA',
   },
   {
     slug: 'agenda-inteligente',
     name: 'Agenda Inteligente',
     tagline: 'Agendamento online que se adapta sozinho',
-    url: 'https://agendainteligentefrontend.agendainteligenteapp.cloud/',
+    url: 'https://agendainteligente-aleefhenriiques-projects.vercel.app/',
     paraQuem: 'Pra clínica, salão de beleza, prestador de serviço',
     problema:
       'Cliente liga pra remarcar, você procura horário livre no caderno. Cliente desmarca, o horário fica vazio e ninguém preenche. Tudo no WhatsApp — uma conversa pra agendar, três pra remarcar, e na correria alguém esquece. Horário perdido é dinheiro perdido.',

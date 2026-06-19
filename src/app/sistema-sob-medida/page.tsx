@@ -263,7 +263,7 @@ export default function SistemaSobMedidaLP() {
               <p className="font-sans text-5xl font-extrabold text-cyan mb-2">3</p>
               <p className="font-sans text-base font-bold text-offwhite mb-1">Programas próprios</p>
               <p className="text-steel text-sm leading-relaxed">
-                NotaFácil, EventGear e Agenda Inteligente — com clientes pagando há anos.
+                NotaFácil, Descrição AI e Agenda Inteligente — com clientes pagando há anos.
               </p>
             </div>
             <div className="text-center border border-white/[0.08] rounded-xl p-7 bg-gradient-to-br from-white/[0.03] to-transparent">

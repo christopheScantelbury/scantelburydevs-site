@@ -7,7 +7,7 @@ const SITE_URL = 'https://www.scantelburydevs.com.br'
 const SITE_NAME = 'ScantelburyDevs'
 const DEFAULT_TITLE = 'ScantelburyDevs — Construímos, lançamos e operamos software em produção'
 const DEFAULT_DESC =
-  'ScantelburyDevs: empresa de tecnologia em Blumenau, SC. Desenvolvimento de aplicações, migração de sistemas e soluções customizadas. Produtos em produção: NotaFácil, Descrição AI, EventGear e Agenda Inteligente.'
+  'ScantelburyDevs: empresa de tecnologia em Blumenau, SC. Desenvolvimento de aplicações, migração de sistemas e soluções customizadas. Produtos em produção: NotaFácil, Descrição AI e Agenda Inteligente.'
 
 export const viewport: Viewport = {
   themeColor: '#0A0F1E',
@@ -38,7 +38,6 @@ export const metadata: Metadata = {
     'NotaFácil',
     'NFS-e MEI',
     'Descrição AI',
-    'EventGear',
     'Agenda Inteligente',
     'Blumenau',
     'Santa Catarina',
@@ -144,7 +143,7 @@ const PRODUCTS_JSONLD = {
       description: 'Plataforma e API REST para emissão automatizada de NFS-e do MEI.',
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
-      url: 'https://www.emitirnotafacil.com.br/',
+      url: 'http://emitirnotafacil.com.br',
     },
     {
       '@type': 'SoftwareApplication',
@@ -158,20 +157,11 @@ const PRODUCTS_JSONLD = {
     {
       '@type': 'SoftwareApplication',
       position: 3,
-      name: 'EventGear',
-      description: 'Gestão de inventário técnico para produtoras de eventos.',
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'Web',
-      url: 'https://eventgear-web.h1dq2d.easypanel.host/',
-    },
-    {
-      '@type': 'SoftwareApplication',
-      position: 4,
       name: 'Agenda Inteligente',
       description: 'Plataforma de agendamento com camada inteligente para profissionais e clínicas.',
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
-      url: 'https://agendainteligentefrontend.agendainteligenteapp.cloud/',
+      url: 'https://agendainteligente-aleefhenriiques-projects.vercel.app/',
     },
   ],
 }
