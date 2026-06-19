@@ -6,6 +6,7 @@ import { Card } from '@/components/ui'
 import { Badge } from '@/components/ui'
 import { Input, Textarea, Select } from '@/components/ui'
 import { useState, useRef, useEffect } from 'react'
+import { trackLead, trackContact, trackChatOpen } from '@/lib/analytics'
 
 type Lang = 'pt' | 'en'
 
@@ -150,7 +151,7 @@ function AIChatWidget({ lang }: { lang: Lang }) {
       )}
 
       <button
-        onClick={() => setOpen(o => !o)}
+        onClick={() => setOpen(o => { const next = !o; if (next) trackChatOpen(); return next })}
         className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-cyan flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110"
         aria-label={open ? 'Fechar chat' : 'Abrir chat com assistente'}
       >
@@ -185,6 +186,7 @@ function AIChatWidget({ lang }: { lang: Lang }) {
             </div>
             <a href="https://wa.me/5547997352380" target="_blank" rel="noopener noreferrer"
               aria-label="Ir para WhatsApp"
+              onClick={() => trackContact('whatsapp_chat')}
               className="font-mono text-[9px] text-steel tracking-[0.1em] border border-white/10 px-2 py-1.5 rounded hover:border-cyan/30 hover:text-cyan transition-colors min-h-[32px] flex items-center">
               WhatsApp
             </a>
@@ -253,10 +255,25 @@ export default function Home() {
   function handleWhatsApp(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const fd = new FormData(e.currentTarget)
-    const name = fd.get('name') || 'Visitante'
-    const email = fd.get('email') || ''
-    const type = fd.get('type') || ''
-    const msg = fd.get('message') || ''
+    const name = String(fd.get('name') || 'Visitante')
+    const email = String(fd.get('email') || '')
+    const type = String(fd.get('type') || '')
+    const msg = String(fd.get('message') || '')
+
+    // 1) Captura confiável server-side (não depende do WhatsApp abrir).
+    //    keepalive garante a entrega mesmo com a navegação para o wa.me em seguida.
+    fetch('/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, type, message: msg, lang, source: 'form' }),
+      keepalive: true,
+    }).catch(() => {})
+
+    // 2) Conversão para as campanhas (Meta + Google Ads + LinkedIn).
+    trackLead({ source: 'form', projectType: type, lang })
+
+    // 3) Abre o WhatsApp de forma síncrona (dentro do gesto do usuário →
+    //    não é bloqueado por popup blocker).
     const text = encodeURIComponent(
       `Olá, ScantelburyDevs.\n\nMeu nome é ${name} (${email}).\nTipo de projeto: ${type}\n\nContexto:\n${msg}\n\nGostaria de agendar um diagnóstico.`
     )
@@ -355,7 +372,8 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-            <a href={bookingUrl} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
+            <a href={bookingUrl} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto"
+              onClick={() => trackLead({ source: 'whatsapp', lang })}>
               <Button size="lg" className="w-full sm:w-auto">{tx(t.hero.cta1)} →</Button>
             </a>
             <a href="#produtos" className="w-full sm:w-auto">
@@ -695,7 +713,8 @@ export default function Home() {
                 ? 'Não sabe qual escolher? Conversamos e definimos juntos.'
                 : "Not sure which fits? Let's talk and decide together."}
             </p>
-            <a href={bookingUrl} target="_blank" rel="noopener noreferrer">
+            <a href={bookingUrl} target="_blank" rel="noopener noreferrer"
+              onClick={() => trackLead({ source: 'whatsapp', lang })}>
               <Button size="md">{tx(t.pricing.cta)}</Button>
             </a>
           </div>
@@ -722,6 +741,7 @@ export default function Home() {
                     icon:<svg width="18" height="18" viewBox="0 0 24 24" fill="#00D4FF" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg> },
                 ].map(ch => (
                   <a key={ch.label} href={ch.href} target="_blank" rel="noopener noreferrer" aria-label={`${ch.label}: ${ch.value}`}
+                    onClick={() => trackContact(ch.label)}
                     className="flex items-center gap-4 p-4 bg-navy border border-white/[0.06] rounded-xl hover:border-cyan/25 hover:bg-navy-border transition-all min-h-[64px]">
                     <div className="w-10 h-10 rounded-[10px] bg-cyan/[0.08] border border-cyan/20 flex items-center justify-center flex-shrink-0">{ch.icon}</div>
                     <div className="min-w-0">

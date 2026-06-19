@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { marked } from 'marked'
 import { getAllPosts, getPostBySlug } from '@/lib/posts'
+import { NewsletterCapture } from '@/components/NewsletterCapture'
 
 interface Props {
   params: { slug: string }
@@ -85,6 +86,9 @@ export default function PostPage({ params }: Props) {
           dangerouslySetInnerHTML={{ __html: html }}
           className="prose-blog"
         />
+
+        {/* Newsletter capture */}
+        <NewsletterCapture />
 
         {/* CTA */}
         <div className="mt-16 p-8 rounded-2xl border border-cyan/[0.15] bg-cyan/[0.04]">

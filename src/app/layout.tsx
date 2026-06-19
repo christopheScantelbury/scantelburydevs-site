@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next'
-import Script from 'next/script'
 import { Analytics } from '@vercel/analytics/react'
+import { Pixels } from '@/components/Pixels'
 import '@/styles/globals.css'
 
 const SITE_URL = 'https://www.scantelburydevs.com.br'
@@ -177,8 +177,6 @@ const PRODUCTS_JSONLD = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const gaId = process.env.NEXT_PUBLIC_GA_ID
-
   return (
     <html lang="pt-BR">
       <head>
@@ -200,22 +198,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         {children}
         <Analytics />
-        {gaId && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-              strategy="afterInteractive"
-            />
-            <Script id="ga4-init" strategy="afterInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${gaId}', { anonymize_ip: true });
-              `}
-            </Script>
-          </>
-        )}
+        <Pixels />
       </body>
     </html>
   )

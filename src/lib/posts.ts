@@ -17,6 +17,14 @@ export interface Post extends PostMeta {
   content: string
 }
 
+// YAML converte datas não-quotadas (date: 2026-05-15) em objeto Date.
+// Normalizamos sempre para string "AAAA-MM-DD" — assim o resto do código
+// (formatDate, ordenação) pode confiar que `date` é string.
+function normalizeDate(value: unknown): string {
+  if (value instanceof Date) return value.toISOString().slice(0, 10)
+  return value == null ? '' : String(value)
+}
+
 function getPostFiles(): string[] {
   if (!fs.existsSync(POSTS_DIR)) return []
   return fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.md'))
@@ -32,7 +40,7 @@ export function getAllPosts(): PostMeta[] {
         slug,
         title: data.title ?? slug,
         description: data.description ?? '',
-        date: data.date ?? '',
+        date: normalizeDate(data.date),
         tags: data.tags ?? [],
         readTime: data.readTime ?? 5,
       }
@@ -49,7 +57,7 @@ export function getPostBySlug(slug: string): Post | null {
     slug,
     title: data.title ?? slug,
     description: data.description ?? '',
-    date: data.date ?? '',
+    date: normalizeDate(data.date),
     tags: data.tags ?? [],
     readTime: data.readTime ?? 5,
     content,
