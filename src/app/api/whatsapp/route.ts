@@ -5,21 +5,12 @@ import { getConversation, saveConversation } from '@/lib/conversation-store'
 
 export const runtime = 'nodejs'
 
-// debug temporário: último status de entrega recebido
-let lastStatus = ''
-
 const GRAPH_URL = 'https://graph.facebook.com/v21.0'
 const FECHAMENTO = /(christophe|agend|hor[áa]rio|melhor.{0,6}(per[íi]odo|dia)|conversa gratuita|diagn[óo]stico gratuito|voltar a conversar)/i
 
 // ─── GET: verificação do webhook (handshake da Meta) ──────────────────────────
 export async function GET(req: NextRequest) {
   const params = req.nextUrl.searchParams
-  if (params.get('debug') === 'st') {
-    return new NextResponse(lastStatus || 'sem status ainda', {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    })
-  }
   const mode = params.get('hub.mode')
   const token = params.get('hub.verify_token')
   const challenge = params.get('hub.challenge')
@@ -51,30 +42,23 @@ export async function POST(req: NextRequest) {
 }
 
 async function processarPayload(payload: WhatsAppWebhookPayload) {
-  const value = payload?.entry?.[0]?.changes?.[0]?.value as
-    | {
-        metadata?: { phone_number_id?: string }
-        contacts?: { profile?: { name?: string }; wa_id?: string }[]
-        messages?: { from?: string; type?: string; text?: { body?: string } }[]
-        statuses?: { status?: string; recipient_id?: string; errors?: { code?: number }[] }[]
-      }
-    | undefined
+  const value = payload?.entry?.[0]?.changes?.[0]?.value
 
-  // DEBUG: status de entrega (sent/delivered/failed) com código de erro
-  const st = value?.statuses?.[0]
-  if (st) {
-    lastStatus = JSON.stringify(st)
-    console.log('[wa]ST=' + st.status + '/' + (st.errors?.[0]?.code ?? '-') + '/' + st.recipient_id)
+  // Eventos de status de entrega (sent/delivered/read/failed). Loga falhas para
+  // operação (ex.: 130497 = conta não verificada / restrita por país).
+  const status = value?.statuses?.[0]
+  if (status) {
+    if (status.status === 'failed') {
+      const e = status.errors?.[0]
+      console.error('[wa] entrega falhou', e?.code, e?.title)
+    }
     return
   }
 
   const message = value?.messages?.[0]
   if (!message || message.type !== 'text') return
 
-  // DEBUG: forma exata do wa_id que o WhatsApp usa para este contato
-  console.log('[wa]from=' + message.from + ' wa_id=' + value?.contacts?.[0]?.wa_id)
-
-  const from = message.from // telefone do cliente (E.164 sem +)
+  const from = message.from // wa_id do cliente (forma canônica do WhatsApp)
   const texto = message.text?.body?.trim()
   if (!from || !texto) return
 
@@ -119,8 +103,7 @@ async function enviarWhatsApp(phoneNumberId: string | undefined, to: string, tex
   const pnId = phoneNumberId || process.env.WHATSAPP_PHONE_NUMBER_ID
   if (!token || !pnId) return
 
-  // Responde sempre ao wa_id exato recebido no webhook (forma canônica do
-  // WhatsApp). Não reformatar o 9º dígito — a Meta entrega ao wa_id real.
+  // Responde ao wa_id exato recebido no webhook (a Meta entrega à forma canônica).
   const res = await fetch(`${GRAPH_URL}/${pnId}/messages`, {
     method: 'POST',
     headers: {
@@ -146,11 +129,16 @@ interface WhatsAppWebhookPayload {
     changes?: {
       value?: {
         metadata?: { phone_number_id?: string }
-        contacts?: { profile?: { name?: string } }[]
+        contacts?: { profile?: { name?: string }; wa_id?: string }[]
         messages?: {
           from?: string
           type?: string
           text?: { body?: string }
+        }[]
+        statuses?: {
+          status?: string
+          recipient_id?: string
+          errors?: { code?: number; title?: string }[]
         }[]
       }
     }[]
