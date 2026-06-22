@@ -55,16 +55,11 @@ export async function POST(req: NextRequest) {
 
 async function processarPayload(payload: WhatsAppWebhookPayload) {
   lastRaw = JSON.stringify(payload)
-  console.log('[wa] raw:', lastRaw.slice(0, 900))
   const value = payload?.entry?.[0]?.changes?.[0]?.value
   const message = value?.messages?.[0]
-  const field = payload?.entry?.[0]?.changes?.[0] as { field?: string } | undefined
-  console.log('[wa] evento:', JSON.stringify({
-    field: field?.field,
-    hasMessage: Boolean(message),
-    type: message?.type,
-    hasStatuses: Boolean((value as { statuses?: unknown[] })?.statuses),
-  }))
+  const hasStatus = Boolean((value as { statuses?: unknown[] })?.statuses)
+  // log curto e decisivo (cabe na tabela de logs)
+  console.log('[wa]K=' + (message?.type ?? (hasStatus ? 'STATUS' : 'NONE')))
   if (!message || message.type !== 'text') return
 
   const from = message.from // telefone do cliente (E.164 sem +)
@@ -86,7 +81,7 @@ async function processarPayload(payload: WhatsAppWebhookPayload) {
   })
 
   state.history.push({ role: 'assistant', content: reply })
-  console.log('[wa] reply gerado:', reply.slice(0, 60), '| from:', from, '| pnId:', phoneNumberId)
+  console.log('[wa]R=' + reply.length + ' pn=' + (phoneNumberId ?? 'none'))
 
   await enviarWhatsApp(phoneNumberId, from, reply)
 
@@ -132,9 +127,9 @@ async function enviarWhatsApp(phoneNumberId: string | undefined, to: string, tex
   })
   if (!res.ok) {
     const body = await res.text().catch(() => '')
-    console.error('[wa] envio falhou', res.status, body.slice(0, 300))
+    console.error('[wa]ERR' + res.status + ':' + body.slice(0, 200))
   } else {
-    console.log('[wa] mensagem enviada OK')
+    console.log('[wa]SENT-OK')
   }
 }
 
