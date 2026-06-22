@@ -35,8 +35,8 @@ export async function POST(req: NextRequest) {
   // mover para fila.
   try {
     await processarPayload(payload)
-  } catch {
-    // engole erros para não causar retries em loop
+  } catch (err) {
+    console.error('[wa] erro no processamento:', err instanceof Error ? err.message : err)
   }
 
   return NextResponse.json({ ok: true })
@@ -45,6 +45,13 @@ export async function POST(req: NextRequest) {
 async function processarPayload(payload: WhatsAppWebhookPayload) {
   const value = payload?.entry?.[0]?.changes?.[0]?.value
   const message = value?.messages?.[0]
+  const field = payload?.entry?.[0]?.changes?.[0] as { field?: string } | undefined
+  console.log('[wa] evento:', JSON.stringify({
+    field: field?.field,
+    hasMessage: Boolean(message),
+    type: message?.type,
+    hasStatuses: Boolean((value as { statuses?: unknown[] })?.statuses),
+  }))
   if (!message || message.type !== 'text') return
 
   const from = message.from // telefone do cliente (E.164 sem +)
@@ -66,6 +73,7 @@ async function processarPayload(payload: WhatsAppWebhookPayload) {
   })
 
   state.history.push({ role: 'assistant', content: reply })
+  console.log('[wa] reply gerado:', reply.slice(0, 60), '| from:', from, '| pnId:', phoneNumberId)
 
   await enviarWhatsApp(phoneNumberId, from, reply)
 
@@ -91,9 +99,12 @@ async function processarPayload(payload: WhatsAppWebhookPayload) {
 async function enviarWhatsApp(phoneNumberId: string | undefined, to: string, text: string) {
   const token = process.env.WHATSAPP_TOKEN
   const pnId = phoneNumberId || process.env.WHATSAPP_PHONE_NUMBER_ID
-  if (!token || !pnId) return
+  if (!token || !pnId) {
+    console.error('[wa] envio abortado — token/pnId ausente', { token: Boolean(token), pnId })
+    return
+  }
 
-  await fetch(`${GRAPH_URL}/${pnId}/messages`, {
+  const res = await fetch(`${GRAPH_URL}/${pnId}/messages`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -106,6 +117,12 @@ async function enviarWhatsApp(phoneNumberId: string | undefined, to: string, tex
       text: { body: text },
     }),
   })
+  if (!res.ok) {
+    const body = await res.text().catch(() => '')
+    console.error('[wa] envio falhou', res.status, body.slice(0, 300))
+  } else {
+    console.log('[wa] mensagem enviada OK')
+  }
 }
 
 // ─── Tipos mínimos do payload do WhatsApp Cloud API ───────────────────────────
