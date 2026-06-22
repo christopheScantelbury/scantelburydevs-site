@@ -90,7 +90,7 @@ async function processarPayload(payload: WhatsAppWebhookPayload) {
   if (!state.resumo_enviado && userTurns >= 3 && FECHAMENTO.test(reply)) {
     const resumo = await extrairResumoLead(state.history, {
       origem: 'WhatsApp (Google Ads / landing page)',
-      contato: `+${formatarDestino(from)}`,
+      contato: `+${from}`,
     })
     if (resumo) {
       const transcript = state.history
@@ -104,24 +104,13 @@ async function processarPayload(payload: WhatsAppWebhookPayload) {
   await saveConversation(from, state)
 }
 
-/**
- * Corrige o 9º dígito de celulares brasileiros. O webhook entrega o número no
- * formato wa_id (sem o 9: 55 + DDD + 8 dígitos), mas o envio precisa do número
- * com o 9 (55 + DDD + 9 + 8 dígitos). Para outros países, retorna como veio.
- */
-function formatarDestino(num: string): string {
-  const d = num.replace(/\D/g, '')
-  if (d.startsWith('55') && d.length === 12) {
-    return d.slice(0, 4) + '9' + d.slice(4)
-  }
-  return d
-}
-
 async function enviarWhatsApp(phoneNumberId: string | undefined, to: string, text: string) {
   const token = process.env.WHATSAPP_TOKEN
   const pnId = phoneNumberId || process.env.WHATSAPP_PHONE_NUMBER_ID
   if (!token || !pnId) return
 
+  // Responde sempre ao wa_id exato recebido no webhook (forma canônica do
+  // WhatsApp). Não reformatar o 9º dígito — a Meta entrega ao wa_id real.
   const res = await fetch(`${GRAPH_URL}/${pnId}/messages`, {
     method: 'POST',
     headers: {
@@ -130,7 +119,7 @@ async function enviarWhatsApp(phoneNumberId: string | undefined, to: string, tex
     },
     body: JSON.stringify({
       messaging_product: 'whatsapp',
-      to: formatarDestino(to),
+      to,
       type: 'text',
       text: { body: text },
     }),
