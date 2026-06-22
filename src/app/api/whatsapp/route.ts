@@ -58,13 +58,14 @@ async function processarPayload(payload: WhatsAppWebhookPayload) {
   const value = payload?.entry?.[0]?.changes?.[0]?.value
   const message = value?.messages?.[0]
   const hasStatus = Boolean((value as { statuses?: unknown[] })?.statuses)
-  // log curto e decisivo (cabe na tabela de logs)
-  console.log('[wa]K=' + (message?.type ?? (hasStatus ? 'STATUS' : 'NONE')))
-  if (!message || message.type !== 'text') return
+  if (!message || message.type !== 'text') {
+    console.log('[wa]skip=' + (message?.type ?? (hasStatus ? 'status' : 'none')))
+    return
+  }
 
   const from = message.from // telefone do cliente (E.164 sem +)
   const texto = message.text?.body?.trim()
-  if (!from || !texto) return
+  if (!from || !texto) { console.log('[wa]skip=empty'); return }
 
   const phoneNumberId = value?.metadata?.phone_number_id
   const nomeContato = value?.contacts?.[0]?.profile?.name
@@ -73,17 +74,22 @@ async function processarPayload(payload: WhatsAppWebhookPayload) {
   state.history.push({ role: 'user', content: texto })
   if (nomeContato && !state.meta.nome) state.meta.nome = nomeContato
 
-  // Primeira mensagem: contexto de origem (WhatsApp via anúncio/landing)
-  const reply = await gerarResposta(state.history, {
-    contexto: `Canal: WhatsApp. Origem provável: Google Ads / landing page. ${
-      state.meta.nome ? `Nome no WhatsApp: ${state.meta.nome}.` : ''
-    }`,
-  })
+  let reply: string
+  try {
+    reply = await gerarResposta(state.history, {
+      contexto: `Canal: WhatsApp. Origem provável: Google Ads / landing page. ${
+        state.meta.nome ? `Nome no WhatsApp: ${state.meta.nome}.` : ''
+      }`,
+    })
+  } catch (e) {
+    console.error('[wa]IA-ERR:' + (e instanceof Error ? e.message.slice(0, 120) : 'x'))
+    return
+  }
 
   state.history.push({ role: 'assistant', content: reply })
-  console.log('[wa]R=' + reply.length + ' pn=' + (phoneNumberId ?? 'none'))
 
-  await enviarWhatsApp(phoneNumberId, from, reply)
+  const envio = await enviarWhatsApp(phoneNumberId, from, reply)
+  console.log('[wa]S=' + envio.status + ':' + envio.code)
 
   // Resumo uma única vez, ao conduzir para o próximo passo
   const userTurns = state.history.filter(m => m.role === 'user').length
@@ -104,13 +110,14 @@ async function processarPayload(payload: WhatsAppWebhookPayload) {
   await saveConversation(from, state)
 }
 
-async function enviarWhatsApp(phoneNumberId: string | undefined, to: string, text: string) {
+async function enviarWhatsApp(
+  phoneNumberId: string | undefined,
+  to: string,
+  text: string
+): Promise<{ status: number; code: string }> {
   const token = process.env.WHATSAPP_TOKEN
   const pnId = phoneNumberId || process.env.WHATSAPP_PHONE_NUMBER_ID
-  if (!token || !pnId) {
-    console.error('[wa] envio abortado — token/pnId ausente', { token: Boolean(token), pnId })
-    return
-  }
+  if (!token || !pnId) return { status: 0, code: 'no-env' }
 
   const res = await fetch(`${GRAPH_URL}/${pnId}/messages`, {
     method: 'POST',
@@ -125,12 +132,15 @@ async function enviarWhatsApp(phoneNumberId: string | undefined, to: string, tex
       text: { body: text },
     }),
   })
-  if (!res.ok) {
-    const body = await res.text().catch(() => '')
-    console.error('[wa]ERR' + res.status + ':' + body.slice(0, 200))
-  } else {
-    console.log('[wa]SENT-OK')
-  }
+  if (res.ok) return { status: res.status, code: 'ok' }
+
+  const body = await res.json().catch(() => null)
+  const code =
+    (body as { error?: { code?: number; error_subcode?: number } } | null)?.error?.code?.toString() ??
+    'err'
+  // log completo do erro (caso o detalhe ajude além do código)
+  console.error('[wa]ERRBODY:' + JSON.stringify(body).slice(0, 250))
+  return { status: res.status, code }
 }
 
 // ─── Tipos mínimos do payload do WhatsApp Cloud API ───────────────────────────
