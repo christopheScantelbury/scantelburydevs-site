@@ -5,12 +5,21 @@ import { getConversation, saveConversation } from '@/lib/conversation-store'
 
 export const runtime = 'nodejs'
 
+// debug temporário: último status de entrega recebido
+let lastStatus = ''
+
 const GRAPH_URL = 'https://graph.facebook.com/v21.0'
 const FECHAMENTO = /(christophe|agend|hor[áa]rio|melhor.{0,6}(per[íi]odo|dia)|conversa gratuita|diagn[óo]stico gratuito|voltar a conversar)/i
 
 // ─── GET: verificação do webhook (handshake da Meta) ──────────────────────────
 export async function GET(req: NextRequest) {
   const params = req.nextUrl.searchParams
+  if (params.get('debug') === 'st') {
+    return new NextResponse(lastStatus || 'sem status ainda', {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    })
+  }
   const mode = params.get('hub.mode')
   const token = params.get('hub.verify_token')
   const challenge = params.get('hub.challenge')
@@ -54,6 +63,7 @@ async function processarPayload(payload: WhatsAppWebhookPayload) {
   // DEBUG: status de entrega (sent/delivered/failed) com código de erro
   const st = value?.statuses?.[0]
   if (st) {
+    lastStatus = JSON.stringify(st)
     console.log('[wa]ST=' + st.status + '/' + (st.errors?.[0]?.code ?? '-') + '/' + st.recipient_id)
     return
   }
