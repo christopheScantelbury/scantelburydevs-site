@@ -135,11 +135,11 @@ async function enviarWhatsApp(
   if (res.ok) return { status: res.status, code: 'ok' }
 
   const body = await res.json().catch(() => null)
-  const code =
-    (body as { error?: { code?: number; error_subcode?: number } } | null)?.error?.code?.toString() ??
-    'err'
-  // log completo do erro (caso o detalhe ajude além do código)
-  console.error('[wa]ERRBODY:' + JSON.stringify(body).slice(0, 250))
+  const err = (body as { error?: { code?: number; error_subcode?: number } } | null)?.error
+  const code = `${err?.code ?? 'x'}/${err?.error_subcode ?? '0'}`
+  // primeiro log = código curto (cabe na tabela); segundo = corpo completo
+  console.error('[wa]C=' + res.status + '|' + code)
+  lastRaw = JSON.stringify(body)
   return { status: res.status, code }
 }
 
