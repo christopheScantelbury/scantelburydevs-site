@@ -8,9 +8,20 @@ export const runtime = 'nodejs'
 const GRAPH_URL = 'https://graph.facebook.com/v21.0'
 const FECHAMENTO = /(christophe|agend|hor[áa]rio|melhor.{0,6}(per[íi]odo|dia)|conversa gratuita|diagn[óo]stico gratuito|voltar a conversar)/i
 
+// debug temporário: guarda o último payload recebido em memória
+let lastRaw = ''
+
 // ─── GET: verificação do webhook (handshake da Meta) ──────────────────────────
 export async function GET(req: NextRequest) {
   const params = req.nextUrl.searchParams
+
+  if (params.get('debug') === 'scdevs-x9') {
+    return new NextResponse(lastRaw || 'sem payload ainda', {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    })
+  }
+
   const mode = params.get('hub.mode')
   const token = params.get('hub.verify_token')
   const challenge = params.get('hub.challenge')
@@ -43,7 +54,8 @@ export async function POST(req: NextRequest) {
 }
 
 async function processarPayload(payload: WhatsAppWebhookPayload) {
-  console.log('[wa] raw:', JSON.stringify(payload).slice(0, 900))
+  lastRaw = JSON.stringify(payload)
+  console.log('[wa] raw:', lastRaw.slice(0, 900))
   const value = payload?.entry?.[0]?.changes?.[0]?.value
   const message = value?.messages?.[0]
   const field = payload?.entry?.[0]?.changes?.[0] as { field?: string } | undefined
