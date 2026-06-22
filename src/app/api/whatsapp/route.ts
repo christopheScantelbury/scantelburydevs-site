@@ -42,10 +42,27 @@ export async function POST(req: NextRequest) {
 }
 
 async function processarPayload(payload: WhatsAppWebhookPayload) {
-  const value = payload?.entry?.[0]?.changes?.[0]?.value
+  const value = payload?.entry?.[0]?.changes?.[0]?.value as
+    | {
+        metadata?: { phone_number_id?: string }
+        contacts?: { profile?: { name?: string }; wa_id?: string }[]
+        messages?: { from?: string; type?: string; text?: { body?: string } }[]
+        statuses?: { status?: string; recipient_id?: string; errors?: { code?: number }[] }[]
+      }
+    | undefined
+
+  // DEBUG: status de entrega (sent/delivered/failed) com código de erro
+  const st = value?.statuses?.[0]
+  if (st) {
+    console.log('[wa]ST=' + st.status + '/' + (st.errors?.[0]?.code ?? '-') + '/' + st.recipient_id)
+    return
+  }
+
   const message = value?.messages?.[0]
-  // ignora eventos que não são mensagem de texto (status de entrega etc.)
   if (!message || message.type !== 'text') return
+
+  // DEBUG: forma exata do wa_id que o WhatsApp usa para este contato
+  console.log('[wa]from=' + message.from + ' wa_id=' + value?.contacts?.[0]?.wa_id)
 
   const from = message.from // telefone do cliente (E.164 sem +)
   const texto = message.text?.body?.trim()
