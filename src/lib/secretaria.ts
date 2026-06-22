@@ -1,7 +1,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // Secretária comercial inteligente — ScantelburyDevs
 // Cérebro compartilhado entre o widget da landing page (/api/secretaria)
-// e o WhatsApp Cloud API (/api/whatsapp). Modelo: Sonnet.
+// e o WhatsApp Cloud API (/api/whatsapp). Modelo: Sonnet 4.6.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const SECRETARIA_MODEL = 'claude-sonnet-4-6'
@@ -109,7 +109,7 @@ export async function gerarResposta(
     },
     body: JSON.stringify({
       model: SECRETARIA_MODEL,
-      max_tokens: 700,
+      max_tokens: 1200,
       system,
       messages: trimmed,
     }),
