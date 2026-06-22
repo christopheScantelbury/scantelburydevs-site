@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Button, Input, Textarea, Select } from '@/components/ui'
 import { trackLead } from '@/lib/analytics'
 import { FAQ_ITEMS } from './faq'
+import SecretariaChat from './SecretariaChat'
 
 const WHATSAPP_URL = 'https://wa.me/5547997352380?text=Ol%C3%A1%2C+quero+um+diagn%C3%B3stico+gratuito+para+um+sistema+sob+medida'
 
@@ -483,6 +484,9 @@ export default function SistemaSobMedidaClient() {
           </p>
         </div>
       </footer>
+
+      {/* Assistente comercial (Sonnet) — atende o tráfego de anúncios */}
+      <SecretariaChat />
     </main>
   )
 }
