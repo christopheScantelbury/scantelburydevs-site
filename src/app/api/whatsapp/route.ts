@@ -43,6 +43,7 @@ export async function POST(req: NextRequest) {
 }
 
 async function processarPayload(payload: WhatsAppWebhookPayload) {
+  console.log('[wa] raw:', JSON.stringify(payload).slice(0, 900))
   const value = payload?.entry?.[0]?.changes?.[0]?.value
   const message = value?.messages?.[0]
   const field = payload?.entry?.[0]?.changes?.[0] as { field?: string } | undefined
