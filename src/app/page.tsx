@@ -427,8 +427,8 @@ export default function Home() {
 
         <div className="relative z-10 max-w-4xl w-full reveal-stagger">
           {/* h1 com slogan triplo — Construímos. Lançamos. Operamos. */}
-          <h1 className="font-display font-[800] leading-[1.08] mb-6"
-            style={{ fontSize: 'clamp(36px, 5vw, 62px)', letterSpacing: '-0.02em' }}>
+          <h1 className="font-display font-[700] leading-[1.08] mb-6"
+            style={{ fontSize: 'clamp(36px, 5vw, 62px)', letterSpacing: '-0.05em' }}>
             {lang === 'pt' ? (
               <>
                 <span className="text-offwhite">Construímos.</span>{' '}

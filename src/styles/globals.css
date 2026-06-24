@@ -1,5 +1,5 @@
-/* auditoria: preconnect declarado no layout.tsx; font-display=swap via parâmetro da URL */
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500;700;800&display=swap');
+/* Fontes carregadas via next/font no layout.tsx (sem FOUT, sem layout shift).
+   --font-body (Inter) e --font-display (JetBrains Mono) ficam nas tags <html>. */
 
 @tailwind base;
 @tailwind components;
@@ -29,10 +29,17 @@ html { scroll-behavior: smooth; }
 body {
   background-color: var(--navy);
   color: var(--offwhite);
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body), 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   font-size: 1rem;
   line-height: 1.65;
+}
+
+/* Tipografia da marca: headings, labels e números usam fonte mono de display.
+   Corpo continua em Inter para legibilidade em textos longos. */
+h1, h2, h3, h4, h5, h6,
+.font-display {
+  font-family: var(--font-display), 'JetBrains Mono', ui-monospace, monospace;
 }
 
 /* auditoria: focus-visible ring acessível — nunca outline:none sem substituto */
@@ -50,19 +57,21 @@ body {
     @apply font-mono text-[10px] tracking-[0.22em] text-cyan uppercase inline-block mb-4 opacity-80;
   }
 
-  /* auditoria: section-title com clamp correto e letter-spacing negativo */
+  /* section-title em JetBrains Mono — letter-spacing levemente negativo
+     e peso 700 (em mono, 800 fica muito brutal em textos grandes). */
   .section-title {
-    @apply font-display font-[800] leading-[1.15] mb-4;
+    @apply font-display leading-[1.15] mb-4;
+    font-weight: 700;
     font-size: clamp(1.75rem, 5vw, 2.75rem);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.04em;
   }
 
-  /* hero-title com clamp fluido mobile→desktop */
+  /* hero-title — mono em peso 700, ainda mais aberta de tracking */
   .hero-title {
+    font-family: var(--font-display), 'JetBrains Mono', ui-monospace, monospace;
+    font-weight: 700;
     font-size: clamp(2rem, 8vw, 5rem);
-    font-family: 'Inter', sans-serif;
-    font-weight: 800;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.05em;
     line-height: 1.05;
   }
 

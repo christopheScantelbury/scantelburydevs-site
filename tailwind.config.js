@@ -25,10 +25,11 @@ module.exports = {
         offwhite: '#F0F4FA',
       },
       // ── TYPOGRAPHY ────────────────────────────────────
+      // Carregadas via next/font no layout.tsx — usa CSS vars
       fontFamily: {
-        display: ['Inter', 'sans-serif'],
-        mono:    ['DM Mono', 'monospace'],
-        sans:    ['Inter', 'sans-serif'],
+        display: ['var(--font-display)', 'JetBrains Mono', 'ui-monospace', 'monospace'],
+        mono:    ['var(--font-display)', 'JetBrains Mono', 'ui-monospace', 'monospace'],
+        sans:    ['var(--font-body)', 'Inter', 'system-ui', 'sans-serif'],
       },
       fontWeight: {
         display: '800',
