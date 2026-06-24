@@ -274,28 +274,45 @@ export default function Home() {
   }, [])
 
   // ── Counter animation nos stats numéricos do hero ──
-  const [count5, setCount5] = useState(0)
-  const [count4, setCount4] = useState(0)
+  // SSR e primeiro paint mostram valor final (5/4) — evita "0+" em conexão lenta.
+  // No client, useEffect reseta para 0 e anima quando entra no viewport
+  // (IntersectionObserver). Se já estiver visível, anima imediatamente.
+  const HERO_STAT_FINAL = { five: 5, four: 4 }
+  const [count5, setCount5] = useState(HERO_STAT_FINAL.five)
+  const [count4, setCount4] = useState(HERO_STAT_FINAL.four)
+  const heroStatsRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
-    if (typeof window !== 'undefined') (window as unknown as { __counterMounted: boolean }).__counterMounted = true
-    const reduced = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
-    if (reduced) {
-      setCount5(5); setCount4(4)
-      return
-    }
+    if (typeof window === 'undefined') return
+    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    if (reduced) return // mantém valor final estático
+    const el = heroStatsRef.current
+    if (!el || typeof IntersectionObserver === 'undefined') return
     let raf = 0
-    const start = Date.now()
-    const duration = 1400
-    const easeOut = (t: number) => 1 - Math.pow(1 - t, 3)
-    function tick() {
-      const elapsed = Math.min((Date.now() - start) / duration, 1)
-      const eased = easeOut(elapsed)
-      setCount5(Math.round(eased * 5))
-      setCount4(Math.round(eased * 4))
-      if (elapsed < 1) raf = requestAnimationFrame(tick)
+    let started = false
+    const animate = () => {
+      const start = performance.now()
+      const duration = 900
+      const easeOut = (t: number) => 1 - Math.pow(1 - t, 3)
+      // Reseta pra 0 e dispara no próximo frame (evita flash longo)
+      setCount5(0); setCount4(0)
+      const tick = (now: number) => {
+        const elapsed = Math.min((now - start) / duration, 1)
+        const eased = easeOut(elapsed)
+        setCount5(Math.round(eased * HERO_STAT_FINAL.five))
+        setCount4(Math.round(eased * HERO_STAT_FINAL.four))
+        if (elapsed < 1) raf = requestAnimationFrame(tick)
+      }
+      raf = requestAnimationFrame(tick)
     }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
+    const io = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !started) {
+        started = true
+        io.disconnect()
+        animate()
+      }
+    }, { threshold: 0.3 })
+    io.observe(el)
+    return () => { cancelAnimationFrame(raf); io.disconnect() }
   }, [])
 
   function handleWhatsApp(e: React.FormEvent<HTMLFormElement>) {
@@ -443,7 +460,7 @@ export default function Home() {
         </div>
 
         {/* Stats — flex-wrap centralizado, funciona em qualquer viewport */}
-        <div className="relative z-10 flex flex-wrap justify-center gap-8 md:gap-14 mt-16 pt-10 border-t border-white/[0.06] w-full max-w-2xl" role="list" aria-label="Destaques">
+        <div ref={heroStatsRef} className="relative z-10 flex flex-wrap justify-center gap-8 md:gap-14 mt-16 pt-10 border-t border-white/[0.06] w-full max-w-2xl" role="list" aria-label="Destaques">
           {[
             { n: `${count5}+`, l: t.hero.stat1l },
             { n: `${count4}`,  l: t.hero.stat2l },
