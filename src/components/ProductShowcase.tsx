@@ -132,12 +132,19 @@ export function ProductShowcase({
                 priority={priority}
                 sizes="(max-width: 768px) 100vw, 60vw"
               />
-            ) : preview === 'notafacil' ? (
-              <NotaFacilPreview lang={lang} />
-            ) : preview === 'descricaoai' ? (
-              <DescricaoAIPreview lang={lang} />
-            ) : preview === 'agenda' ? (
-              <AgendaPreview lang={lang} />
+            ) : preview ? (
+              <>
+                {/* Mobile: visual simples e legível */}
+                <div className="md:hidden absolute inset-0">
+                  <SimpleVisual name={name} accent={accent} preview={preview} lang={lang} />
+                </div>
+                {/* Desktop: mockup detalhado de dashboard */}
+                <div className="hidden md:block absolute inset-0">
+                  {preview === 'notafacil' && <NotaFacilPreview lang={lang} />}
+                  {preview === 'descricaoai' && <DescricaoAIPreview lang={lang} />}
+                  {preview === 'agenda' && <AgendaPreview lang={lang} />}
+                </div>
+              </>
             ) : (
               <Placeholder name={name} accentVar={accentVar} />
             )}
@@ -342,31 +349,29 @@ function AgendaPreview({ lang }: { lang: 'pt' | 'en' }) {
             <div key={d} className="text-center text-steel-muted font-mono tracking-wider uppercase pb-1">{d}</div>
           ))}
           {/* Grid hours x days */}
-          {hours.map((h, hi) => (
-            <>
-              <div key={`h-${hi}`} className="text-steel-muted font-mono text-right pr-1 leading-tight">{h}</div>
-              {days.map((_d, di) => {
-                const key = `${hi}-${di}`
-                const apt = apts[key]
-                return (
-                  <div key={key} className="h-7 bg-navy-card/40 border border-white/[0.04] rounded-sm relative">
-                    {apt && (
-                      <div
-                        className="absolute inset-0.5 rounded-sm flex items-center px-1 text-[7px] font-medium"
-                        style={{
-                          background: `${apt.color}1A`,
-                          borderLeft: `1.5px solid ${apt.color}`,
-                          color: apt.color,
-                        }}
-                      >
-                        <span className="truncate">{apt.who}</span>
-                      </div>
-                    )}
-                  </div>
-                )
-              })}
-            </>
-          ))}
+          {hours.flatMap((h, hi) => [
+            <div key={`h-${hi}`} className="text-steel-muted font-mono text-right pr-1 leading-tight">{h}</div>,
+            ...days.map((_d, di) => {
+              const key = `${hi}-${di}`
+              const apt = apts[key]
+              return (
+                <div key={key} className="h-7 bg-navy-card/40 border border-white/[0.04] rounded-sm relative">
+                  {apt && (
+                    <div
+                      className="absolute inset-0.5 rounded-sm flex items-center px-1 text-[7px] font-medium"
+                      style={{
+                        background: `${apt.color}1A`,
+                        borderLeft: `1.5px solid ${apt.color}`,
+                        color: apt.color,
+                      }}
+                    >
+                      <span className="truncate">{apt.who}</span>
+                    </div>
+                  )}
+                </div>
+              )
+            }),
+          ])}
         </div>
       </div>
 
@@ -391,6 +396,70 @@ function AgendaPreview({ lang }: { lang: 'pt' | 'en' }) {
           ))}
         </div>
       </aside>
+    </div>
+  )
+}
+
+/**
+ * Visual simples e legível para MOBILE — no espaço de ~390x244px o
+ * dashboard detalhado fica esmagado. Aqui mostramos apenas o essencial:
+ * gradiente da cor do produto + ícone temático + nome do produto.
+ */
+function SimpleVisual({
+  name,
+  accent,
+  preview,
+  lang,
+}: {
+  name: string
+  accent: 'cyan' | 'violet'
+  preview: ProductPreview
+  lang: 'pt' | 'en'
+}) {
+  const gradientFrom = accent === 'violet' ? 'rgba(180, 156, 255, 0.18)' : 'rgba(0, 212, 255, 0.18)'
+  const accentColor = accent === 'violet' ? 'var(--accent-2)' : 'var(--accent)'
+
+  // Ícone + tagline visual por produto
+  const icons: Record<ProductPreview, { emoji: string; label: { pt: string; en: string } }> = {
+    notafacil: {
+      emoji: '🧾',
+      label: { pt: 'Emissão de NFS-e em segundos', en: 'NFS-e issuance in seconds' },
+    },
+    descricaoai: {
+      emoji: '✨',
+      label: { pt: 'Descrições de produto com IA', en: 'AI-powered product descriptions' },
+    },
+    agenda: {
+      emoji: '📅',
+      label: { pt: 'Agendamento online inteligente', en: 'Smart online scheduling' },
+    },
+  }
+  const item = icons[preview]
+
+  return (
+    <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 py-4"
+      style={{
+        background: `radial-gradient(ellipse at center, ${gradientFrom}, transparent 70%), #0B1322`,
+      }}>
+      {/* Grid sutil de fundo */}
+      <div className="absolute inset-0 opacity-20"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)',
+          backgroundSize: '24px 24px',
+        }}
+        aria-hidden="true" />
+
+      <div className="relative z-10 flex flex-col items-center gap-2.5">
+        <div className="text-[40px]" aria-hidden="true">{item.emoji}</div>
+        <p className="font-display font-[700] text-[20px] text-offwhite leading-tight"
+          style={{ color: accentColor }}>
+          {name}
+        </p>
+        <p className="font-mono text-[10px] text-steel tracking-[0.08em] leading-tight max-w-[200px]">
+          {item.label[lang]}
+        </p>
+      </div>
     </div>
   )
 }
