@@ -512,27 +512,37 @@ export default function Home() {
       </section>
 
       {/* ── SERVICES ── */}
-      <section id="services" className="py-20 md:py-24 px-5 md:px-12 bg-navy-card border-y border-white/[0.06]">
-        <div className="max-w-[1200px] mx-auto">
-          <div className="text-center mb-12 md:mb-16 reveal">
+      <section id="services" className="py-20 md:py-28 px-5 md:px-12 bg-navy-card border-y border-white/[0.06]">
+        <div className="max-w-[1200px] mx-auto grid grid-cols-12 gap-x-6 gap-y-10">
+          {/* Header — alinhado à esquerda, ocupa 5 colunas no desktop */}
+          <div className="col-span-12 md:col-span-5 md:sticky md:top-28 self-start reveal">
             <p className="label-tag">{tx(t.services.label)}</p>
-            <h2 className="section-title">
-              {lang === 'pt' ? <>Serviços com <span className="text-cyan">responsabilidade operacional</span></> : <>Services with <span className="text-cyan">operational accountability</span></>}
+            <h2 className="section-title text-left">
+              {lang === 'pt' ? <>Serviços com<br /><span className="text-cyan">responsabilidade</span><br />operacional</> : <>Services with<br /><span className="text-cyan">operational</span><br />accountability</>}
             </h2>
-            <p className="font-sans text-steel max-w-xl mx-auto text-[15px]">{tx(t.services.desc)}</p>
+            <p className="font-sans text-steel text-[15px] max-w-md mt-2">{tx(t.services.desc)}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 reveal-stagger">
+
+          {/* Cards — coluna oposta, 7 colunas, ritmo vertical */}
+          <div className="col-span-12 md:col-span-7 md:col-start-6 flex flex-col gap-5 reveal-stagger">
             {[
-              { name: t.services.s1name, desc: t.services.s1desc, tags: ['Web','Mobile','API REST','Observabilidade'], icon: <IconCode /> },
-              { name: t.services.s2name, desc: t.services.s2desc, tags: ['Legacy','Cloud Migration','Database','Zero Downtime'], icon: <IconMigrate /> },
-              { name: t.services.s3name, desc: t.services.s3desc, tags: ['ERP','Marketplaces','Pagamentos','LLMs'], icon: <IconCustom /> },
+              { num: '01', name: t.services.s1name, desc: t.services.s1desc, tags: ['Web','Mobile','API REST','Observabilidade'], icon: <IconCode /> },
+              { num: '02', name: t.services.s2name, desc: t.services.s2desc, tags: ['Legacy','Cloud Migration','Database','Zero Downtime'], icon: <IconMigrate /> },
+              { num: '03', name: t.services.s3name, desc: t.services.s3desc, tags: ['ERP','Marketplaces','Pagamentos','LLMs'], icon: <IconCustom /> },
             ].map((s, i) => (
-              <Card key={i} hover className="card-glow group p-7 md:p-9 relative bg-navy">
+              <Card key={i} hover className="card-glow group p-7 md:p-8 relative bg-navy">
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100 rounded-t-2xl" aria-hidden="true" />
-                <div className="w-12 h-12 bg-cyan/[0.08] border border-cyan/20 rounded-xl flex items-center justify-center mb-5">{s.icon}</div>
-                <h3 className="font-display font-[700] text-[17px] md:text-[18px] text-offwhite mb-3 leading-tight">{tx(s.name)}</h3>
-                <p className="font-sans text-[14px] text-steel-muted leading-[1.65] mb-5">{tx(s.desc)}</p>
-                <div className="flex flex-wrap gap-1.5">{s.tags.map(tag => <Badge key={tag}>{tag}</Badge>)}</div>
+                <div className="flex items-start gap-5">
+                  <div className="w-12 h-12 bg-cyan/[0.08] border border-cyan/20 rounded-xl flex items-center justify-center shrink-0">{s.icon}</div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-baseline gap-3 mb-2">
+                      <span className="font-mono text-[11px] text-cyan tracking-[0.15em]">{s.num}</span>
+                      <h3 className="font-display font-[700] text-[17px] md:text-[18px] text-offwhite leading-tight">{tx(s.name)}</h3>
+                    </div>
+                    <p className="font-sans text-[14px] text-steel-muted leading-[1.65] mb-5">{tx(s.desc)}</p>
+                    <div className="flex flex-wrap gap-1.5">{s.tags.map(tag => <Badge key={tag}>{tag}</Badge>)}</div>
+                  </div>
+                </div>
               </Card>
             ))}
           </div>
@@ -658,28 +668,10 @@ export default function Home() {
       {/* ── ABOUT ── */}
       <section id="about" className="py-20 md:py-24 px-5 md:px-12 bg-navy-card border-b border-white/[0.06]">
         <div className="max-w-[1200px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
-            <div>
-              <p className="label-tag">{tx(t.about.label)}</p>
-              <h2 className="section-title">
-                {lang === 'pt'
-                  ? <>Engenharia técnica <span className="text-cyan">com responsabilidade pela operação</span></>
-                  : <>Technical engineering <span className="text-cyan">with operational accountability</span></>}
-              </h2>
-              <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.75] mb-4">{tx(t.about.p1)}</p>
-              <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.75] mb-8">{tx(t.about.p2)}</p>
-              <div className="flex flex-col gap-4">
-                {[t.about.h1, t.about.h2, t.about.h3].map((h, i) => (
-                  <div key={i} className="flex items-start gap-3.5">
-                    <div className="w-1.5 h-1.5 rounded-full bg-cyan mt-2 flex-shrink-0" aria-hidden="true" />
-                    <p className="font-sans text-[13px] md:text-[14px] text-steel-light leading-relaxed">{tx(h)}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Card institucional */}
-            <Card className="p-7 md:p-10 relative overflow-hidden bg-navy">
+          {/* Layout assimétrico — 7+5 invertido (texto à direita, card à esquerda no desktop) */}
+          <div className="grid grid-cols-12 gap-x-6 gap-y-10 items-start">
+            {/* Card institucional — 5 colunas, esquerda */}
+            <Card className="col-span-12 md:col-span-5 md:order-1 order-2 p-7 md:p-10 relative overflow-hidden bg-navy">
               <div className="absolute -top-10 -right-10 w-48 h-48 bg-glow-cyan pointer-events-none" aria-hidden="true" />
               <div className="grid grid-cols-2 gap-4 mb-7">
                 {[
@@ -715,6 +707,26 @@ export default function Home() {
                 </p>
               </div>
             </Card>
+
+            {/* Texto — 7 colunas, direita, alinhado à esquerda */}
+            <div className="col-span-12 md:col-span-7 md:order-2 order-1 reveal">
+              <p className="label-tag">{tx(t.about.label)}</p>
+              <h2 className="section-title text-left">
+                {lang === 'pt'
+                  ? <>Engenharia técnica<br /><span className="text-cyan">com responsabilidade<br />pela operação</span></>
+                  : <>Technical engineering<br /><span className="text-cyan">with operational<br />accountability</span></>}
+              </h2>
+              <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.75] mb-4">{tx(t.about.p1)}</p>
+              <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.75] mb-8">{tx(t.about.p2)}</p>
+              <div className="flex flex-col gap-4">
+                {[t.about.h1, t.about.h2, t.about.h3].map((h, i) => (
+                  <div key={i} className="flex items-start gap-3.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-cyan mt-2 flex-shrink-0" aria-hidden="true" />
+                    <p className="font-sans text-[13px] md:text-[14px] text-steel-light leading-relaxed">{tx(h)}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -723,16 +735,26 @@ export default function Home() {
       <section id="produtos" className="py-20 md:py-24 px-5 md:px-12 bg-navy border-b border-white/[0.06] relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-glow-cyan pointer-events-none -translate-y-1/3 translate-x-1/4" aria-hidden="true" />
         <div className="max-w-[1200px] mx-auto relative">
-          <div className="text-center mb-12 md:mb-16">
-            <p className="label-tag">{lang === 'pt' ? 'Produtos em produção' : 'Live products'}</p>
-            <h2 className="section-title">
-              {lang === 'pt' ? <>Software nosso, <span className="text-cyan">no ar agora</span></> : <>Our software, <span className="text-cyan">live right now</span></>}
-            </h2>
-            <p className="font-sans text-steel max-w-xl mx-auto text-[15px]">
-              {lang === 'pt'
-                ? 'Não falamos só de teoria. Construímos, lançamos e operamos produtos reais — usados por clientes reais todos os dias.'
-                : "We don't just talk theory. We ship, run and operate real products — used by real customers every day."}
-            </p>
+          {/* Header editorial assimétrico: número grande à esquerda, texto à direita */}
+          <div className="grid grid-cols-12 gap-x-6 gap-y-6 mb-12 md:mb-16 reveal">
+            <div className="col-span-12 md:col-span-3">
+              <p className="font-mono text-[11px] text-cyan tracking-[0.2em] uppercase mb-3">
+                {lang === 'pt' ? 'Em produção' : 'In production'}
+              </p>
+              <div className="font-display font-[700] text-[88px] md:text-[120px] text-cyan leading-[0.85] tabular-nums">
+                03
+              </div>
+            </div>
+            <div className="col-span-12 md:col-span-8 md:col-start-5 self-end">
+              <h2 className="section-title text-left mb-3">
+                {lang === 'pt' ? <>Software nosso,<br /><span className="text-cyan">no ar agora</span></> : <>Our software,<br /><span className="text-cyan">live right now</span></>}
+              </h2>
+              <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.7] max-w-xl">
+                {lang === 'pt'
+                  ? 'Não falamos só de teoria. Construímos, lançamos e operamos produtos reais — usados por clientes reais todos os dias.'
+                  : "We don't just talk theory. We ship, run and operate real products — used by real customers every day."}
+              </p>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
