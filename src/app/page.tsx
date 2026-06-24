@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui'
 import { Input, Textarea, Select } from '@/components/ui'
 import { useState, useRef, useEffect } from 'react'
 import { trackLead, trackContact, trackChatOpen } from '@/lib/analytics'
+import { ProductShowcase } from '@/components/ProductShowcase'
 
 type Lang = 'pt' | 'en'
 
@@ -775,81 +776,45 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
-            {[
-              {
-                badge: { pt: 'Fiscal · SaaS', en: 'Fiscal · SaaS' },
-                bv: 'cyan' as const,
-                name: 'NotaFácil',
-                tagline: { pt: 'Emissão de NFS-e do MEI, sem complicação.', en: 'MEI invoice issuance, made simple.' },
-                desc: { pt: 'Plataforma + API REST para emissão automatizada de NFS-e Nacional. Suporte a 5.000+ municípios, certificado A1 protegido em AWS, webhooks assinados.', en: 'Platform + REST API for automated NFS-e issuance. Supports 5,000+ municipalities, A1 certificate stored in AWS, signed webhooks.' },
-                tags: ['Go', 'Fiber', 'PostgreSQL', 'AWS KMS', 'Stripe'],
-                accent: 'from-cyan to-[#0088CC]',
-                href: 'https://www.emitirnotafacil.com.br/',
-                logo: '/products/notafacil.svg',
-                logoBg: 'bg-white',
-              },
-              {
-                badge: { pt: 'IA · E-commerce', en: 'AI · E-commerce' },
-                bv: 'blue' as const,
-                name: 'Descrição AI',
-                tagline: { pt: 'Seu produto merece uma descrição que vende.', en: 'Your product deserves a description that sells.' },
-                desc: { pt: 'Geração automática de título, descrição e bullets em ~10 segundos. Pronto para colar no Mercado Livre, Shopee e lojas próprias. API para integração em larga escala.', en: 'Auto-generates title, description and bullets in ~10s. Ready to paste into marketplaces. API for large-scale integration.' },
-                tags: ['Next.js', 'OpenAI', 'Supabase', 'Stripe'],
-                accent: 'from-[#7C6FFF] to-[#00D4FF]',
-                href: 'https://descricaoai.com.br/',
-                logo: '/products/descricaoai.svg',
-                logoBg: 'bg-white',
-              },
-            ].map((p) => (
-              <a
-                key={p.name}
-                href={p.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${lang === 'pt' ? 'Visitar' : 'Visit'} ${p.name}`}
-                className="group block"
-              >
-                <Card hover className="p-6 md:p-8 h-full flex flex-col relative overflow-hidden bg-navy-card">
-                  {/* Top accent bar */}
-                  <div className={`absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r ${p.accent} opacity-60 group-hover:opacity-100 transition-opacity duration-300`} aria-hidden="true" />
-
-                  <div className="flex items-start justify-between gap-4 mb-5">
-                    <div className={`w-14 h-14 rounded-xl ${p.logoBg} flex items-center justify-center shadow-lg flex-shrink-0 overflow-hidden border border-white/10 p-1.5`}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={p.logo} alt={`${p.name} logo`} className="w-full h-full object-contain" />
-                    </div>
-                    <Badge variant={p.bv}>{tx(p.badge)}</Badge>
-                  </div>
-
-                  <h3 className="font-display font-[800] text-[20px] md:text-[22px] text-offwhite mb-2 leading-tight">
-                    {p.name}
-                  </h3>
-                  <p className="font-sans text-cyan text-[13px] md:text-[14px] mb-3 leading-snug">
-                    {tx(p.tagline)}
-                  </p>
-                  <p className="font-sans text-[13px] md:text-[14px] text-steel-muted leading-[1.65] mb-5 flex-1">
-                    {tx(p.desc)}
-                  </p>
-
-                  <div className="flex flex-wrap gap-1.5 mb-5">
-                    {p.tags.map(t => <Badge key={t} variant="steel">{t}</Badge>)}
-                  </div>
-
-                  <div className="flex items-center justify-between pt-4 border-t border-white/[0.06]">
-                    <span className="font-mono text-[10px] text-steel tracking-[0.15em] uppercase truncate max-w-[180px] md:max-w-[220px]">
-                      {p.href.replace(/^https?:\/\//, '').replace(/\/$/, '')}
-                    </span>
-                    <span className="font-mono text-[11px] text-cyan tracking-[0.08em] flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
-                      {lang === 'pt' ? 'Visitar' : 'Visit'}
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-                        <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-                      </svg>
-                    </span>
-                  </div>
-                </Card>
-              </a>
-            ))}
+          {/* Produtos em mockup de browser — alterna texto à esquerda/direita pra ritmo */}
+          <div className="flex flex-col gap-16 md:gap-20 reveal-stagger">
+            <ProductShowcase
+              name="NotaFácil"
+              tagline={{
+                pt: 'Emissão de NFS-e do MEI, sem complicação. Plataforma + API REST com suporte a 5.000+ municípios, certificado A1 protegido em AWS e webhooks assinados.',
+                en: 'MEI invoice issuance, made simple. Platform + REST API supporting 5,000+ municipalities, A1 certificate stored in AWS, signed webhooks.',
+              }}
+              url="http://emitirnotafacil.com.br"
+              /* TODO: adicionar screenshot="/products/screenshots/notafacil.png" quando o asset chegar */
+              techStack={['Go', 'Fiber', 'PostgreSQL', 'AWS KMS', 'Stripe']}
+              accent="cyan"
+              lang={lang}
+            />
+            <ProductShowcase
+              name="Descrição AI"
+              tagline={{
+                pt: 'Seu produto merece uma descrição que vende. Geração automática de título, descrição e bullets em ~10s — pronto pra Mercado Livre, Shopee e lojas próprias.',
+                en: 'Your product deserves a description that sells. Auto-generates title, description and bullets in ~10s — ready for marketplaces.',
+              }}
+              url="https://descricaoai.com.br"
+              /* TODO: adicionar screenshot="/products/screenshots/descricaoai.png" quando o asset chegar */
+              techStack={['Next.js', 'OpenAI', 'Supabase', 'Stripe']}
+              accent="violet"
+              lang={lang}
+              reverse
+            />
+            <ProductShowcase
+              name="Agenda Inteligente"
+              tagline={{
+                pt: 'Agendamento online para clínicas, salões e prestadores de serviço. Reagendamento automático e WhatsApp Business integrado para confirmações.',
+                en: 'Online scheduling for clinics, salons and service pros. Smart rescheduling and WhatsApp Business integration for confirmations.',
+              }}
+              url="https://agendainteligente-aleefhenriiques-projects.vercel.app/"
+              /* TODO: adicionar screenshot="/products/screenshots/agenda-inteligente.png" quando o asset chegar */
+              techStack={['Java', 'Spring Boot', 'Next.js', 'OpenAI API']}
+              accent="cyan"
+              lang={lang}
+            />
           </div>
 
           <div className="text-center mt-12 md:mt-14">
