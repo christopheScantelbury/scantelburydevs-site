@@ -253,6 +253,35 @@ export default function Home() {
   const [activeStep, setActiveStep] = useState(0)
   const tx = (obj: { pt: string; en: string }) => obj[lang]
 
+  // ── Scroll reveal: observa elementos .reveal e .reveal-stagger ──
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    if (typeof IntersectionObserver === 'undefined') return
+    const els = document.querySelectorAll<HTMLElement>('.reveal, .reveal-stagger')
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-visible')
+            io.unobserve(e.target)
+          }
+        }
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -60px 0px' }
+    )
+    els.forEach((el) => io.observe(el))
+    return () => io.disconnect()
+  }, [])
+
+  // ── Mouse-follow glow no hero ──
+  function handleHeroMouseMove(e: React.MouseEvent<HTMLElement>) {
+    const r = e.currentTarget.getBoundingClientRect()
+    const x = ((e.clientX - r.left) / r.width) * 100
+    const y = ((e.clientY - r.top) / r.height) * 100
+    e.currentTarget.style.setProperty('--mx', `${x}%`)
+    e.currentTarget.style.setProperty('--my', `${y}%`)
+  }
+
   function handleWhatsApp(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const fd = new FormData(e.currentTarget)
@@ -354,13 +383,17 @@ export default function Home() {
         )}
       </nav>
 
-      {/* ── HERO ── */}
-      <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 md:px-12 pt-[120px] md:pt-[140px] pb-20 md:pb-[120px] overflow-hidden">
+      {/* ── HERO (com mouse-follow glow) ── */}
+      <section
+        id="hero"
+        onMouseMove={handleHeroMouseMove}
+        className="mouse-glow relative min-h-screen flex flex-col items-center justify-center text-center px-6 md:px-12 pt-[120px] md:pt-[140px] pb-20 md:pb-[120px] overflow-hidden"
+      >
         <div className="absolute inset-0 bg-grid" aria-hidden="true" />
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-glow-cyan pointer-events-none" aria-hidden="true" />
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-navy to-transparent" aria-hidden="true" />
 
-        <div className="relative z-10 max-w-4xl w-full">
+        <div className="relative z-10 max-w-4xl w-full reveal-stagger">
           {/* h1 com slogan triplo — Construímos. Lançamos. Operamos. */}
           <h1 className="font-display font-[800] leading-[1.08] mb-6"
             style={{ fontSize: 'clamp(36px, 5vw, 62px)', letterSpacing: '-0.02em' }}>
@@ -440,20 +473,20 @@ export default function Home() {
       {/* ── SERVICES ── */}
       <section id="services" className="py-20 md:py-24 px-5 md:px-12 bg-navy-card border-y border-white/[0.06]">
         <div className="max-w-[1200px] mx-auto">
-          <div className="text-center mb-12 md:mb-16">
+          <div className="text-center mb-12 md:mb-16 reveal">
             <p className="label-tag">{tx(t.services.label)}</p>
             <h2 className="section-title">
               {lang === 'pt' ? <>Serviços com <span className="text-cyan">responsabilidade operacional</span></> : <>Services with <span className="text-cyan">operational accountability</span></>}
             </h2>
             <p className="font-sans text-steel max-w-xl mx-auto text-[15px]">{tx(t.services.desc)}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 reveal-stagger">
             {[
               { name: t.services.s1name, desc: t.services.s1desc, tags: ['Web','Mobile','API REST','Observabilidade'], icon: <IconCode /> },
               { name: t.services.s2name, desc: t.services.s2desc, tags: ['Legacy','Cloud Migration','Database','Zero Downtime'], icon: <IconMigrate /> },
               { name: t.services.s3name, desc: t.services.s3desc, tags: ['ERP','Marketplaces','Pagamentos','LLMs'], icon: <IconCustom /> },
             ].map((s, i) => (
-              <Card key={i} hover className="group p-7 md:p-9 relative bg-navy">
+              <Card key={i} hover className="card-glow group p-7 md:p-9 relative bg-navy">
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100 rounded-t-2xl" aria-hidden="true" />
                 <div className="w-12 h-12 bg-cyan/[0.08] border border-cyan/20 rounded-xl flex items-center justify-center mb-5">{s.icon}</div>
                 <h3 className="font-display font-[700] text-[17px] md:text-[18px] text-offwhite mb-3 leading-tight">{tx(s.name)}</h3>
@@ -468,7 +501,7 @@ export default function Home() {
       {/* ── PROCESS (tabs interativas) ── */}
       <section id="process" className="py-20 md:py-24 px-5 md:px-12 bg-navy border-b border-white/[0.06]">
         <div className="max-w-[1100px] mx-auto">
-          <div className="text-center mb-10 md:mb-14">
+          <div className="text-center mb-10 md:mb-14 reveal">
             <p className="label-tag">{lang === 'pt' ? 'Como trabalhamos' : 'How we work'}</p>
             <h2 className="section-title">
               {lang === 'pt' ? <>Processo <span className="text-cyan">transparente e direto</span></> : <>A <span className="text-cyan">transparent, direct process</span></>}
@@ -529,10 +562,10 @@ export default function Home() {
                       role="tab"
                       aria-selected={activeStep === i}
                       onClick={() => setActiveStep(i)}
-                      className={`flex items-center gap-2.5 px-4 md:px-5 py-2.5 md:py-3 rounded-lg border font-display font-[700] text-[13px] md:text-[14px] transition-all duration-200 ${
+                      className={`card-glow flex items-center gap-2.5 px-4 md:px-5 py-2.5 md:py-3 rounded-lg border font-display font-[700] text-[13px] md:text-[14px] ${
                         activeStep === i
                           ? 'bg-cyan/10 border-cyan text-offwhite'
-                          : 'bg-navy-card border-white/[0.08] text-steel hover:border-cyan/30 hover:text-offwhite'
+                          : 'bg-navy-card border-white/[0.08] text-steel hover:text-offwhite'
                       }`}
                     >
                       <span className={`font-mono text-[11px] ${activeStep === i ? 'text-cyan' : 'text-steel-muted'}`}>{s.n}</span>
