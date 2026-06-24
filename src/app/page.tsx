@@ -282,6 +282,31 @@ export default function Home() {
     e.currentTarget.style.setProperty('--my', `${y}%`)
   }
 
+  // ── Counter animation nos stats numéricos do hero ──
+  const [count5, setCount5] = useState(0)
+  const [count4, setCount4] = useState(0)
+  useEffect(() => {
+    if (typeof window !== 'undefined') (window as unknown as { __counterMounted: boolean }).__counterMounted = true
+    const reduced = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    if (reduced) {
+      setCount5(5); setCount4(4)
+      return
+    }
+    let raf = 0
+    const start = Date.now()
+    const duration = 1400
+    const easeOut = (t: number) => 1 - Math.pow(1 - t, 3)
+    function tick() {
+      const elapsed = Math.min((Date.now() - start) / duration, 1)
+      const eased = easeOut(elapsed)
+      setCount5(Math.round(eased * 5))
+      setCount4(Math.round(eased * 4))
+      if (elapsed < 1) raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [])
+
   function handleWhatsApp(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const fd = new FormData(e.currentTarget)
@@ -328,12 +353,12 @@ export default function Home() {
           <div className="hidden md:flex items-center gap-7">
             {(['services','produtos','pricing','process','about'] as const).map(s => (
               <a key={s} href={`#${s}`}
-                className="font-mono text-[13px] text-steel hover:text-offwhite transition-colors tracking-[0.04em] min-h-[44px] flex items-center">
+                className="nav-link font-mono text-[13px] text-steel hover:text-offwhite tracking-[0.04em] min-h-[44px] flex items-center">
                 {tx(t.nav[s])}
               </a>
             ))}
             <a href="/blog"
-              className="font-mono text-[13px] text-steel hover:text-offwhite transition-colors tracking-[0.04em] min-h-[44px] flex items-center">
+              className="nav-link font-mono text-[13px] text-steel hover:text-offwhite tracking-[0.04em] min-h-[44px] flex items-center">
               {tx(t.nav.insights)}
             </a>
             <a href="#contact"><Button size="sm">{tx(t.nav.cta)}</Button></a>
@@ -401,13 +426,13 @@ export default function Home() {
               <>
                 <span className="text-offwhite">Construímos.</span>{' '}
                 <span className="text-offwhite italic">Lançamos.</span>{' '}
-                <span className="text-cyan">Operamos.</span>
+                <span className="shimmer-text">Operamos.</span>
               </>
             ) : (
               <>
                 <span className="text-offwhite">We build.</span>{' '}
                 <span className="text-offwhite italic">We ship.</span>{' '}
-                <span className="text-cyan">We operate.</span>
+                <span className="shimmer-text">We operate.</span>
               </>
             )}
           </h1>
@@ -430,13 +455,13 @@ export default function Home() {
         {/* Stats — flex-wrap centralizado, funciona em qualquer viewport */}
         <div className="relative z-10 flex flex-wrap justify-center gap-8 md:gap-14 mt-16 pt-10 border-t border-white/[0.06] w-full max-w-2xl" role="list" aria-label="Destaques">
           {[
-            { n: '5+',   l: t.hero.stat1l },
-            { n: '4',    l: t.hero.stat2l },
-            { n: 'BR',   l: t.hero.stat3l },
-            { n: '24/7', l: t.hero.stat4l },
-          ].map(s => (
-            <div key={s.n} className="text-center" role="listitem">
-              <div className="font-display font-[800] text-3xl text-cyan">{s.n}</div>
+            { n: `${count5}+`, l: t.hero.stat1l },
+            { n: `${count4}`,  l: t.hero.stat2l },
+            { n: 'BR',         l: t.hero.stat3l },
+            { n: '24/7',       l: t.hero.stat4l },
+          ].map((s, i) => (
+            <div key={i} className="text-center" role="listitem">
+              <div className="font-display font-[800] text-3xl text-cyan tabular-nums">{s.n}</div>
               <div className="font-mono text-[10px] text-steel tracking-[0.15em] uppercase mt-1.5">{tx(s.l)}</div>
             </div>
           ))}
@@ -454,19 +479,28 @@ export default function Home() {
             </h2>
             <p className="font-sans text-steel-muted text-[14px] mt-3 max-w-lg mx-auto">{tx(t.stack.desc)}</p>
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-2.5 md:gap-3">
-            {[
+          {(() => {
+            const techs = [
               'Go', 'Node.js', 'TypeScript', 'Next.js', 'React',
               'PostgreSQL', 'Redis', 'Supabase',
               'AWS', 'GCP', 'Vercel', 'Docker',
               'Stripe', 'OpenAI', 'Anthropic', 'RabbitMQ',
-            ].map((tech) => (
-              <span key={tech}
-                className="font-mono text-[11px] md:text-[12px] text-steel-light bg-navy-card border border-white/[0.06] hover:border-cyan/30 hover:text-offwhite transition-colors px-3 py-1.5 rounded-md tracking-[0.04em]">
-                {tech}
-              </span>
-            ))}
-          </div>
+            ]
+            // Duplica para criar loop infinito sem corte visual
+            const doubled = [...techs, ...techs]
+            return (
+              <div className="marquee" aria-label={lang === 'pt' ? 'Tecnologias em produção' : 'Production stack'}>
+                <div className="marquee-track" role="list">
+                  {doubled.map((tech, i) => (
+                    <span key={i} role="listitem"
+                      className="font-mono text-[11px] md:text-[12px] text-steel-light bg-navy-card border border-white/[0.06] hover:border-cyan/30 hover:text-offwhite transition-colors px-3 py-1.5 rounded-md tracking-[0.04em] whitespace-nowrap">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )
+          })()}
         </div>
       </section>
 
