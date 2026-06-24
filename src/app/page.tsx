@@ -785,7 +785,7 @@ export default function Home() {
                 en: 'MEI invoice issuance, made simple. Platform + REST API supporting 5,000+ municipalities, A1 certificate stored in AWS, signed webhooks.',
               }}
               url="http://emitirnotafacil.com.br"
-              /* TODO: adicionar screenshot="/products/screenshots/notafacil.png" quando o asset chegar */
+              preview="notafacil"
               techStack={['Go', 'Fiber', 'PostgreSQL', 'AWS KMS', 'Stripe']}
               accent="cyan"
               lang={lang}
@@ -797,7 +797,7 @@ export default function Home() {
                 en: 'Your product deserves a description that sells. Auto-generates title, description and bullets in ~10s — ready for marketplaces.',
               }}
               url="https://descricaoai.com.br"
-              /* TODO: adicionar screenshot="/products/screenshots/descricaoai.png" quando o asset chegar */
+              preview="descricaoai"
               techStack={['Next.js', 'OpenAI', 'Supabase', 'Stripe']}
               accent="violet"
               lang={lang}
@@ -810,7 +810,7 @@ export default function Home() {
                 en: 'Online scheduling for clinics, salons and service pros. Smart rescheduling and WhatsApp Business integration for confirmations.',
               }}
               url="https://agendainteligente-aleefhenriiques-projects.vercel.app/"
-              /* TODO: adicionar screenshot="/products/screenshots/agenda-inteligente.png" quando o asset chegar */
+              preview="agenda"
               techStack={['Java', 'Spring Boot', 'Next.js', 'OpenAI API']}
               accent="cyan"
               lang={lang}
