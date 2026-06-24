@@ -250,6 +250,7 @@ function AIChatWidget({ lang }: { lang: Lang }) {
 export default function Home() {
   const [lang, setLang] = useState<Lang>('pt')
   const [menuOpen, setMenuOpen] = useState(false)
+  const [activeStep, setActiveStep] = useState(0)
   const tx = (obj: { pt: string; en: string }) => obj[lang]
 
   function handleWhatsApp(e: React.FormEvent<HTMLFormElement>) {
@@ -360,11 +361,22 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-navy to-transparent" aria-hidden="true" />
 
         <div className="relative z-10 max-w-4xl w-full">
-          {/* h1 com clamp proporcional — não estoura containers em nenhum viewport */}
+          {/* h1 com slogan triplo — Construímos. Lançamos. Operamos. */}
           <h1 className="font-display font-[800] leading-[1.08] mb-6"
             style={{ fontSize: 'clamp(36px, 5vw, 62px)', letterSpacing: '-0.02em' }}>
-            <span className="text-offwhite block">{tx(t.hero.title1)}</span>
-            <span className="text-cyan block">{tx(t.hero.title2)}</span>
+            {lang === 'pt' ? (
+              <>
+                <span className="text-offwhite">Construímos.</span>{' '}
+                <span className="text-offwhite italic">Lançamos.</span>{' '}
+                <span className="text-cyan">Operamos.</span>
+              </>
+            ) : (
+              <>
+                <span className="text-offwhite">We build.</span>{' '}
+                <span className="text-offwhite italic">We ship.</span>{' '}
+                <span className="text-cyan">We operate.</span>
+              </>
+            )}
           </h1>
 
           <p className="font-sans text-[16px] md:text-[18px] text-steel-light max-w-lg mx-auto mb-10 leading-[1.7] font-light">
@@ -453,29 +465,119 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── PROCESS ── */}
+      {/* ── PROCESS (tabs interativas) ── */}
       <section id="process" className="py-20 md:py-24 px-5 md:px-12 bg-navy border-b border-white/[0.06]">
-        <div className="max-w-[1000px] mx-auto">
-          <div className="text-center mb-12 md:mb-16">
+        <div className="max-w-[1100px] mx-auto">
+          <div className="text-center mb-10 md:mb-14">
             <p className="label-tag">{lang === 'pt' ? 'Como trabalhamos' : 'How we work'}</p>
             <h2 className="section-title">
               {lang === 'pt' ? <>Processo <span className="text-cyan">transparente e direto</span></> : <>A <span className="text-cyan">transparent, direct process</span></>}
             </h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              { n:'01', t:{pt:'Descoberta',en:'Discovery'}, d:{pt:'Entendemos profundamente o problema, o contexto e os objetivos técnicos.',en:'We deeply understand the problem, business context and technical objectives.'} },
-              { n:'02', t:{pt:'Planejamento',en:'Planning'}, d:{pt:'Definimos escopo, arquitetura e cronograma. Sem surpresas no meio do caminho.',en:'We define scope, architecture and timeline. No surprises along the way.'} },
-              { n:'03', t:{pt:'Execução',en:'Execution'}, d:{pt:'Desenvolvimento com ciclos curtos, entregas frequentes e comunicação constante.',en:'Short cycles, frequent deliveries and constant communication.'} },
-              { n:'04', t:{pt:'Entrega & Suporte',en:'Delivery & Support'}, d:{pt:'Deploy, documentação e suporte pós-entrega. O projeto não termina no go-live.',en:"Deploy, docs and post-delivery support. The project doesn't end at go-live."} },
-            ].map(s => (
-              <div key={s.n} className="text-center px-2 md:px-4">
-                <div className="w-14 h-14 md:w-16 md:h-16 rounded-full border border-cyan/30 bg-navy-card flex items-center justify-center mx-auto mb-4 md:mb-5 font-mono text-sm md:text-base text-cyan" aria-hidden="true">{s.n}</div>
-                <div className="font-display font-[700] text-[14px] md:text-[15px] text-offwhite mb-2">{tx(s.t)}</div>
-                <p className="font-sans text-[12px] md:text-[13px] text-steel-muted leading-[1.6]">{tx(s.d)}</p>
-              </div>
-            ))}
-          </div>
+
+          {(() => {
+            const steps = [
+              {
+                n: '01',
+                t: { pt: 'Descoberta', en: 'Discovery' },
+                d: { pt: 'Entendemos profundamente o problema, o contexto de negócio e os objetivos técnicos antes de propor qualquer linha de código.', en: 'We deeply understand the problem, business context and technical objectives before proposing any line of code.' },
+                deliv: {
+                  pt: ['Mapeamento de processos atuais', 'Lista de objetivos priorizada', 'Hipóteses técnicas validadas'],
+                  en: ['Current process mapping', 'Prioritized goals list', 'Validated technical hypotheses'],
+                },
+                dur: { pt: '1-2 semanas', en: '1-2 weeks' },
+              },
+              {
+                n: '02',
+                t: { pt: 'Planejamento', en: 'Planning' },
+                d: { pt: 'Definimos escopo, arquitetura e cronograma com proposta clara. Sem letra miúda, sem surpresa no meio do caminho.', en: 'We define scope, architecture and timeline with a clear proposal. No fine print, no surprises along the way.' },
+                deliv: {
+                  pt: ['Escopo detalhado por módulo', 'Arquitetura técnica documentada', 'Cronograma com marcos visíveis', 'Proposta com investimento fechado'],
+                  en: ['Detailed scope by module', 'Documented technical architecture', 'Timeline with visible milestones', 'Proposal with fixed investment'],
+                },
+                dur: { pt: '3-5 dias', en: '3-5 days' },
+              },
+              {
+                n: '03',
+                t: { pt: 'Execução', en: 'Execution' },
+                d: { pt: 'Ciclos curtos com entregas funcionais a cada 2 semanas. Você acompanha em tempo real e usa antes do projeto terminar.', en: 'Short cycles with functional deliveries every 2 weeks. You follow along live and use it before the project finishes.' },
+                deliv: {
+                  pt: ['Entregas a cada 2 semanas', 'Ambientes de teste sempre no ar', 'Acesso ao código em repositório', 'Reuniões quinzenais de revisão'],
+                  en: ['Deliveries every 2 weeks', 'Test environments always live', 'Code access in repository', 'Biweekly review meetings'],
+                },
+                dur: { pt: 'Variável por projeto', en: 'Varies by project' },
+              },
+              {
+                n: '04',
+                t: { pt: 'Operação', en: 'Operations' },
+                d: { pt: 'Deploy em produção, treinamento do time e acompanhamento contínuo. O projeto não termina no go-live — começa.', en: "Production deploy, team training and continuous support. The project doesn't end at go-live — it begins." },
+                deliv: {
+                  pt: ['Sistema em produção monitorado', 'Documentação técnica completa', 'Treinamento do time interno', 'Suporte e evolução contínuos'],
+                  en: ['Monitored production system', 'Complete technical documentation', 'Internal team training', 'Continuous support and evolution'],
+                },
+                dur: { pt: 'Contínuo', en: 'Continuous' },
+              },
+            ]
+            const step = steps[activeStep]
+            return (
+              <>
+                {/* Tab buttons */}
+                <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-8 md:mb-10" role="tablist">
+                  {steps.map((s, i) => (
+                    <button
+                      key={s.n}
+                      role="tab"
+                      aria-selected={activeStep === i}
+                      onClick={() => setActiveStep(i)}
+                      className={`flex items-center gap-2.5 px-4 md:px-5 py-2.5 md:py-3 rounded-lg border font-display font-[700] text-[13px] md:text-[14px] transition-all duration-200 ${
+                        activeStep === i
+                          ? 'bg-cyan/10 border-cyan text-offwhite'
+                          : 'bg-navy-card border-white/[0.08] text-steel hover:border-cyan/30 hover:text-offwhite'
+                      }`}
+                    >
+                      <span className={`font-mono text-[11px] ${activeStep === i ? 'text-cyan' : 'text-steel-muted'}`}>{s.n}</span>
+                      <span>{tx(s.t)}</span>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Active tab content */}
+                <div
+                  role="tabpanel"
+                  className="bg-navy-card border border-white/[0.08] rounded-2xl p-7 md:p-10 transition-opacity duration-200"
+                >
+                  <div className="grid md:grid-cols-3 gap-8 md:gap-10">
+                    <div className="md:col-span-2">
+                      <div className="flex items-center gap-3 mb-4">
+                        <span className="font-mono text-xs text-cyan tracking-[0.15em]">FASE {step.n}</span>
+                        <span className="w-1 h-1 rounded-full bg-steel/40" aria-hidden="true" />
+                        <span className="font-mono text-xs text-steel-muted">{tx(step.dur)}</span>
+                      </div>
+                      <h3 className="font-display font-[800] text-[22px] md:text-[28px] text-offwhite mb-4 leading-tight">
+                        {tx(step.t)}
+                      </h3>
+                      <p className="font-sans text-steel-light text-[14px] md:text-[15px] leading-[1.7]">
+                        {tx(step.d)}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="font-mono text-[10px] text-steel-muted tracking-[0.15em] uppercase mb-3">
+                        {lang === 'pt' ? 'Você recebe' : 'You get'}
+                      </p>
+                      <ul className="space-y-2.5">
+                        {(lang === 'pt' ? step.deliv.pt : step.deliv.en).map((item, i) => (
+                          <li key={i} className="flex items-start gap-2.5 text-[13px] text-steel-light leading-[1.55]">
+                            <span className="text-cyan font-bold shrink-0 mt-0.5">→</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )
+          })()}
         </div>
       </section>
 
