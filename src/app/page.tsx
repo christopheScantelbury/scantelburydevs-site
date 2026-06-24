@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui'
 import { Input, Textarea, Select } from '@/components/ui'
 import { useState, useRef, useEffect } from 'react'
 import { trackLead, trackContact, trackChatOpen } from '@/lib/analytics'
+import { ProductShowcase } from '@/components/ProductShowcase'
 
 type Lang = 'pt' | 'en'
 
@@ -274,28 +275,45 @@ export default function Home() {
   }, [])
 
   // ── Counter animation nos stats numéricos do hero ──
-  const [count5, setCount5] = useState(0)
-  const [count4, setCount4] = useState(0)
+  // SSR e primeiro paint mostram valor final (5/4) — evita "0+" em conexão lenta.
+  // No client, useEffect reseta para 0 e anima quando entra no viewport
+  // (IntersectionObserver). Se já estiver visível, anima imediatamente.
+  const HERO_STAT_FINAL = { five: 5, four: 4 }
+  const [count5, setCount5] = useState(HERO_STAT_FINAL.five)
+  const [count4, setCount4] = useState(HERO_STAT_FINAL.four)
+  const heroStatsRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
-    if (typeof window !== 'undefined') (window as unknown as { __counterMounted: boolean }).__counterMounted = true
-    const reduced = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
-    if (reduced) {
-      setCount5(5); setCount4(4)
-      return
-    }
+    if (typeof window === 'undefined') return
+    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    if (reduced) return // mantém valor final estático
+    const el = heroStatsRef.current
+    if (!el || typeof IntersectionObserver === 'undefined') return
     let raf = 0
-    const start = Date.now()
-    const duration = 1400
-    const easeOut = (t: number) => 1 - Math.pow(1 - t, 3)
-    function tick() {
-      const elapsed = Math.min((Date.now() - start) / duration, 1)
-      const eased = easeOut(elapsed)
-      setCount5(Math.round(eased * 5))
-      setCount4(Math.round(eased * 4))
-      if (elapsed < 1) raf = requestAnimationFrame(tick)
+    let started = false
+    const animate = () => {
+      const start = performance.now()
+      const duration = 900
+      const easeOut = (t: number) => 1 - Math.pow(1 - t, 3)
+      // Reseta pra 0 e dispara no próximo frame (evita flash longo)
+      setCount5(0); setCount4(0)
+      const tick = (now: number) => {
+        const elapsed = Math.min((now - start) / duration, 1)
+        const eased = easeOut(elapsed)
+        setCount5(Math.round(eased * HERO_STAT_FINAL.five))
+        setCount4(Math.round(eased * HERO_STAT_FINAL.four))
+        if (elapsed < 1) raf = requestAnimationFrame(tick)
+      }
+      raf = requestAnimationFrame(tick)
     }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
+    const io = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !started) {
+        started = true
+        io.disconnect()
+        animate()
+      }
+    }, { threshold: 0.3 })
+    io.observe(el)
+    return () => { cancelAnimationFrame(raf); io.disconnect() }
   }, [])
 
   function handleWhatsApp(e: React.FormEvent<HTMLFormElement>) {
@@ -410,8 +428,8 @@ export default function Home() {
 
         <div className="relative z-10 max-w-4xl w-full reveal-stagger">
           {/* h1 com slogan triplo — Construímos. Lançamos. Operamos. */}
-          <h1 className="font-display font-[800] leading-[1.08] mb-6"
-            style={{ fontSize: 'clamp(36px, 5vw, 62px)', letterSpacing: '-0.02em' }}>
+          <h1 className="font-display font-[700] leading-[1.08] mb-6"
+            style={{ fontSize: 'clamp(36px, 5vw, 62px)', letterSpacing: '-0.05em' }}>
             {lang === 'pt' ? (
               <>
                 <span className="text-offwhite">Construímos.</span>{' '}
@@ -443,7 +461,7 @@ export default function Home() {
         </div>
 
         {/* Stats — flex-wrap centralizado, funciona em qualquer viewport */}
-        <div className="relative z-10 flex flex-wrap justify-center gap-8 md:gap-14 mt-16 pt-10 border-t border-white/[0.06] w-full max-w-2xl" role="list" aria-label="Destaques">
+        <div ref={heroStatsRef} className="relative z-10 flex flex-wrap justify-center gap-8 md:gap-14 mt-16 pt-10 border-t border-white/[0.06] w-full max-w-2xl" role="list" aria-label="Destaques">
           {[
             { n: `${count5}+`, l: t.hero.stat1l },
             { n: `${count4}`,  l: t.hero.stat2l },
@@ -495,27 +513,37 @@ export default function Home() {
       </section>
 
       {/* ── SERVICES ── */}
-      <section id="services" className="py-20 md:py-24 px-5 md:px-12 bg-navy-card border-y border-white/[0.06]">
-        <div className="max-w-[1200px] mx-auto">
-          <div className="text-center mb-12 md:mb-16 reveal">
+      <section id="services" className="py-20 md:py-28 px-5 md:px-12 bg-navy-card border-y border-white/[0.06]">
+        <div className="max-w-[1200px] mx-auto grid grid-cols-12 gap-x-6 gap-y-10">
+          {/* Header — alinhado à esquerda, ocupa 5 colunas no desktop */}
+          <div className="col-span-12 md:col-span-5 md:sticky md:top-28 self-start reveal">
             <p className="label-tag">{tx(t.services.label)}</p>
-            <h2 className="section-title">
-              {lang === 'pt' ? <>Serviços com <span className="text-cyan">responsabilidade operacional</span></> : <>Services with <span className="text-cyan">operational accountability</span></>}
+            <h2 className="section-title text-left">
+              {lang === 'pt' ? <>Serviços com<br /><span className="text-cyan">responsabilidade</span><br />operacional</> : <>Services with<br /><span className="text-cyan">operational</span><br />accountability</>}
             </h2>
-            <p className="font-sans text-steel max-w-xl mx-auto text-[15px]">{tx(t.services.desc)}</p>
+            <p className="font-sans text-steel text-[15px] max-w-md mt-2">{tx(t.services.desc)}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 reveal-stagger">
+
+          {/* Cards — coluna oposta, 7 colunas, ritmo vertical */}
+          <div className="col-span-12 md:col-span-7 md:col-start-6 flex flex-col gap-5 reveal-stagger">
             {[
-              { name: t.services.s1name, desc: t.services.s1desc, tags: ['Web','Mobile','API REST','Observabilidade'], icon: <IconCode /> },
-              { name: t.services.s2name, desc: t.services.s2desc, tags: ['Legacy','Cloud Migration','Database','Zero Downtime'], icon: <IconMigrate /> },
-              { name: t.services.s3name, desc: t.services.s3desc, tags: ['ERP','Marketplaces','Pagamentos','LLMs'], icon: <IconCustom /> },
+              { num: '01', name: t.services.s1name, desc: t.services.s1desc, tags: ['Web','Mobile','API REST','Observabilidade'], icon: <IconCode /> },
+              { num: '02', name: t.services.s2name, desc: t.services.s2desc, tags: ['Legacy','Cloud Migration','Database','Zero Downtime'], icon: <IconMigrate /> },
+              { num: '03', name: t.services.s3name, desc: t.services.s3desc, tags: ['ERP','Marketplaces','Pagamentos','LLMs'], icon: <IconCustom /> },
             ].map((s, i) => (
-              <Card key={i} hover className="card-glow group p-7 md:p-9 relative bg-navy">
+              <Card key={i} hover className="card-glow group p-7 md:p-8 relative bg-navy">
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100 rounded-t-2xl" aria-hidden="true" />
-                <div className="w-12 h-12 bg-cyan/[0.08] border border-cyan/20 rounded-xl flex items-center justify-center mb-5">{s.icon}</div>
-                <h3 className="font-display font-[700] text-[17px] md:text-[18px] text-offwhite mb-3 leading-tight">{tx(s.name)}</h3>
-                <p className="font-sans text-[14px] text-steel-muted leading-[1.65] mb-5">{tx(s.desc)}</p>
-                <div className="flex flex-wrap gap-1.5">{s.tags.map(tag => <Badge key={tag}>{tag}</Badge>)}</div>
+                <div className="flex items-start gap-5">
+                  <div className="w-12 h-12 bg-cyan/[0.08] border border-cyan/20 rounded-xl flex items-center justify-center shrink-0">{s.icon}</div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-baseline gap-3 mb-2">
+                      <span className="font-mono text-[11px] text-cyan tracking-[0.15em]">{s.num}</span>
+                      <h3 className="font-display font-[700] text-[17px] md:text-[18px] text-offwhite leading-tight">{tx(s.name)}</h3>
+                    </div>
+                    <p className="font-sans text-[14px] text-steel-muted leading-[1.65] mb-5">{tx(s.desc)}</p>
+                    <div className="flex flex-wrap gap-1.5">{s.tags.map(tag => <Badge key={tag}>{tag}</Badge>)}</div>
+                  </div>
+                </div>
               </Card>
             ))}
           </div>
@@ -576,24 +604,42 @@ export default function Home() {
               },
             ]
             const step = steps[activeStep]
+            // Calcula a posição da trilha: vai do centro do primeiro dot ao centro do dot ativo
+            const trackProgress = steps.length > 1 ? (activeStep / (steps.length - 1)) * 100 : 0
             return (
               <>
+                {/* Process flow track — trilha com pontos conectados */}
+                <div
+                  className="process-track hidden md:grid grid-cols-4 mb-10 mx-auto max-w-[760px]"
+                  style={{ '--progress': `${trackProgress}%` } as React.CSSProperties}
+                  aria-hidden="true"
+                >
+                  {steps.map((_s, i) => (
+                    <div key={i} className="flex justify-center">
+                      <div
+                        className="process-dot"
+                        data-state={i < activeStep ? 'done' : i === activeStep ? 'active' : 'pending'}
+                      />
+                    </div>
+                  ))}
+                </div>
+
                 {/* Tab buttons */}
-                <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-8 md:mb-10" role="tablist">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 mb-8 md:mb-10" role="tablist">
                   {steps.map((s, i) => (
                     <button
                       key={s.n}
                       role="tab"
                       aria-selected={activeStep === i}
                       onClick={() => setActiveStep(i)}
-                      className={`card-glow flex items-center gap-2.5 px-4 md:px-5 py-2.5 md:py-3 rounded-lg border font-display font-[700] text-[13px] md:text-[14px] ${
+                      className={`flex flex-col items-center md:items-start gap-1.5 px-4 md:px-5 py-3 md:py-4 rounded-lg border font-display font-[700] text-[13px] md:text-[14px] transition-all duration-200 ${
                         activeStep === i
                           ? 'bg-cyan/10 border-cyan text-offwhite'
-                          : 'bg-navy-card border-white/[0.08] text-steel hover:text-offwhite'
+                          : 'bg-navy-card border-white/[0.08] text-steel hover:border-cyan/30 hover:text-offwhite'
                       }`}
                     >
                       <span className={`font-mono text-[11px] ${activeStep === i ? 'text-cyan' : 'text-steel-muted'}`}>{s.n}</span>
-                      <span>{tx(s.t)}</span>
+                      <span className="text-center md:text-left">{tx(s.t)}</span>
                     </button>
                   ))}
                 </div>
@@ -641,28 +687,10 @@ export default function Home() {
       {/* ── ABOUT ── */}
       <section id="about" className="py-20 md:py-24 px-5 md:px-12 bg-navy-card border-b border-white/[0.06]">
         <div className="max-w-[1200px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
-            <div>
-              <p className="label-tag">{tx(t.about.label)}</p>
-              <h2 className="section-title">
-                {lang === 'pt'
-                  ? <>Engenharia técnica <span className="text-cyan">com responsabilidade pela operação</span></>
-                  : <>Technical engineering <span className="text-cyan">with operational accountability</span></>}
-              </h2>
-              <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.75] mb-4">{tx(t.about.p1)}</p>
-              <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.75] mb-8">{tx(t.about.p2)}</p>
-              <div className="flex flex-col gap-4">
-                {[t.about.h1, t.about.h2, t.about.h3].map((h, i) => (
-                  <div key={i} className="flex items-start gap-3.5">
-                    <div className="w-1.5 h-1.5 rounded-full bg-cyan mt-2 flex-shrink-0" aria-hidden="true" />
-                    <p className="font-sans text-[13px] md:text-[14px] text-steel-light leading-relaxed">{tx(h)}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Card institucional */}
-            <Card className="p-7 md:p-10 relative overflow-hidden bg-navy">
+          {/* Layout assimétrico — 7+5 invertido (texto à direita, card à esquerda no desktop) */}
+          <div className="grid grid-cols-12 gap-x-6 gap-y-10 items-start">
+            {/* Card institucional — 5 colunas, esquerda */}
+            <Card className="col-span-12 md:col-span-5 md:order-1 order-2 p-7 md:p-10 relative overflow-hidden bg-navy">
               <div className="absolute -top-10 -right-10 w-48 h-48 bg-glow-cyan pointer-events-none" aria-hidden="true" />
               <div className="grid grid-cols-2 gap-4 mb-7">
                 {[
@@ -698,6 +726,26 @@ export default function Home() {
                 </p>
               </div>
             </Card>
+
+            {/* Texto — 7 colunas, direita, alinhado à esquerda */}
+            <div className="col-span-12 md:col-span-7 md:order-2 order-1 reveal">
+              <p className="label-tag">{tx(t.about.label)}</p>
+              <h2 className="section-title text-left">
+                {lang === 'pt'
+                  ? <>Engenharia técnica<br /><span className="text-cyan">com responsabilidade<br />pela operação</span></>
+                  : <>Technical engineering<br /><span className="text-cyan">with operational<br />accountability</span></>}
+              </h2>
+              <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.75] mb-4">{tx(t.about.p1)}</p>
+              <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.75] mb-8">{tx(t.about.p2)}</p>
+              <div className="flex flex-col gap-4">
+                {[t.about.h1, t.about.h2, t.about.h3].map((h, i) => (
+                  <div key={i} className="flex items-start gap-3.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-cyan mt-2 flex-shrink-0" aria-hidden="true" />
+                    <p className="font-sans text-[13px] md:text-[14px] text-steel-light leading-relaxed">{tx(h)}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -706,93 +754,67 @@ export default function Home() {
       <section id="produtos" className="py-20 md:py-24 px-5 md:px-12 bg-navy border-b border-white/[0.06] relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-glow-cyan pointer-events-none -translate-y-1/3 translate-x-1/4" aria-hidden="true" />
         <div className="max-w-[1200px] mx-auto relative">
-          <div className="text-center mb-12 md:mb-16">
-            <p className="label-tag">{lang === 'pt' ? 'Produtos em produção' : 'Live products'}</p>
-            <h2 className="section-title">
-              {lang === 'pt' ? <>Software nosso, <span className="text-cyan">no ar agora</span></> : <>Our software, <span className="text-cyan">live right now</span></>}
-            </h2>
-            <p className="font-sans text-steel max-w-xl mx-auto text-[15px]">
-              {lang === 'pt'
-                ? 'Não falamos só de teoria. Construímos, lançamos e operamos produtos reais — usados por clientes reais todos os dias.'
-                : "We don't just talk theory. We ship, run and operate real products — used by real customers every day."}
-            </p>
+          {/* Header editorial assimétrico: número grande à esquerda, texto à direita */}
+          <div className="grid grid-cols-12 gap-x-6 gap-y-6 mb-12 md:mb-16 reveal">
+            <div className="col-span-12 md:col-span-3">
+              <p className="font-mono text-[11px] text-cyan tracking-[0.2em] uppercase mb-3">
+                {lang === 'pt' ? 'Em produção' : 'In production'}
+              </p>
+              <div className="font-display font-[700] text-[88px] md:text-[120px] text-cyan leading-[0.85] tabular-nums">
+                03
+              </div>
+            </div>
+            <div className="col-span-12 md:col-span-8 md:col-start-5 self-end">
+              <h2 className="section-title text-left mb-3">
+                {lang === 'pt' ? <>Software nosso,<br /><span className="text-cyan">no ar agora</span></> : <>Our software,<br /><span className="text-cyan">live right now</span></>}
+              </h2>
+              <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.7] max-w-xl">
+                {lang === 'pt'
+                  ? 'Não falamos só de teoria. Construímos, lançamos e operamos produtos reais — usados por clientes reais todos os dias.'
+                  : "We don't just talk theory. We ship, run and operate real products — used by real customers every day."}
+              </p>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
-            {[
-              {
-                badge: { pt: 'Fiscal · SaaS', en: 'Fiscal · SaaS' },
-                bv: 'cyan' as const,
-                name: 'NotaFácil',
-                tagline: { pt: 'Emissão de NFS-e do MEI, sem complicação.', en: 'MEI invoice issuance, made simple.' },
-                desc: { pt: 'Plataforma + API REST para emissão automatizada de NFS-e Nacional. Suporte a 5.000+ municípios, certificado A1 protegido em AWS, webhooks assinados.', en: 'Platform + REST API for automated NFS-e issuance. Supports 5,000+ municipalities, A1 certificate stored in AWS, signed webhooks.' },
-                tags: ['Go', 'Fiber', 'PostgreSQL', 'AWS KMS', 'Stripe'],
-                accent: 'from-cyan to-[#0088CC]',
-                href: 'https://www.emitirnotafacil.com.br/',
-                logo: '/products/notafacil.svg',
-                logoBg: 'bg-white',
-              },
-              {
-                badge: { pt: 'IA · E-commerce', en: 'AI · E-commerce' },
-                bv: 'blue' as const,
-                name: 'Descrição AI',
-                tagline: { pt: 'Seu produto merece uma descrição que vende.', en: 'Your product deserves a description that sells.' },
-                desc: { pt: 'Geração automática de título, descrição e bullets em ~10 segundos. Pronto para colar no Mercado Livre, Shopee e lojas próprias. API para integração em larga escala.', en: 'Auto-generates title, description and bullets in ~10s. Ready to paste into marketplaces. API for large-scale integration.' },
-                tags: ['Next.js', 'OpenAI', 'Supabase', 'Stripe'],
-                accent: 'from-[#7C6FFF] to-[#00D4FF]',
-                href: 'https://descricaoai.com.br/',
-                logo: '/products/descricaoai.svg',
-                logoBg: 'bg-white',
-              },
-            ].map((p) => (
-              <a
-                key={p.name}
-                href={p.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${lang === 'pt' ? 'Visitar' : 'Visit'} ${p.name}`}
-                className="group block"
-              >
-                <Card hover className="p-6 md:p-8 h-full flex flex-col relative overflow-hidden bg-navy-card">
-                  {/* Top accent bar */}
-                  <div className={`absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r ${p.accent} opacity-60 group-hover:opacity-100 transition-opacity duration-300`} aria-hidden="true" />
-
-                  <div className="flex items-start justify-between gap-4 mb-5">
-                    <div className={`w-14 h-14 rounded-xl ${p.logoBg} flex items-center justify-center shadow-lg flex-shrink-0 overflow-hidden border border-white/10 p-1.5`}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={p.logo} alt={`${p.name} logo`} className="w-full h-full object-contain" />
-                    </div>
-                    <Badge variant={p.bv}>{tx(p.badge)}</Badge>
-                  </div>
-
-                  <h3 className="font-display font-[800] text-[20px] md:text-[22px] text-offwhite mb-2 leading-tight">
-                    {p.name}
-                  </h3>
-                  <p className="font-sans text-cyan text-[13px] md:text-[14px] mb-3 leading-snug">
-                    {tx(p.tagline)}
-                  </p>
-                  <p className="font-sans text-[13px] md:text-[14px] text-steel-muted leading-[1.65] mb-5 flex-1">
-                    {tx(p.desc)}
-                  </p>
-
-                  <div className="flex flex-wrap gap-1.5 mb-5">
-                    {p.tags.map(t => <Badge key={t} variant="steel">{t}</Badge>)}
-                  </div>
-
-                  <div className="flex items-center justify-between pt-4 border-t border-white/[0.06]">
-                    <span className="font-mono text-[10px] text-steel tracking-[0.15em] uppercase truncate max-w-[180px] md:max-w-[220px]">
-                      {p.href.replace(/^https?:\/\//, '').replace(/\/$/, '')}
-                    </span>
-                    <span className="font-mono text-[11px] text-cyan tracking-[0.08em] flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
-                      {lang === 'pt' ? 'Visitar' : 'Visit'}
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-                        <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-                      </svg>
-                    </span>
-                  </div>
-                </Card>
-              </a>
-            ))}
+          {/* Produtos em mockup de browser — alterna texto à esquerda/direita pra ritmo */}
+          <div className="flex flex-col gap-16 md:gap-20 reveal-stagger">
+            <ProductShowcase
+              name="NotaFácil"
+              tagline={{
+                pt: 'Emissão de NFS-e do MEI, sem complicação. Plataforma + API REST com suporte a 5.000+ municípios, certificado A1 protegido em AWS e webhooks assinados.',
+                en: 'MEI invoice issuance, made simple. Platform + REST API supporting 5,000+ municipalities, A1 certificate stored in AWS, signed webhooks.',
+              }}
+              url="http://emitirnotafacil.com.br"
+              /* TODO: adicionar screenshot="/products/screenshots/notafacil.png" quando o asset chegar */
+              techStack={['Go', 'Fiber', 'PostgreSQL', 'AWS KMS', 'Stripe']}
+              accent="cyan"
+              lang={lang}
+            />
+            <ProductShowcase
+              name="Descrição AI"
+              tagline={{
+                pt: 'Seu produto merece uma descrição que vende. Geração automática de título, descrição e bullets em ~10s — pronto pra Mercado Livre, Shopee e lojas próprias.',
+                en: 'Your product deserves a description that sells. Auto-generates title, description and bullets in ~10s — ready for marketplaces.',
+              }}
+              url="https://descricaoai.com.br"
+              /* TODO: adicionar screenshot="/products/screenshots/descricaoai.png" quando o asset chegar */
+              techStack={['Next.js', 'OpenAI', 'Supabase', 'Stripe']}
+              accent="violet"
+              lang={lang}
+              reverse
+            />
+            <ProductShowcase
+              name="Agenda Inteligente"
+              tagline={{
+                pt: 'Agendamento online para clínicas, salões e prestadores de serviço. Reagendamento automático e WhatsApp Business integrado para confirmações.',
+                en: 'Online scheduling for clinics, salons and service pros. Smart rescheduling and WhatsApp Business integration for confirmations.',
+              }}
+              url="https://agendainteligente-aleefhenriiques-projects.vercel.app/"
+              /* TODO: adicionar screenshot="/products/screenshots/agenda-inteligente.png" quando o asset chegar */
+              techStack={['Java', 'Spring Boot', 'Next.js', 'OpenAI API']}
+              accent="cyan"
+              lang={lang}
+            />
           </div>
 
           <div className="text-center mt-12 md:mt-14">
@@ -876,6 +898,85 @@ export default function Home() {
               onClick={() => trackLead({ source: 'whatsapp', lang })}>
               <Button size="md">{tx(t.pricing.cta)}</Button>
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── INSIGHTS / BLOG ── */}
+      {/* TODO: Quando atualizar o blog, atualizar essa lista com os 3 posts
+          mais recentes. Página é client component — não dá pra usar getAllPosts()
+          (que lê fs). Pra automatizar, mover Home para server component + props. */}
+      <section id="insights-home" className="py-20 md:py-24 px-5 md:px-12 bg-navy border-b border-white/[0.06]">
+        <div className="max-w-[1200px] mx-auto">
+          {/* Header assimétrico */}
+          <div className="grid grid-cols-12 gap-x-6 gap-y-6 mb-12 reveal">
+            <div className="col-span-12 md:col-span-7">
+              <p className="label-tag" style={{ color: 'var(--accent-2)' }}>{lang === 'pt' ? 'Insights' : 'Insights'}</p>
+              <h2 className="section-title text-left">
+                {lang === 'pt'
+                  ? <>Engenharia e negócios<br /><span style={{ color: 'var(--accent-2)' }}>sem enrolação</span></>
+                  : <>Engineering and business<br /><span style={{ color: 'var(--accent-2)' }}>without the fluff</span></>}
+              </h2>
+            </div>
+            <div className="col-span-12 md:col-span-4 md:col-start-9 self-end">
+              <a href="/blog" className="font-mono text-[13px] tracking-[0.04em] inline-flex items-center gap-2 transition-colors"
+                 style={{ color: 'var(--accent-2)' }}>
+                {lang === 'pt' ? 'Ver todos os artigos' : 'See all articles'}
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+                  strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          {/* Grid de 3 cards de insights */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 reveal-stagger">
+            {[
+              {
+                slug: 'mvp-em-4-semanas-o-que-e-possivel',
+                title: { pt: 'MVP em 4 semanas: o que realmente é possível entregar', en: 'MVP in 4 weeks: what you can really deliver' },
+                desc:  { pt: 'O que cabe (e o que não cabe) num MVP de 4 semanas — e como definir o escopo certo.', en: 'What fits (and what doesn\'t) in a 4-week MVP — and how to scope it right.' },
+                date: '15 mai 2026',
+                read: 6,
+              },
+              {
+                slug: 'quando-contratar-dev-freelancer-vs-empresa',
+                title: { pt: 'Freelancer ou empresa: quando cada um faz sentido', en: 'Freelancer or agency: when each makes sense' },
+                desc:  { pt: 'Como decidir entre contratar um dev freelancer ou uma empresa — e os riscos que a maioria ignora.', en: 'How to choose between hiring a freelance dev or an agency — and the risks most people ignore.' },
+                date: '12 mai 2026',
+                read: 5,
+              },
+              {
+                slug: 'como-escolher-tecnologia-para-seu-projeto',
+                title: { pt: 'Como escolher a tecnologia certa para seu projeto', en: 'How to choose the right tech for your project' },
+                desc:  { pt: 'React ou Next.js? Go ou Node? Os critérios que usamos — sem hype e sem achismo.', en: 'React or Next.js? Go or Node? The criteria we use — no hype, no guesswork.' },
+                date: '10 mai 2026',
+                read: 7,
+              },
+            ].map(post => (
+              <a key={post.slug} href={`/blog/${post.slug}`}
+                className="card-glow group relative bg-navy-card border border-white/[0.06] rounded-2xl p-6 md:p-7 transition-all duration-300 no-underline"
+                style={{ borderColor: 'rgba(180, 156, 255, 0.08)' }}>
+                <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  style={{ background: 'linear-gradient(90deg, var(--accent-2), transparent)' }} aria-hidden="true" />
+                <div className="flex items-center gap-3 mb-4 font-mono text-[10px] text-steel-muted tracking-[0.12em] uppercase">
+                  <span>{post.date}</span>
+                  <span className="w-1 h-1 rounded-full bg-steel/40" aria-hidden="true" />
+                  <span>{post.read} min</span>
+                </div>
+                <h3 className="font-display font-[700] text-[16px] md:text-[17px] text-offwhite mb-3 leading-snug transition-colors duration-200 group-hover:text-[color:var(--accent-2)]">
+                  {tx(post.title)}
+                </h3>
+                <p className="font-sans text-[13px] md:text-[14px] text-steel-muted leading-[1.65] mb-5">
+                  {tx(post.desc)}
+                </p>
+                <div className="font-mono text-[11px] tracking-[0.06em] inline-flex items-center gap-1.5"
+                  style={{ color: 'var(--accent-2)' }}>
+                  {lang === 'pt' ? 'Ler artigo' : 'Read article'} →
+                </div>
+              </a>
+            ))}
           </div>
         </div>
       </section>

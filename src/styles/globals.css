@@ -1,5 +1,5 @@
-/* auditoria: preconnect declarado no layout.tsx; font-display=swap via parâmetro da URL */
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500;700;800&display=swap');
+/* Fontes carregadas via next/font no layout.tsx (sem FOUT, sem layout shift).
+   --font-body (Inter) e --font-display (JetBrains Mono) ficam nas tags <html>. */
 
 @tailwind base;
 @tailwind components;
@@ -12,9 +12,13 @@
   --navy-card:   #0F1929;   /* auditoria: superfície de card */
   --navy-border: #1A2235;   /* auditoria: inputs e separadores */
   --navy-hover:  #243044;   /* auditoria: hover de cards */
-  --accent:      #00D4FF;
-  --accent-dark: #0088CC;
-  --accent-glow: rgba(0, 212, 255, 0.12);
+  --accent:        #00D4FF;
+  --accent-dark:   #0088CC;
+  --accent-glow:   rgba(0, 212, 255, 0.12);
+  /* Acento secundário — violet sutil, usado pontualmente para fugir do
+     'cyan-on-navy' padrão de SaaS dark. Aparece em insights e detalhes. */
+  --accent-2:      #B49CFF;
+  --accent-2-soft: rgba(180, 156, 255, 0.12);
   --steel:       #8B9DB7;
   --steel-muted: #8899AA;   /* auditoria: body text em dark mode */
   --steel-light: #C4D2E6;
@@ -29,10 +33,17 @@ html { scroll-behavior: smooth; }
 body {
   background-color: var(--navy);
   color: var(--offwhite);
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body), 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   font-size: 1rem;
   line-height: 1.65;
+}
+
+/* Tipografia da marca: headings, labels e números usam fonte mono de display.
+   Corpo continua em Inter para legibilidade em textos longos. */
+h1, h2, h3, h4, h5, h6,
+.font-display {
+  font-family: var(--font-display), 'JetBrains Mono', ui-monospace, monospace;
 }
 
 /* auditoria: focus-visible ring acessível — nunca outline:none sem substituto */
@@ -50,19 +61,21 @@ body {
     @apply font-mono text-[10px] tracking-[0.22em] text-cyan uppercase inline-block mb-4 opacity-80;
   }
 
-  /* auditoria: section-title com clamp correto e letter-spacing negativo */
+  /* section-title em JetBrains Mono — letter-spacing levemente negativo
+     e peso 700 (em mono, 800 fica muito brutal em textos grandes). */
   .section-title {
-    @apply font-display font-[800] leading-[1.15] mb-4;
+    @apply font-display leading-[1.15] mb-4;
+    font-weight: 700;
     font-size: clamp(1.75rem, 5vw, 2.75rem);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.04em;
   }
 
-  /* hero-title com clamp fluido mobile→desktop */
+  /* hero-title — mono em peso 700, ainda mais aberta de tracking */
   .hero-title {
+    font-family: var(--font-display), 'JetBrains Mono', ui-monospace, monospace;
+    font-weight: 700;
     font-size: clamp(2rem, 8vw, 5rem);
-    font-family: 'Inter', sans-serif;
-    font-weight: 800;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.05em;
     line-height: 1.05;
   }
 
@@ -176,6 +189,61 @@ body {
   .reveal-stagger.is-visible > *:nth-child(4) { transition-delay: 240ms; opacity: 1; transform: translateY(0); }
   .reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 320ms; opacity: 1; transform: translateY(0); }
   .reveal-stagger.is-visible > *:nth-child(n+6) { transition-delay: 400ms; opacity: 1; transform: translateY(0); }
+
+  /* Process flow — trilha de progresso entre as 4 fases */
+  .process-track {
+    position: relative;
+  }
+  .process-track::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(0, 212, 255, 0.15) 8%,
+      rgba(0, 212, 255, 0.15) 92%,
+      transparent 100%
+    );
+    transform: translateY(-50%);
+    z-index: 0;
+  }
+  .process-track::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.7), rgba(0, 212, 255, 0.9));
+    transform: translateY(-50%);
+    width: var(--progress, 12.5%);
+    transition: width 600ms cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1;
+    box-shadow: 0 0 12px rgba(0, 212, 255, 0.4);
+  }
+  .process-dot {
+    position: relative;
+    z-index: 2;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--navy);
+    border: 1.5px solid rgba(0, 212, 255, 0.3);
+    transition: all 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .process-dot[data-state="done"] {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.12);
+  }
+  .process-dot[data-state="active"] {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 6px rgba(0, 212, 255, 0.15), 0 0 16px rgba(0, 212, 255, 0.5);
+    transform: scale(1.15);
+  }
 
   /* Marquee infinito (stack de tecnologias) */
   .marquee {
