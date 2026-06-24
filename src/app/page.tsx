@@ -273,15 +273,6 @@ export default function Home() {
     return () => io.disconnect()
   }, [])
 
-  // ── Mouse-follow glow no hero ──
-  function handleHeroMouseMove(e: React.MouseEvent<HTMLElement>) {
-    const r = e.currentTarget.getBoundingClientRect()
-    const x = ((e.clientX - r.left) / r.width) * 100
-    const y = ((e.clientY - r.top) / r.height) * 100
-    e.currentTarget.style.setProperty('--mx', `${x}%`)
-    e.currentTarget.style.setProperty('--my', `${y}%`)
-  }
-
   // ── Counter animation nos stats numéricos do hero ──
   const [count5, setCount5] = useState(0)
   const [count4, setCount4] = useState(0)
@@ -408,11 +399,10 @@ export default function Home() {
         )}
       </nav>
 
-      {/* ── HERO (com mouse-follow glow) ── */}
+      {/* ── HERO ── */}
       <section
         id="hero"
-        onMouseMove={handleHeroMouseMove}
-        className="mouse-glow relative min-h-screen flex flex-col items-center justify-center text-center px-6 md:px-12 pt-[120px] md:pt-[140px] pb-20 md:pb-[120px] overflow-hidden"
+        className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 md:px-12 pt-[120px] md:pt-[140px] pb-20 md:pb-[120px] overflow-hidden"
       >
         <div className="absolute inset-0 bg-grid" aria-hidden="true" />
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-glow-cyan pointer-events-none" aria-hidden="true" />
