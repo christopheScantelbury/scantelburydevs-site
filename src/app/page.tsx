@@ -603,24 +603,42 @@ export default function Home() {
               },
             ]
             const step = steps[activeStep]
+            // Calcula a posição da trilha: vai do centro do primeiro dot ao centro do dot ativo
+            const trackProgress = steps.length > 1 ? (activeStep / (steps.length - 1)) * 100 : 0
             return (
               <>
+                {/* Process flow track — trilha com pontos conectados */}
+                <div
+                  className="process-track hidden md:grid grid-cols-4 mb-10 mx-auto max-w-[760px]"
+                  style={{ '--progress': `${trackProgress}%` } as React.CSSProperties}
+                  aria-hidden="true"
+                >
+                  {steps.map((_s, i) => (
+                    <div key={i} className="flex justify-center">
+                      <div
+                        className="process-dot"
+                        data-state={i < activeStep ? 'done' : i === activeStep ? 'active' : 'pending'}
+                      />
+                    </div>
+                  ))}
+                </div>
+
                 {/* Tab buttons */}
-                <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-8 md:mb-10" role="tablist">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 mb-8 md:mb-10" role="tablist">
                   {steps.map((s, i) => (
                     <button
                       key={s.n}
                       role="tab"
                       aria-selected={activeStep === i}
                       onClick={() => setActiveStep(i)}
-                      className={`card-glow flex items-center gap-2.5 px-4 md:px-5 py-2.5 md:py-3 rounded-lg border font-display font-[700] text-[13px] md:text-[14px] ${
+                      className={`flex flex-col items-center md:items-start gap-1.5 px-4 md:px-5 py-3 md:py-4 rounded-lg border font-display font-[700] text-[13px] md:text-[14px] transition-all duration-200 ${
                         activeStep === i
                           ? 'bg-cyan/10 border-cyan text-offwhite'
-                          : 'bg-navy-card border-white/[0.08] text-steel hover:text-offwhite'
+                          : 'bg-navy-card border-white/[0.08] text-steel hover:border-cyan/30 hover:text-offwhite'
                       }`}
                     >
                       <span className={`font-mono text-[11px] ${activeStep === i ? 'text-cyan' : 'text-steel-muted'}`}>{s.n}</span>
-                      <span>{tx(s.t)}</span>
+                      <span className="text-center md:text-left">{tx(s.t)}</span>
                     </button>
                   ))}
                 </div>
