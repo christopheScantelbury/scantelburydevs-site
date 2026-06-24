@@ -937,6 +937,85 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── INSIGHTS / BLOG ── */}
+      {/* TODO: Quando atualizar o blog, atualizar essa lista com os 3 posts
+          mais recentes. Página é client component — não dá pra usar getAllPosts()
+          (que lê fs). Pra automatizar, mover Home para server component + props. */}
+      <section id="insights-home" className="py-20 md:py-24 px-5 md:px-12 bg-navy border-b border-white/[0.06]">
+        <div className="max-w-[1200px] mx-auto">
+          {/* Header assimétrico */}
+          <div className="grid grid-cols-12 gap-x-6 gap-y-6 mb-12 reveal">
+            <div className="col-span-12 md:col-span-7">
+              <p className="label-tag" style={{ color: 'var(--accent-2)' }}>{lang === 'pt' ? 'Insights' : 'Insights'}</p>
+              <h2 className="section-title text-left">
+                {lang === 'pt'
+                  ? <>Engenharia e negócios<br /><span style={{ color: 'var(--accent-2)' }}>sem enrolação</span></>
+                  : <>Engineering and business<br /><span style={{ color: 'var(--accent-2)' }}>without the fluff</span></>}
+              </h2>
+            </div>
+            <div className="col-span-12 md:col-span-4 md:col-start-9 self-end">
+              <a href="/blog" className="font-mono text-[13px] tracking-[0.04em] inline-flex items-center gap-2 transition-colors"
+                 style={{ color: 'var(--accent-2)' }}>
+                {lang === 'pt' ? 'Ver todos os artigos' : 'See all articles'}
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+                  strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          {/* Grid de 3 cards de insights */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 reveal-stagger">
+            {[
+              {
+                slug: 'mvp-em-4-semanas-o-que-e-possivel',
+                title: { pt: 'MVP em 4 semanas: o que realmente é possível entregar', en: 'MVP in 4 weeks: what you can really deliver' },
+                desc:  { pt: 'O que cabe (e o que não cabe) num MVP de 4 semanas — e como definir o escopo certo.', en: 'What fits (and what doesn\'t) in a 4-week MVP — and how to scope it right.' },
+                date: '15 mai 2026',
+                read: 6,
+              },
+              {
+                slug: 'quando-contratar-dev-freelancer-vs-empresa',
+                title: { pt: 'Freelancer ou empresa: quando cada um faz sentido', en: 'Freelancer or agency: when each makes sense' },
+                desc:  { pt: 'Como decidir entre contratar um dev freelancer ou uma empresa — e os riscos que a maioria ignora.', en: 'How to choose between hiring a freelance dev or an agency — and the risks most people ignore.' },
+                date: '12 mai 2026',
+                read: 5,
+              },
+              {
+                slug: 'como-escolher-tecnologia-para-seu-projeto',
+                title: { pt: 'Como escolher a tecnologia certa para seu projeto', en: 'How to choose the right tech for your project' },
+                desc:  { pt: 'React ou Next.js? Go ou Node? Os critérios que usamos — sem hype e sem achismo.', en: 'React or Next.js? Go or Node? The criteria we use — no hype, no guesswork.' },
+                date: '10 mai 2026',
+                read: 7,
+              },
+            ].map(post => (
+              <a key={post.slug} href={`/blog/${post.slug}`}
+                className="card-glow group relative bg-navy-card border border-white/[0.06] rounded-2xl p-6 md:p-7 transition-all duration-300 no-underline"
+                style={{ borderColor: 'rgba(180, 156, 255, 0.08)' }}>
+                <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  style={{ background: 'linear-gradient(90deg, var(--accent-2), transparent)' }} aria-hidden="true" />
+                <div className="flex items-center gap-3 mb-4 font-mono text-[10px] text-steel-muted tracking-[0.12em] uppercase">
+                  <span>{post.date}</span>
+                  <span className="w-1 h-1 rounded-full bg-steel/40" aria-hidden="true" />
+                  <span>{post.read} min</span>
+                </div>
+                <h3 className="font-display font-[700] text-[16px] md:text-[17px] text-offwhite mb-3 leading-snug transition-colors duration-200 group-hover:text-[color:var(--accent-2)]">
+                  {tx(post.title)}
+                </h3>
+                <p className="font-sans text-[13px] md:text-[14px] text-steel-muted leading-[1.65] mb-5">
+                  {tx(post.desc)}
+                </p>
+                <div className="font-mono text-[11px] tracking-[0.06em] inline-flex items-center gap-1.5"
+                  style={{ color: 'var(--accent-2)' }}>
+                  {lang === 'pt' ? 'Ler artigo' : 'Read article'} →
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── CONTACT ── */}
       <section id="contact" className="py-20 md:py-24 px-5 md:px-12 bg-navy-card border-b border-white/[0.06]">
         <div className="max-w-[1200px] mx-auto">

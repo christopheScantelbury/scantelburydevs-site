@@ -12,9 +12,13 @@
   --navy-card:   #0F1929;   /* auditoria: superfície de card */
   --navy-border: #1A2235;   /* auditoria: inputs e separadores */
   --navy-hover:  #243044;   /* auditoria: hover de cards */
-  --accent:      #00D4FF;
-  --accent-dark: #0088CC;
-  --accent-glow: rgba(0, 212, 255, 0.12);
+  --accent:        #00D4FF;
+  --accent-dark:   #0088CC;
+  --accent-glow:   rgba(0, 212, 255, 0.12);
+  /* Acento secundário — violet sutil, usado pontualmente para fugir do
+     'cyan-on-navy' padrão de SaaS dark. Aparece em insights e detalhes. */
+  --accent-2:      #B49CFF;
+  --accent-2-soft: rgba(180, 156, 255, 0.12);
   --steel:       #8B9DB7;
   --steel-muted: #8899AA;   /* auditoria: body text em dark mode */
   --steel-light: #C4D2E6;
