@@ -128,7 +128,7 @@ export function ProductShowcase({
                 src={screenshot}
                 alt={`Screenshot de ${name}`}
                 fill
-                className="object-cover"
+                className="object-cover object-top"
                 priority={priority}
                 sizes="(max-width: 768px) 100vw, 60vw"
               />
