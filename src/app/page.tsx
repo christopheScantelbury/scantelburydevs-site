@@ -755,24 +755,22 @@ export default function Home() {
       <section id="produtos" className="py-20 md:py-24 px-5 md:px-12 bg-navy border-b border-white/[0.06] relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-glow-cyan pointer-events-none -translate-y-1/3 translate-x-1/4" aria-hidden="true" />
         <div className="max-w-[1200px] mx-auto relative">
-          {/* Header editorial assimétrico: número grande à esquerda, texto à direita */}
+          {/* Header editorial assimétrico */}
           <div className="grid grid-cols-12 gap-x-6 gap-y-6 mb-12 md:mb-16 reveal">
             <div className="col-span-12 md:col-span-3">
               <p className="font-mono text-[11px] text-cyan tracking-[0.2em] uppercase mb-3">
-                {lang === 'pt' ? 'Em produção' : 'In production'}
+                {lang === 'pt' ? 'Feito por nós' : 'Built by us'}
               </p>
-              <div className="font-display font-[700] text-[88px] md:text-[120px] text-cyan leading-[0.85] tabular-nums">
-                03
-              </div>
+              <div className="hidden md:block w-16 h-[3px] bg-cyan/60 rounded-full" aria-hidden="true" />
             </div>
             <div className="col-span-12 md:col-span-8 md:col-start-5 self-end">
               <h2 className="section-title text-left mb-3">
-                {lang === 'pt' ? <>Software nosso,<br /><span className="text-cyan">no ar agora</span></> : <>Our software,<br /><span className="text-cyan">live right now</span></>}
+                {lang === 'pt' ? <>Alguns dos sistemas<br /><span className="text-cyan">que a gente construiu</span></> : <>Some of the systems<br /><span className="text-cyan">we&apos;ve built</span></>}
               </h2>
               <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.7] max-w-xl">
                 {lang === 'pt'
-                  ? 'Não falamos só de teoria. Construímos, lançamos e operamos produtos reais — usados por clientes reais todos os dias.'
-                  : "We don't just talk theory. We ship, run and operate real products — used by real customers every day."}
+                  ? 'Não falamos só de teoria. Construímos, lançamos e operamos software real — do sistema web ao aplicativo de celular. Estes são alguns deles.'
+                  : "We don't just talk theory. We build, ship and run real software — from web systems to mobile apps. Here are a few of them."}
               </p>
             </div>
           </div>
