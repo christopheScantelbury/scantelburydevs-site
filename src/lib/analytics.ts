@@ -84,8 +84,12 @@ export function trackContact(method: string) {
   gtag('event', 'contact', { method })
 }
 
-/** Abertura do chat com a assistente — micro-conversão / intenção. */
-export function trackChatOpen() {
-  fbq('trackCustom', 'ChatOpen')
-  gtag('event', 'chat_open')
+/**
+ * Abertura do chat com a assistente — micro-conversão / intenção.
+ * `trigger` distingue abertura manual (clique) de proativa (balão/auto-open)
+ * para medirmos no GA4 qual traz mais conversa.
+ */
+export function trackChatOpen(trigger: 'manual' | 'bubble' | 'auto' = 'manual') {
+  fbq('trackCustom', 'ChatOpen', { trigger })
+  gtag('event', 'chat_open', { trigger })
 }

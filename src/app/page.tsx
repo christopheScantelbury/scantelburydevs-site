@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui'
 import { Input, Textarea, Select } from '@/components/ui'
 import { useState, useRef, useEffect } from 'react'
 import { trackLead, trackContact, trackChatOpen } from '@/lib/analytics'
+import { useProactiveChat } from '@/lib/useProactiveChat'
 import { ProductShowcase } from '@/components/ProductShowcase'
 import { MobileShowcase } from '@/components/MobileShowcase'
 
@@ -120,6 +121,12 @@ function AIChatWidget({ lang }: { lang: Lang }) {
   const [loading, setLoading] = useState(false)
   const bottomRef = useRef<HTMLDivElement>(null)
 
+  const { showBubble, dismissBubble } = useProactiveChat({
+    isOpen: open,
+    onAutoOpen: () => { setOpen(true); trackChatOpen('auto') },
+    storageKey: 'proactiveChat:home',
+  })
+
   useEffect(() => {
     if (open) bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages, open])
@@ -152,8 +159,35 @@ function AIChatWidget({ lang }: { lang: Lang }) {
         <div className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-cyan/20 animate-ping pointer-events-none" aria-hidden="true" />
       )}
 
+      {/* Balão teaser proativo — convida sem abrir o modal */}
+      {showBubble && !open && (
+        <div className="fixed bottom-24 right-6 z-50 w-[248px] max-w-[calc(100vw-3rem)] animate-fade-up">
+          <div className="relative bg-navy-mid border border-cyan/25 rounded-2xl rounded-br-sm shadow-2xl">
+            <button
+              onClick={dismissBubble}
+              aria-label={lang === 'pt' ? 'Dispensar' : 'Dismiss'}
+              className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-navy-card border border-white/10 flex items-center justify-center text-steel hover:text-offwhite hover:border-cyan/30 transition-colors"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <button
+              onClick={() => { dismissBubble(); setOpen(true); trackChatOpen('bubble') }}
+              className="text-left px-4 py-3.5 w-full"
+            >
+              <p className="font-sans text-[13px] text-offwhite leading-snug">
+                {lang === 'pt' ? 'Oi 👋 Posso te ajudar com seu projeto?' : 'Hi 👋 Can I help with your project?'}
+              </p>
+              <p className="font-mono text-[10px] text-cyan mt-1.5 flex items-center gap-1">
+                {lang === 'pt' ? 'Responder' : 'Reply'}
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </p>
+            </button>
+          </div>
+        </div>
+      )}
+
       <button
-        onClick={() => setOpen(o => { const next = !o; if (next) trackChatOpen(); return next })}
+        onClick={() => setOpen(o => { const next = !o; if (next) trackChatOpen('manual'); return next })}
         className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-cyan flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110"
         aria-label={open ? 'Fechar chat' : 'Abrir chat com assistente'}
       >

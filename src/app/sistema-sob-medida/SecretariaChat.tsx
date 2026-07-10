@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { trackChatOpen, trackContact, trackLead } from '@/lib/analytics'
+import { useProactiveChat } from '@/lib/useProactiveChat'
 
 interface Message { role: 'user' | 'assistant'; content: string }
 
@@ -20,6 +21,12 @@ export default function SecretariaChat() {
   const [loading, setLoading] = useState(false)
   const [resumoEnviado, setResumoEnviado] = useState(false)
   const bottomRef = useRef<HTMLDivElement>(null)
+
+  const { showBubble, dismissBubble } = useProactiveChat({
+    isOpen: open,
+    onAutoOpen: () => { setOpen(true); trackChatOpen('auto') },
+    storageKey: 'proactiveChat:lp',
+  })
 
   useEffect(() => {
     if (open) bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -65,8 +72,35 @@ export default function SecretariaChat() {
         <div className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-cyan/20 animate-ping pointer-events-none" aria-hidden="true" />
       )}
 
+      {/* Balão teaser proativo — convida sem abrir o modal */}
+      {showBubble && !open && (
+        <div className="fixed bottom-24 right-6 z-50 w-[260px] max-w-[calc(100vw-3rem)] animate-fade-up">
+          <div className="relative bg-navy border border-cyan/25 rounded-2xl rounded-br-sm shadow-2xl">
+            <button
+              onClick={dismissBubble}
+              aria-label="Dispensar"
+              className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-white/[0.06] border border-white/10 flex items-center justify-center text-steel hover:text-offwhite hover:border-cyan/30 transition-colors"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <button
+              onClick={() => { dismissBubble(); setOpen(true); trackChatOpen('bubble') }}
+              className="text-left px-4 py-3.5 w-full"
+            >
+              <p className="font-sans text-[13px] text-offwhite leading-snug">
+                Oi 👋 Quer um diagnóstico gratuito do seu sistema? É rápido e sem compromisso.
+              </p>
+              <p className="font-mono text-[10px] text-cyan mt-1.5 flex items-center gap-1">
+                Começar
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </p>
+            </button>
+          </div>
+        </div>
+      )}
+
       <button
-        onClick={() => setOpen(o => { const next = !o; if (next) trackChatOpen(); return next })}
+        onClick={() => setOpen(o => { const next = !o; if (next) trackChatOpen('manual'); return next })}
         className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-cyan flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110"
         aria-label={open ? 'Fechar chat' : 'Abrir conversa com a assistente'}
       >
