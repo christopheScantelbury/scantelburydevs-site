@@ -8,6 +8,7 @@ import { Input, Textarea, Select } from '@/components/ui'
 import { useState, useRef, useEffect } from 'react'
 import { trackLead, trackContact, trackChatOpen } from '@/lib/analytics'
 import { ProductShowcase } from '@/components/ProductShowcase'
+import { MobileShowcase } from '@/components/MobileShowcase'
 
 type Lang = 'pt' | 'en'
 
@@ -813,6 +814,24 @@ export default function Home() {
               screenshot="/products/screenshots/agenda-inteligente.png"
               techStack={['Java', 'Spring Boot', 'Next.js', 'OpenAI API']}
               accent="cyan"
+              lang={lang}
+            />
+            <MobileShowcase
+              name="Reino do Garcia"
+              tagline={{
+                pt: 'App de bairro que junta moradores e comércio local num só lugar: feed de notícias e ofertas, vitrine dos comerciantes e um programa de fidelidade gamificado — os "Selos do Reino". Feito para o bairro Garcia, em Blumenau.',
+                en: 'A hyperlocal neighborhood app connecting residents and local shops: news and deals feed, merchant directory and a gamified loyalty program — the "Reino stamps". Built for the Garcia district in Blumenau.',
+              }}
+              url="https://aplicativo-reino-garcia.vercel.app/"
+              screenshots={[
+                '/products/reino/reino-mural.jpg',
+                '/products/reino/reino-reino.jpg',
+                '/products/reino/reino-comercio.jpg',
+              ]}
+              techStack={['Next.js', 'NestJS', 'PostgreSQL', 'TypeORM', 'Railway']}
+              accentColor="#D4A82A"
+              statusLabel={{ pt: 'App de bairro · piloto 2026', en: 'Neighborhood app · 2026 pilot' }}
+              reverse
               lang={lang}
             />
           </div>

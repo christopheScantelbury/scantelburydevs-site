@@ -1,12 +1,27 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Trabalhos que fizemos',
-  description: 'Três sistemas próprios que a ScantelburyDevs construiu e mantém no ar todo dia, com clientes pagantes: NotaFácil (emissão de nota fiscal pra MEI), Descrição AI (geração de descrição de produto com IA) e Agenda Inteligente (agendamento online).',
+  description: 'Sistemas próprios que a ScantelburyDevs construiu e mantém no ar: NotaFácil (emissão de nota fiscal pra MEI), Descrição AI (geração de descrição de produto com IA), Agenda Inteligente (agendamento online) e Reino do Garcia (app de bairro que conecta moradores e comércio local).',
 }
 
-const cases = [
+type CaseItem = {
+  slug: string
+  name: string
+  tagline: string
+  url: string
+  paraQuem: string
+  problema: string
+  solucao: string
+  resultados: string[]
+  categoria: string
+  badge?: string
+  screenshots?: string[]
+}
+
+const cases: CaseItem[] = [
   {
     slug: 'notafacil',
     name: 'NotaFácil',
@@ -61,6 +76,31 @@ const cases = [
     ],
     categoria: 'Sistema de agendamento',
   },
+  {
+    slug: 'reino-do-garcia',
+    name: 'Reino do Garcia',
+    tagline: 'O bairro inteiro na palma da mão',
+    url: 'https://aplicativo-reino-garcia.vercel.app/',
+    paraQuem: 'Pra morador de bairro e comércio de vizinhança',
+    problema:
+      'A vida do bairro hoje mora em dez grupos de WhatsApp bagunçados: notícia se perde, promoção da padaria some no meio das conversas, e o comércio da esquina não tem como avisar quem mora ali do lado. Morador não acha, comerciante não alcança.',
+    solucao:
+      'Um aplicativo só do bairro. O morador abre e vê num lugar só: notícias, avisos, eventos e as promoções dos comércios vizinhos. O comerciante cria oferta, ganha uma vitrine e distribui "Selos do Reino" — um programa de fidelidade com clima de jogo (o bairro vira um "reino", o cliente sobe de título juntando selos). Tudo pensado pro celular.',
+    resultados: [
+      'Notícia, promoção e evento do bairro num feed só — sem caçar em grupo de WhatsApp',
+      'Comércio local ganha vitrine própria e alcança quem mora perto',
+      'Programa de fidelidade gamificado ("Selos do Reino") que traz o cliente de volta',
+      'Cada comerciante recebe um cartaz com QR pra colar no balcão e fidelizar na hora',
+    ],
+    categoria: 'Aplicativo de bairro (mobile)',
+    badge: 'Em lançamento · piloto 2026',
+    screenshots: [
+      '/products/reino/reino-mural.jpg',
+      '/products/reino/reino-reino.jpg',
+      '/products/reino/reino-comercio.jpg',
+      '/products/reino/reino-alvara.jpg',
+    ],
+  },
 ]
 
 export default function CasesPage() {
@@ -90,11 +130,11 @@ export default function CasesPage() {
       <section className="max-w-4xl mx-auto px-6 pt-16 pb-12">
         <p className="font-mono text-xs tracking-[0.15em] text-cyan mb-3 uppercase">Trabalhos nossos</p>
         <h1 className="font-sans text-4xl md:text-5xl font-extrabold text-offwhite mb-4 leading-tight">
-          Três sistemas que a gente construiu<br />
-          <span className="text-cyan">e mantém no ar todo dia.</span>
+          Sistemas que a gente construiu<br />
+          <span className="text-cyan">e mantém no ar.</span>
         </h1>
         <p className="text-steel text-base max-w-xl leading-relaxed">
-          A mesma engenharia que entrega pro seu projeto. Aqui você vê de perto: qual era o problema, o que a gente fez, e o que mudou.
+          A mesma engenharia que entrega pro seu projeto — do sistema web ao aplicativo de celular. Aqui você vê de perto: qual era o problema, o que a gente fez, e o que mudou.
         </p>
       </section>
 
@@ -104,7 +144,14 @@ export default function CasesPage() {
           <article key={c.slug} className="border border-white/[0.08] rounded-xl p-7 md:p-10 bg-gradient-to-br from-white/[0.03] to-transparent hover:border-cyan/30 transition-colors">
             <div className="flex items-start justify-between gap-4 mb-6 flex-wrap">
               <div>
-                <p className="font-mono text-xs text-cyan uppercase tracking-wider mb-2">{c.categoria}</p>
+                <div className="flex items-center gap-2 mb-2 flex-wrap">
+                  <p className="font-mono text-xs text-cyan uppercase tracking-wider">{c.categoria}</p>
+                  {c.badge && (
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-[#D4A82A] border border-[#D4A82A]/40 bg-[#D4A82A]/10 px-2 py-0.5 rounded">
+                      {c.badge}
+                    </span>
+                  )}
+                </div>
                 <h2 className="font-sans text-3xl md:text-4xl font-extrabold text-offwhite mb-2">{c.name}</h2>
                 <p className="text-steel text-base">{c.tagline}</p>
                 <p className="text-steel/70 text-sm italic mt-1">{c.paraQuem}</p>
@@ -147,6 +194,31 @@ export default function CasesPage() {
                 ))}
               </ul>
             </div>
+
+            {/* Galeria de telas (apps mobile) */}
+            {c.screenshots && c.screenshots.length > 0 && (
+              <div className="mt-8 pt-8 border-t border-white/[0.06]">
+                <p className="font-mono text-xs text-[#D4A82A] uppercase tracking-wider mb-4">Telas do app</p>
+                <div className="flex gap-3 md:gap-4 overflow-x-auto pb-2 -mx-1 px-1 snap-x">
+                  {c.screenshots.map((src, i) => (
+                    <div
+                      key={i}
+                      className="shrink-0 w-[130px] md:w-[160px] snap-start rounded-[1.25rem] overflow-hidden bg-black border-4 border-[#14181f] shadow-xl"
+                    >
+                      <div className="relative aspect-[9/19.5]">
+                        <Image
+                          src={src}
+                          alt={`Tela do app ${c.name} (${i + 1})`}
+                          fill
+                          className="object-cover object-top"
+                          sizes="160px"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </article>
         ))}
       </section>
