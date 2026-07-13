@@ -62,30 +62,65 @@ export default function SistemaSobMedidaClient() {
         </div>
       </nav>
 
-      {/* HERO */}
-      <section className="max-w-5xl mx-auto px-6 pt-16 pb-12">
-        <p className="font-mono text-xs tracking-[0.15em] text-cyan mb-4 uppercase">Sistema sob medida para empresas</p>
-        <h1 className="font-sans text-4xl md:text-6xl font-extrabold text-offwhite mb-6 leading-[1.05]">
-          Pare de perder tempo com planilhas, retrabalho e{' '}
-          <span className="text-cyan">sistemas que não servem</span> para sua empresa.
-        </h1>
-        <p className="text-steel text-lg md:text-xl max-w-2xl leading-relaxed mb-5">
-          Criamos sistemas, aplicativos e automações sob medida para o jeito que sua empresa realmente trabalha — mesmo que você não entenda nada de tecnologia.
-        </p>
-        <p className="text-offwhite/90 text-base max-w-2xl leading-relaxed mb-8">
-          Você explica o problema do seu negócio. Nós transformamos isso em uma solução simples, segura e fácil de usar.
-        </p>
-        <div className="flex flex-wrap gap-3">
-          <a href="#conversar">
-            <Button variant="primary">Quero um diagnóstico gratuito</Button>
-          </a>
-          <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-            <Button variant="outline">Falar pelo WhatsApp</Button>
-          </a>
+      {/* HERO — 2 colunas: mensagem à esquerda, formulário visível à direita */}
+      <section className="max-w-6xl mx-auto px-6 pt-14 pb-16">
+        <div className="grid lg:grid-cols-12 gap-x-10 gap-y-10 items-center">
+          {/* Mensagem */}
+          <div className="lg:col-span-7">
+            <p className="font-mono text-xs tracking-[0.15em] text-cyan mb-4 uppercase">Sistema sob medida para empresas</p>
+            <h1 className="font-sans text-4xl md:text-5xl lg:text-[3.4rem] font-extrabold text-offwhite mb-5 leading-[1.06]">
+              Um sistema feito <span className="text-cyan">sob medida</span> para o jeito que sua empresa trabalha.
+            </h1>
+            <p className="text-steel text-lg leading-relaxed mb-6 max-w-xl">
+              Sistemas, aplicativos e automações que se encaixam no seu processo — mesmo que você não entenda nada de tecnologia. Você explica o problema, a gente resolve.
+            </p>
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-steel">
+              <span className="flex items-center gap-2"><span className="text-cyan font-bold">✓</span> 3 sistemas próprios no ar</span>
+              <span className="flex items-center gap-2"><span className="text-cyan font-bold">✓</span> +10 anos de experiência</span>
+              <span className="flex items-center gap-2"><span className="text-cyan font-bold">✓</span> Conversa grátis em 30 min</span>
+            </div>
+          </div>
+
+          {/* Formulário compacto — visível acima da dobra */}
+          <div className="lg:col-span-5">
+            <div id="conversar-topo" className="border border-cyan/25 rounded-2xl p-6 bg-gradient-to-br from-cyan/[0.07] to-white/[0.02] shadow-2xl">
+              {done ? (
+                <div className="text-center py-8">
+                  <p className="text-cyan font-bold text-lg mb-2">✓ Recebemos seu pedido</p>
+                  <p className="text-steel text-sm">Abrindo o WhatsApp em alguns segundos...</p>
+                </div>
+              ) : (
+                <>
+                  <p className="font-mono text-[11px] tracking-[0.12em] text-cyan uppercase mb-1.5">Diagnóstico gratuito</p>
+                  <h2 className="font-sans text-xl font-extrabold text-offwhite mb-1 leading-tight">Fale com a gente em 30 min</h2>
+                  <p className="text-steel text-sm mb-5">Sem compromisso. Resposta em até 24 horas.</p>
+                  <form onSubmit={handleSubmit} className="space-y-3">
+                    <Input name="name" placeholder="Seu nome" required aria-label="Seu nome" />
+                    <Input name="email" type="email" placeholder="Seu melhor e-mail" required aria-label="Seu e-mail" />
+                    <Select name="type" defaultValue="Não sei ainda" required aria-label="O que você precisa">
+                      <option value="Sistema novo">Quero um sistema novo</option>
+                      <option value="Aplicativo de celular">Quero um aplicativo</option>
+                      <option value="Automação de processos">Quero automatizar processos</option>
+                      <option value="Conectar sistemas">Conectar sistemas que já tenho</option>
+                      <option value="Trocar sistema antigo">Modernizar um sistema antigo</option>
+                      <option value="Não sei ainda">Não sei ainda — quero o diagnóstico</option>
+                    </Select>
+                    <Button type="submit" variant="primary" className="w-full" disabled={submitting}>
+                      {submitting ? 'Enviando...' : 'Quero meu diagnóstico grátis →'}
+                    </Button>
+                  </form>
+                  <p className="text-steel text-[11px] text-center mt-3">
+                    Abrimos o WhatsApp na sequência pra continuar. Sem spam.
+                  </p>
+                </>
+              )}
+            </div>
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer"
+               className="block text-center mt-3 font-mono text-[13px] text-cyan hover:text-offwhite transition-colors">
+              Prefere WhatsApp? Falar agora →
+            </a>
+          </div>
         </div>
-        <p className="text-steel text-xs mt-4">
-          Diagnóstico inicial gratuito e sem compromisso · resposta em até 24 horas
-        </p>
       </section>
 
       {/* NO TECH NEEDED */}

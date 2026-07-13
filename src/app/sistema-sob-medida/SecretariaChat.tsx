@@ -26,6 +26,10 @@ export default function SecretariaChat() {
     isOpen: open,
     onAutoOpen: () => { setOpen(true); trackChatOpen('auto') },
     storageKey: 'proactiveChat:lp',
+    // Tráfego pago da LP sai em ~22s — o chat precisa aparecer antes disso.
+    bubbleDelayMs: 4000,
+    autoOpenDelayMs: 12000,
+    scrollThreshold: 0.25,
   })
 
   useEffect(() => {
