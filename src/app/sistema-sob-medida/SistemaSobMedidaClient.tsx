@@ -395,7 +395,7 @@ export default function SistemaSobMedidaClient() {
               A gente usa o que <span className="text-cyan">vende.</span>
             </h2>
             <p className="text-steel text-base max-w-2xl mx-auto leading-relaxed">
-              Antes de construir pro seu negócio, construímos pro nosso. Temos 3 programas próprios rodando hoje, com clientes reais pagando todo mês — e eles continuam pagando porque funcionam.
+              Antes de construir pro seu negócio, construímos pro nosso. Temos 3 programas próprios no ar hoje, construídos e operados por nós do começo ao fim.
             </p>
           </div>
 
@@ -404,14 +404,14 @@ export default function SistemaSobMedidaClient() {
               <p className="font-sans text-5xl font-extrabold text-cyan mb-2">3</p>
               <p className="font-sans text-base font-bold text-offwhite mb-1">Programas próprios</p>
               <p className="text-steel text-sm leading-relaxed">
-                NotaFácil, Descrição AI e Agenda Inteligente — com clientes pagando há anos.
+                NotaFácil, Agenda Inteligente e Reino do Garcia — do banco de dados ao app no celular.
               </p>
             </div>
             <div className="text-center border border-white/[0.08] rounded-xl p-7 bg-gradient-to-br from-white/[0.03] to-transparent">
-              <p className="font-sans text-5xl font-extrabold text-cyan mb-2">+5</p>
-              <p className="font-sans text-base font-bold text-offwhite mb-1">Anos no ar</p>
+              <p className="font-sans text-5xl font-extrabold text-cyan mb-2">2022</p>
+              <p className="font-sans text-base font-bold text-offwhite mb-1">Empresa aberta desde</p>
               <p className="text-steel text-sm leading-relaxed">
-                Funcionando 24 horas por dia, sem cair, sem reclamação travando o cliente.
+                CNPJ 44.967.160/0001-80, com sede em Blumenau/SC e atendimento remoto em todo o Brasil.
               </p>
             </div>
             <div className="text-center border border-white/[0.08] rounded-xl p-7 bg-gradient-to-br from-white/[0.03] to-transparent">

@@ -23,7 +23,7 @@ const SITE_URL = 'https://www.scantelburydevs.com.br'
 const SITE_NAME = 'ScantelburyDevs'
 const DEFAULT_TITLE = 'ScantelburyDevs — Construímos, lançamos e operamos software em produção'
 const DEFAULT_DESC =
-  'ScantelburyDevs: empresa de tecnologia em Blumenau, SC. Desenvolvimento de aplicações, migração de sistemas e soluções customizadas. Produtos em produção: NotaFácil, Descrição AI e Agenda Inteligente.'
+  'ScantelburyDevs: empresa de tecnologia em Blumenau, SC. Desenvolvimento de aplicações, migração de sistemas e soluções customizadas. Produtos em produção: NotaFácil, Agenda Inteligente e Reino do Garcia.'
 
 export const viewport: Viewport = {
   themeColor: '#0A0F1E',
@@ -53,8 +53,8 @@ export const metadata: Metadata = {
     'Go',
     'NotaFácil',
     'NFS-e MEI',
-    'Descrição AI',
     'Agenda Inteligente',
+    'Reino do Garcia',
     'Blumenau',
     'Santa Catarina',
     'fábrica de software',
@@ -159,20 +159,11 @@ const PRODUCTS_JSONLD = {
       description: 'Plataforma e API REST para emissão automatizada de NFS-e do MEI.',
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
-      url: 'http://emitirnotafacil.com.br',
+      url: 'https://www.emitirnotafacil.com.br',
     },
     {
       '@type': 'SoftwareApplication',
       position: 2,
-      name: 'Descrição AI',
-      description: 'Geração automática de descrições de produtos para e-commerce com IA.',
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'Web',
-      url: 'https://descricaoai.com.br/',
-    },
-    {
-      '@type': 'SoftwareApplication',
-      position: 3,
       name: 'Agenda Inteligente',
       description: 'Plataforma de agendamento com camada inteligente para profissionais e clínicas.',
       applicationCategory: 'BusinessApplication',

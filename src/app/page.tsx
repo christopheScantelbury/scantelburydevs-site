@@ -30,9 +30,9 @@ const t = {
     cta1:    { pt: 'Agendar diagnóstico', en: 'Book a discovery call' },
     cta2:    { pt: 'Ver produtos', en: 'See products' },
     stat1l:  { pt: 'Anos em produção', en: 'Years in production' },
-    stat2l:  { pt: 'SaaS com clientes pagantes', en: 'SaaS with paying customers' },
+    stat2l:  { pt: 'Produtos no ar', en: 'Products live' },
     stat3l:  { pt: 'Atendimento remoto', en: 'Remote across' },
-    stat4l:  { pt: 'Operação contínua', en: 'Continuous ops' },
+    stat4l:  { pt: 'Sede em Blumenau', en: 'Based in Blumenau' },
   },
   stack: {
     label: { pt: 'Stack técnico', en: 'Technical stack' },
@@ -60,9 +60,9 @@ const t = {
     p2name: { pt: 'Sprint contínuo', en: 'Continuous sprints' },
     p2desc: { pt: 'Ciclos de 2 semanas com prioridades flexíveis. Ideal para evolução de produto, manutenção e novas features sob demanda.', en: 'Two-week cycles with flexible priorities. Ideal for product evolution, maintenance and on-demand features.' },
     p2tags: ['Evolução', 'Manutenção', 'Backlog ativo'],
-    p3name: { pt: 'Squad alocado', en: 'Dedicated squad' },
-    p3desc: { pt: 'Time dedicado por período (3, 6 ou 12 meses). Ideal para produto enterprise, áreas de tecnologia em escala e roadmap longo.', en: 'Dedicated team for a period (3, 6 or 12 months). Ideal for enterprise products, scaling tech teams and long-term roadmaps.' },
-    p3tags: ['Enterprise', 'Time dedicado', 'Long-term'],
+    p3name: { pt: 'Alocação dedicada', en: 'Dedicated engineer' },
+    p3desc: { pt: 'Engenheiro sênior dedicado ao seu time por período (3, 6 ou 12 meses). Ideal para produto enterprise, reforço de time e roadmap longo.', en: 'A senior engineer dedicated to your team for a period (3, 6 or 12 months). Ideal for enterprise products, team augmentation and long-term roadmaps.' },
+    p3tags: ['Enterprise', 'Dedicado', 'Long-term'],
     cta:   { pt: 'Discutir o modelo certo →', en: 'Discuss the right model →' },
   },
   about: {
@@ -70,6 +70,7 @@ const t = {
     title: { pt: 'Engenharia técnica com responsabilidade pela operação', en: 'Technical engineering with operational accountability' },
     p1:    { pt: 'A ScantelburyDevs é uma empresa de engenharia de software especializada em sistemas críticos. Atendemos empresas que dependem de software confiável: fiscal, e-commerce, agendamento, gestão e integrações entre sistemas.', en: 'ScantelburyDevs is a software engineering company specialized in mission-critical systems. We serve companies that depend on reliable software: fiscal, e-commerce, scheduling, operations and system integrations.' },
     p2:    { pt: 'Operamos remotamente em todo o Brasil. Combinamos profundidade técnica, visão de produto e responsabilidade pela operação — mais que entregar código, levamos o sistema até produção e ficamos do lado quando ele está rodando.', en: 'We operate remotely across Brazil. We combine technical depth, product vision and operational accountability — beyond shipping code, we take the system to production and stay with you while it runs.' },
+    founder: { pt: 'Quem atende é quem constrói: Christophe Scantelbury, fundador, é engenheiro de software há mais de 11 anos, a maior parte em sistemas financeiros e regulados (PIX, Open Finance, prevenção à lavagem de dinheiro).', en: 'You talk to the person who builds: Christophe Scantelbury, founder, has been a software engineer for over 11 years, mostly on financial and regulated systems (PIX, Open Finance, anti-money laundering).' },
     h1:    { pt: 'Operando produtos em produção desde 2022', en: 'Operating products in production since 2022' },
     h2:    { pt: 'Especialistas em backend técnico, integrações fiscais e plataformas SaaS', en: 'Specialists in technical backend, fiscal integrations and SaaS platforms' },
     h3:    { pt: 'Responsabilidade pelo código, pela operação e pelo resultado', en: 'Accountable for code, operations and outcomes' },
@@ -83,7 +84,7 @@ const t = {
     typeLbl:   { pt: 'Tipo de projeto', en: 'Project type' },
     msgLbl:    { pt: 'Mensagem', en: 'Message' },
     submit:    { pt: 'Iniciar conversa →', en: 'Start the conversation →' },
-    types:     { pt: ['Selecione...','Desenvolvimento de aplicação','Migração de sistema','Integração / Automação','Squad dedicado','Outro'], en: ['Select...','Application development','System migration','Integration / Automation','Dedicated squad','Other'] },
+    types:     { pt: ['Selecione...','Desenvolvimento de aplicação','Migração de sistema','Integração / Automação','Alocação dedicada','Outro'], en: ['Select...','Application development','System migration','Integration / Automation','Dedicated engineer','Other'] },
   },
 }
 
@@ -313,7 +314,9 @@ export default function Home() {
   // SSR e primeiro paint mostram valor final (5/4) — evita "0+" em conexão lenta.
   // No client, useEffect reseta para 0 e anima quando entra no viewport
   // (IntersectionObserver). Se já estiver visível, anima imediatamente.
-  const HERO_STAT_FINAL = { five: 5, four: 4 }
+  // five = anos em produção (desde 2022); four = produtos no ar. Nomes herdados
+  // dos valores antigos (5 e 4) — manter os números fiéis à realidade.
+  const HERO_STAT_FINAL = { five: 4, four: 3 }
   const [count5, setCount5] = useState(HERO_STAT_FINAL.five)
   const [count4, setCount4] = useState(HERO_STAT_FINAL.four)
   const heroStatsRef = useRef<HTMLDivElement>(null)
@@ -501,7 +504,7 @@ export default function Home() {
             { n: `${count5}+`, l: t.hero.stat1l },
             { n: `${count4}`,  l: t.hero.stat2l },
             { n: 'BR',         l: t.hero.stat3l },
-            { n: '24/7',       l: t.hero.stat4l },
+            { n: 'SC',         l: t.hero.stat4l },
           ].map((s, i) => (
             <div key={i} className="text-center" role="listitem">
               <div className="font-display font-[800] text-3xl text-cyan tabular-nums">{s.n}</div>
@@ -730,9 +733,9 @@ export default function Home() {
               <div className="grid grid-cols-2 gap-4 mb-7">
                 {[
                   { n: '2022', l: { pt:'Operando desde', en:'Operating since' } },
-                  { n: '4',    l: { pt:'SaaS em produção', en:'SaaS in production' } },
+                  { n: '3',    l: { pt:'Produtos no ar', en:'Products live' } },
                   { n: 'BR',   l: { pt:'Atendimento remoto', en:'Remote across' } },
-                  { n: '24/7', l: { pt:'Operação contínua', en:'Continuous ops' } },
+                  { n: 'SC',   l: { pt:'Sede em Blumenau', en:'Based in Blumenau' } },
                 ].map(s => (
                   <div key={s.n} className="bg-navy-card rounded-xl p-4 border border-white/[0.05]">
                     <div className="font-display font-[800] text-[26px] text-cyan leading-none mb-1">{s.n}</div>
@@ -771,7 +774,8 @@ export default function Home() {
                   : <>Technical engineering<br /><span className="text-cyan">with operational<br />accountability</span></>}
               </h2>
               <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.75] mb-4">{tx(t.about.p1)}</p>
-              <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.75] mb-8">{tx(t.about.p2)}</p>
+              <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.75] mb-4">{tx(t.about.p2)}</p>
+              <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.75] mb-8">{tx(t.about.founder)}</p>
               <div className="flex flex-col gap-4">
                 {[t.about.h1, t.about.h2, t.about.h3].map((h, i) => (
                   <div key={i} className="flex items-start gap-3.5">
@@ -817,24 +821,11 @@ export default function Home() {
                 pt: 'Emissão de NFS-e do MEI, sem complicação. Plataforma + API REST com suporte a 5.000+ municípios, certificado A1 protegido em AWS e webhooks assinados.',
                 en: 'MEI invoice issuance, made simple. Platform + REST API supporting 5,000+ municipalities, A1 certificate stored in AWS, signed webhooks.',
               }}
-              url="http://emitirnotafacil.com.br"
+              url="https://www.emitirnotafacil.com.br"
               screenshot="/products/screenshots/notafacil.png"
               techStack={['Go', 'Fiber', 'PostgreSQL', 'AWS KMS', 'Stripe']}
               accent="cyan"
               lang={lang}
-            />
-            <ProductShowcase
-              name="Descrição AI"
-              tagline={{
-                pt: 'Seu produto merece uma descrição que vende. Geração automática de título, descrição e bullets em ~10s — pronto pra Mercado Livre, Shopee e lojas próprias.',
-                en: 'Your product deserves a description that sells. Auto-generates title, description and bullets in ~10s — ready for marketplaces.',
-              }}
-              url="https://descricaoai.com.br"
-              screenshot="/products/screenshots/descricaoai.png"
-              techStack={['Next.js', 'OpenAI', 'Supabase', 'Stripe']}
-              accent="violet"
-              lang={lang}
-              reverse
             />
             <ProductShowcase
               name="Agenda Inteligente"
@@ -845,8 +836,9 @@ export default function Home() {
               url="https://agendainteligente-aleefhenriiques-projects.vercel.app/"
               screenshot="/products/screenshots/agenda-inteligente.png"
               techStack={['Java', 'Spring Boot', 'Next.js', 'OpenAI API']}
-              accent="cyan"
+              accent="violet"
               lang={lang}
+              reverse
             />
             <MobileShowcase
               name="Reino do Garcia"
@@ -854,7 +846,7 @@ export default function Home() {
                 pt: 'App de bairro que junta moradores e comércio local num só lugar: feed de notícias e ofertas, vitrine dos comerciantes e um programa de fidelidade gamificado — os "Selos do Reino". Feito para o bairro Garcia, em Blumenau.',
                 en: 'A hyperlocal neighborhood app connecting residents and local shops: news and deals feed, merchant directory and a gamified loyalty program — the "Reino stamps". Built for the Garcia district in Blumenau.',
               }}
-              url="https://aplicativo-reino-garcia.vercel.app/"
+              url="https://reinogarcia.com.br/"
               screenshots={[
                 '/products/reino/reino-mural.jpg',
                 '/products/reino/reino-reino.jpg',
@@ -1122,7 +1114,7 @@ export default function Home() {
             ))}
           </div>
           <div className="pt-6 md:pt-8 border-t border-white/[0.06] flex flex-col md:flex-row items-center justify-between gap-3 md:gap-4">
-            <p className="font-mono text-[10px] md:text-[11px] text-steel tracking-[0.08em] text-center md:text-left">© 2025 Scantelbury Serviços em TI Ltda · CNPJ 44.967.160/0001-80</p>
+            <p className="font-mono text-[10px] md:text-[11px] text-steel tracking-[0.08em] text-center md:text-left">© {new Date().getFullYear()} Scantelbury Serviços em TI Ltda · CNPJ 44.967.160/0001-80</p>
             <p className="font-display font-[700] text-[13px] text-steel">{lang === 'pt' ? <>Construímos. Lançamos. <span className="text-cyan">Operamos.</span></> : <>We build. We ship. <span className="text-cyan">We operate.</span></>}</p>
           </div>
         </div>

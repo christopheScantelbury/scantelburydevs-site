@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Trabalhos que fizemos',
-  description: 'Sistemas próprios que a ScantelburyDevs construiu e mantém no ar: NotaFácil (emissão de nota fiscal pra MEI), Descrição AI (geração de descrição de produto com IA), Agenda Inteligente (agendamento online) e Reino do Garcia (app de bairro que conecta moradores e comércio local).',
+  description: 'Sistemas próprios que a ScantelburyDevs construiu e mantém no ar: NotaFácil (emissão de nota fiscal pra MEI), Agenda Inteligente (agendamento online) e Reino do Garcia (app de bairro que conecta moradores e comércio local).',
 }
 
 type CaseItem = {
@@ -26,7 +26,7 @@ const cases: CaseItem[] = [
     slug: 'notafacil',
     name: 'NotaFácil',
     tagline: 'Emite nota fiscal pra MEI em segundos',
-    url: 'http://emitirnotafacil.com.br',
+    url: 'https://www.emitirnotafacil.com.br',
     paraQuem: 'Pra Microempreendedor Individual e contador',
     problema:
       'Desde 2023 o MEI brasileiro é obrigado a emitir nota fiscal de serviço. O sistema oficial do governo é confuso, lento e dá erro toda hora. Quem trabalha sozinho perde horas pra emitir 5 notas, e quem tem vários MEIs (contador) não consegue emitir em massa.',
@@ -39,24 +39,6 @@ const cases: CaseItem[] = [
       'Outros sistemas (de loja virtual ou gestão) conseguem emitir nota automaticamente',
     ],
     categoria: 'Programa pra emitir nota fiscal',
-  },
-  {
-    slug: 'descricao-ai',
-    name: 'Descrição AI',
-    tagline: 'Descrições de produto prontas em segundos com IA',
-    url: 'https://descricaoai.com.br/',
-    paraQuem: 'Pra dono de loja online, e-commerce, marketplace',
-    problema:
-      'Quem vende online tem centenas de produtos pra cadastrar e cada um precisa de descrição que vende. Escrever uma por uma toma dias. Copiar pronto do fornecedor não converte. Contratar redator dá orçamento alto e demora.',
-    solucao:
-      'Você cola o nome do produto e umas características básicas. Em segundos, a inteligência artificial gera uma descrição completa, atrativa, no tom da sua loja e otimizada pra aparecer no Google. Você revisa e usa.',
-    resultados: [
-      'Descrição que levava 30 minutos pra escrever agora fica pronta em 30 segundos',
-      'Textos otimizados pro Google (SEO) sem você precisar entender do assunto',
-      'Mantém o tom de voz consistente em toda a loja, mesmo com vários produtos',
-      'Pra cadastrar dezenas de produtos numa tarde — sem perder qualidade',
-    ],
-    categoria: 'Sistema de descrição de produto com IA',
   },
   {
     slug: 'agenda-inteligente',
@@ -80,7 +62,7 @@ const cases: CaseItem[] = [
     slug: 'reino-do-garcia',
     name: 'Reino do Garcia',
     tagline: 'O bairro inteiro na palma da mão',
-    url: 'https://aplicativo-reino-garcia.vercel.app/',
+    url: 'https://reinogarcia.com.br/',
     paraQuem: 'Pra morador de bairro e comércio de vizinhança',
     problema:
       'A vida do bairro hoje mora em dez grupos de WhatsApp bagunçados: notícia se perde, promoção da padaria some no meio das conversas, e o comércio da esquina não tem como avisar quem mora ali do lado. Morador não acha, comerciante não alcança.',
