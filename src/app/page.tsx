@@ -491,18 +491,18 @@ export default function Home() {
           </a>
 
           {/* Desktop */}
-          <div className="hidden lg:flex items-center gap-7">
+          <div className="hidden xl:flex items-center gap-7">
             {navSections.map(s => (
               <a key={s} href={`#${s}`}
-                className="nav-link font-mono text-[13px] text-steel hover:text-offwhite tracking-[0.04em] min-h-[44px] flex items-center">
+                className="nav-link font-mono text-[13px] text-steel hover:text-offwhite tracking-[0.04em] min-h-[44px] flex items-center whitespace-nowrap">
                 {tx(t.nav[s])}
               </a>
             ))}
             <a href="/blog"
-              className="nav-link font-mono text-[13px] text-steel hover:text-offwhite tracking-[0.04em] min-h-[44px] flex items-center">
+              className="nav-link font-mono text-[13px] text-steel hover:text-offwhite tracking-[0.04em] min-h-[44px] flex items-center whitespace-nowrap">
               {tx(t.nav.insights)}
             </a>
-            <a href="#contact"><Button size="sm">{tx(t.nav.cta)}</Button></a>
+            <a href="#contact"><Button size="sm" className="whitespace-nowrap">{tx(t.nav.cta)}</Button></a>
             <div className="flex gap-1 ml-2">
               {(['pt','en'] as Lang[]).map(l => (
                 <button key={l} onClick={() => setLang(l)} aria-label={langLabel(l)} aria-pressed={lang === l}
@@ -514,7 +514,7 @@ export default function Home() {
           </div>
 
           {/* Mobile */}
-          <div className="flex lg:hidden items-center gap-2">
+          <div className="flex xl:hidden items-center gap-2">
             {(['pt','en'] as Lang[]).map(l => (
               <button key={l} onClick={() => setLang(l)} aria-label={langLabel(l)} aria-pressed={lang === l}
                 className={`font-mono text-[10px] tracking-[0.1em] px-2 py-1 min-h-[40px] min-w-[40px] rounded border transition-all ${lang===l ? 'bg-cyan/10 text-cyan border-cyan/30' : 'text-steel border-white/10'}`}>
@@ -532,7 +532,7 @@ export default function Home() {
         </div>
 
         {menuOpen && (
-          <div className="lg:hidden border-t border-white/[0.06] bg-navy-mid px-5 py-4 flex flex-col gap-1">
+          <div className="xl:hidden border-t border-white/[0.06] bg-navy-mid px-5 py-4 flex flex-col gap-1">
             {navSections.map(s => (
               <a key={s} href={`#${s}`} onClick={() => setMenuOpen(false)}
                 className="font-mono text-[13px] text-steel hover:text-offwhite py-3.5 border-b border-white/[0.04] tracking-[0.04em] min-h-[44px] flex items-center">
