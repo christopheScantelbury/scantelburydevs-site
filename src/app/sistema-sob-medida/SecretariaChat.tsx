@@ -73,7 +73,7 @@ export default function SecretariaChat() {
   return (
     <>
       {!open && (
-        <div className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-cyan/20 animate-ping pointer-events-none" aria-hidden="true" />
+        <div className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-cyan/20 chat-ping pointer-events-none" aria-hidden="true" />
       )}
 
       {/* Balão teaser proativo — convida sem abrir o modal */}

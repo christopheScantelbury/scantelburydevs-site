@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'ScantelburyDevs — Construímos, lançamos e operamos software em produção'
+export const alt = 'ScantelburyDevs — NFS-e Nacional por API e integração fiscal para empresas de software'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -53,19 +53,20 @@ export default async function Image() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
           <div
             style={{
-              fontSize: 64,
+              fontSize: 60,
               fontWeight: 800,
-              lineHeight: 1.05,
+              lineHeight: 1.08,
               letterSpacing: '-0.025em',
               display: 'flex',
               flexDirection: 'column',
             }}
           >
-            <span style={{ color: '#F0F4FA' }}>Construímos, lançamos</span>
-            <span style={{ color: '#00D4FF' }}>e operamos software em produção.</span>
+            <span style={{ color: '#F0F4FA' }}>NFS-e Nacional por API</span>
+            <span style={{ color: '#F0F4FA' }}>e integração fiscal</span>
+            <span style={{ color: '#00D4FF' }}>para empresas de software.</span>
           </div>
           <div style={{ fontSize: 24, color: '#8AA0B8', lineHeight: 1.4, maxWidth: 980 }}>
-            Engenharia de software para sistemas críticos. Fiscal, e-commerce, agendamento e gestão.
+            Integração em até 10 dias úteis, via API, com conexão direta à Receita Federal.
           </div>
         </div>
 

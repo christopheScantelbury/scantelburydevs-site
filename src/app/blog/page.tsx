@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getAllPosts } from '@/lib/posts'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 
 export const metadata: Metadata = {
   title: 'Insights',
@@ -19,34 +21,16 @@ export default function BlogPage() {
 
   return (
     <main className="bg-navy min-h-screen text-offwhite">
-      {/* Nav */}
-      <nav className="border-b border-white/[0.06] py-5">
-        <div className="max-w-4xl mx-auto px-6 flex justify-between items-center">
-          <Link href="/" className="flex items-center gap-2.5 no-underline">
-            <svg width="28" height="28" viewBox="0 0 72 72" fill="none">
-              <path d="M36 12L58 24V48L36 60L14 48V24L36 12Z" fill="#0A0F1E" stroke="#00D4FF" strokeWidth="2"/>
-              <rect x="22" y="24" width="20" height="4" rx="2" fill="#00D4FF"/>
-              <rect x="30" y="33" width="20" height="4" rx="2" fill="#00D4FF"/>
-              <rect x="22" y="42" width="20" height="4" rx="2" fill="#00D4FF"/>
-            </svg>
-            <span className="font-sans font-bold text-base text-offwhite">
-              Scantelbury<span className="text-cyan">Devs</span>
-            </span>
-          </Link>
-          <Link href="/#contact" className="font-mono text-[13px] text-cyan tracking-[0.05em] hover:text-offwhite transition-colors">
-            Falar com a equipe →
-          </Link>
-        </div>
-      </nav>
+      <SiteHeader current="blog" />
 
       {/* Header */}
       <section className="max-w-4xl mx-auto px-6 pt-16 pb-12">
-        <p className="font-mono text-xs tracking-[0.15em] text-cyan mb-3 uppercase">Insights</p>
-        <h1 className="font-sans text-4xl md:text-5xl font-extrabold text-offwhite mb-4 leading-tight">
+        <p className="label-tag">Insights</p>
+        <h1 className="section-title">
           Engenharia e negócios<br />
           <span className="text-cyan">sem enrolação.</span>
         </h1>
-        <p className="text-steel text-base max-w-lg leading-relaxed">
+        <p className="text-steel-light text-base max-w-lg leading-relaxed">
           Artigos práticos sobre desenvolvimento de software, arquitetura e decisões técnicas que impactam o negócio.
         </p>
       </section>
@@ -69,7 +53,7 @@ export default function BlogPage() {
                           </span>
                         ))}
                       </div>
-                      <h2 className="font-sans text-xl font-bold text-offwhite mb-2.5 leading-snug group-hover:text-cyan transition-colors">
+                      <h2 className="font-display text-[17px] md:text-lg font-bold text-offwhite mb-2.5 leading-snug group-hover:text-cyan transition-colors">
                         {post.title}
                       </h2>
                       <p className="text-steel text-sm leading-relaxed">
@@ -77,8 +61,8 @@ export default function BlogPage() {
                       </p>
                     </div>
                     <div className="shrink-0 text-right">
-                      <p className="font-mono text-xs text-steel/60 mb-1">{formatDate(post.date)}</p>
-                      <p className="font-mono text-[11px] text-steel/50">{post.readTime} min</p>
+                      <p className="font-mono text-xs text-steel mb-1">{formatDate(post.date)}</p>
+                      <p className="font-mono text-[11px] text-steel">{post.readTime} min</p>
                     </div>
                   </div>
                 </article>
@@ -87,6 +71,8 @@ export default function BlogPage() {
           </div>
         )}
       </section>
+
+      <SiteFooter />
     </main>
   )
 }

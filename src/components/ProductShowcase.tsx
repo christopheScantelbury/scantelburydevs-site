@@ -27,7 +27,8 @@ export type ProductPreview = 'notafacil' | 'descricaoai' | 'agenda'
 export interface ProductShowcaseProps {
   name: string
   tagline: { pt: string; en: string }
-  url: string
+  /** Endereço público do produto. Sem ele, o card não mostra link nem URL na moldura. */
+  url?: string
   /** Caminho relativo a /public (PNG/WEBP real). Tem prioridade sobre preview. */
   screenshot?: string
   /** Mockup visual interno tematizado (alternativa ao screenshot). */
@@ -58,7 +59,7 @@ export function ProductShowcase({
     ? 'rgba(180, 156, 255, 0.15)'
     : 'rgba(0, 212, 255, 0.15)'
 
-  const displayUrl = url.replace(/^https?:\/\//, '').replace(/\/$/, '')
+  const displayUrl = url ? url.replace(/^https?:\/\//, '').replace(/\/$/, '') : null
 
   return (
     <article className="grid grid-cols-12 gap-x-6 gap-y-8 items-center">
@@ -90,15 +91,17 @@ export function ProductShowcase({
           </div>
         )}
 
-        <Link href={url} target="_blank" rel="noopener noreferrer"
-          className="font-mono text-[13px] tracking-[0.05em] inline-flex items-center gap-2 transition-colors hover:opacity-80"
-          style={{ color: accentVar }}>
-          {lang === 'pt' ? 'Ver no ar' : 'See it live'}
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-            strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M7 17L17 7M17 7H8M17 7V16" />
-          </svg>
-        </Link>
+        {url && (
+          <Link href={url} target="_blank" rel="noopener noreferrer"
+            className="font-mono text-[13px] tracking-[0.05em] inline-flex items-center gap-2 min-h-[44px] transition-colors hover:opacity-80"
+            style={{ color: accentVar }}>
+            {lang === 'pt' ? 'Ver no ar' : 'See it live'}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+              strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M7 17L17 7M17 7H8M17 7V16" />
+            </svg>
+          </Link>
+        )}
       </div>
 
       {/* Mockup de navegador */}
@@ -117,7 +120,9 @@ export function ProductShowcase({
             </div>
             <div className="flex-1 mx-3 px-3 py-1 rounded-md bg-navy/80 border border-white/[0.05]
                             font-mono text-[10px] md:text-[11px] text-steel-muted tracking-[0.03em] truncate">
-              <span className="opacity-50">https://</span>{displayUrl}
+              {displayUrl
+                ? <><span className="opacity-50">https://</span>{displayUrl}</>
+                : <span className="opacity-70">{name}</span>}
             </div>
           </div>
 
@@ -126,7 +131,7 @@ export function ProductShowcase({
             {screenshot ? (
               <Image
                 src={screenshot}
-                alt={`Screenshot de ${name}`}
+                alt={lang === 'pt' ? `Tela do ${name}` : `${name} screenshot`}
                 fill
                 className="object-cover object-top"
                 priority={priority}

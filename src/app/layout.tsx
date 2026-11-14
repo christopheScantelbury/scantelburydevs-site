@@ -21,9 +21,9 @@ const jetbrainsMono = JetBrains_Mono({
 
 const SITE_URL = 'https://www.scantelburydevs.com.br'
 const SITE_NAME = 'ScantelburyDevs'
-const DEFAULT_TITLE = 'ScantelburyDevs — Construímos, lançamos e operamos software em produção'
+const DEFAULT_TITLE = 'ScantelburyDevs — NFS-e Nacional por API e integração fiscal para empresas de software'
 const DEFAULT_DESC =
-  'ScantelburyDevs: empresa de tecnologia em Blumenau, SC. Desenvolvimento de aplicações, migração de sistemas e soluções customizadas. Produtos em produção: NotaFácil, Agenda Inteligente e Reino do Garcia.'
+  'Integração de NFS-e Nacional para o seu sistema via API, com conexão direta à Receita Federal. A ScantelburyDevs, de Blumenau/SC, constrói e opera o NotaFácil e desenvolve sistemas sob medida, migrações e integrações.'
 
 export const viewport: Viewport = {
   themeColor: '#0A0F1E',
@@ -43,6 +43,10 @@ export const metadata: Metadata = {
   creator: 'ScantelburyDevs',
   publisher: 'Scantelbury Serviços em TI Ltda',
   keywords: [
+    'NFS-e Nacional',
+    'API NFS-e',
+    'integração fiscal',
+    'emissão de NFS-e via API',
     'desenvolvimento de software',
     'desenvolvimento web',
     'migração de sistemas',
@@ -53,6 +57,7 @@ export const metadata: Metadata = {
     'Go',
     'NotaFácil',
     'NFS-e MEI',
+    'NFS-e ME EPP',
     'Agenda Inteligente',
     'Reino do Garcia',
     'Blumenau',
@@ -60,12 +65,9 @@ export const metadata: Metadata = {
     'fábrica de software',
   ],
   category: 'technology',
+  // Sem hreflang: o inglês é uma alternância no cliente (?lang=en), não uma URL própria.
   alternates: {
     canonical: '/',
-    languages: {
-      'pt-BR': '/',
-      en: '/',
-    },
   },
   openGraph: {
     type: 'website',
@@ -79,7 +81,6 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: DEFAULT_TITLE,
     description: DEFAULT_DESC,
-    creator: '@scantelburydevs',
   },
   robots: {
     index: true,
@@ -156,7 +157,7 @@ const PRODUCTS_JSONLD = {
       '@type': 'SoftwareApplication',
       position: 1,
       name: 'NotaFácil',
-      description: 'Plataforma e API REST para emissão automatizada de NFS-e do MEI.',
+      description: 'Plataforma e API REST para emissão de NFS-e Nacional, com conexão direta à Receita Federal. Para MEI, ME/EPP e empresas de software.',
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
       url: 'https://www.emitirnotafacil.com.br',
@@ -168,7 +169,6 @@ const PRODUCTS_JSONLD = {
       description: 'Plataforma de agendamento com camada inteligente para profissionais e clínicas.',
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
-      url: 'https://agendainteligente-aleefhenriiques-projects.vercel.app/',
     },
   ],
 }
@@ -177,8 +177,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-BR" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Sem JavaScript o IntersectionObserver não roda e o conteúdo com
+            .reveal ficaria invisível (opacity: 0). Este fallback garante a leitura. */}
+        <noscript>
+          <style>{`.reveal, .reveal-stagger > * { opacity: 1 !important; transform: none !important; }`}</style>
+        </noscript>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify({ ...ORG_JSONLD, '@id': `${SITE_URL}#organization` }) }}

@@ -12,7 +12,7 @@ export function Card({ hover = false, glow = false, topAccent = false, className
     <div
       className={cn(
         'bg-navy-card border border-white/[0.06] rounded-2xl relative overflow-hidden',
-        hover && 'transition-all duration-300 hover:border-cyan/12 hover:-translate-y-1',
+        hover && 'transition-all duration-300 hover:border-cyan/20 hover:-translate-y-1',
         glow && 'before:absolute before:inset-0 before:bg-glow-cyan before:pointer-events-none',
         className
       )}

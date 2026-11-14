@@ -15,6 +15,7 @@ type Lang = 'pt' | 'en'
 
 const t = {
   nav: {
+    nfse:     { pt: 'API NFS-e', en: 'NFS-e API' },
     services: { pt: 'Serviços', en: 'Services' },
     produtos: { pt: 'Produtos', en: 'Products' },
     pricing:  { pt: 'Como cobramos', en: 'Engagement' },
@@ -24,15 +25,32 @@ const t = {
     cta:      { pt: 'Agendar conversa', en: 'Book a call' },
   },
   hero: {
-    title1:  { pt: 'Construímos, lançamos', en: 'We build, ship' },
-    title2:  { pt: 'e operamos software em produção.', en: 'and operate software in production.' },
-    sub:     { pt: 'Engenharia de software para empresas que dependem de sistemas críticos. Fiscal, e-commerce, agendamento, gestão e integrações — do MVP ao enterprise, com responsabilidade pela operação.', en: 'Software engineering for companies that depend on mission-critical systems. Fiscal, e-commerce, scheduling, operations and integrations — from MVP to enterprise, with operational accountability.' },
-    cta1:    { pt: 'Agendar diagnóstico', en: 'Book a discovery call' },
-    cta2:    { pt: 'Ver produtos', en: 'See products' },
+    eyebrow: { pt: 'Engenharia de software · Integração fiscal', en: 'Software engineering · Fiscal integration' },
+    title2:  { pt: 'para empresas de software.', en: 'for software companies.' },
+    sub:     { pt: 'Integração de NFS-e Nacional para o seu sistema em até 10 dias úteis, via API, com conexão direta à Receita Federal. A mesma engenharia que constrói, lança e opera os nossos próprios produtos.', en: 'NFS-e Nacional (Brazil\'s national service e-invoice) integrated into your system in up to 10 business days, via API, with a direct connection to Receita Federal, the federal revenue service. The same engineering that builds, ships and operates our own products.' },
+    cta1:    { pt: 'Falar sobre a integração', en: 'Talk about the integration' },
+    cta2:    { pt: 'Ver a API do NotaFácil', en: 'See the NotaFácil API' },
     stat1l:  { pt: 'Anos em produção', en: 'Years in production' },
     stat2l:  { pt: 'Produtos no ar', en: 'Products live' },
-    stat3l:  { pt: 'Atendimento remoto', en: 'Remote across' },
+    stat3l:  { pt: 'Atendimento remoto', en: 'Remote, Brazil-wide' },
     stat4l:  { pt: 'Sede em Blumenau', en: 'Based in Blumenau' },
+  },
+  nfse: {
+    label:  { pt: 'NotaFácil API', en: 'NotaFácil API' },
+    status: { pt: 'Em produção desde mai/2026', en: 'In production since May 2026' },
+    desc:   { pt: 'Para software houses e SaaS que precisam emitir nota de serviço em nome dos clientes. A API assina o XML, envia à Receita Federal e devolve o resultado por webhook. Você integra; a operação fiscal fica com a gente.', en: 'For software houses and SaaS products that need to issue service invoices on behalf of their customers. The API signs the XML, submits it to Receita Federal and returns the result via webhook. You integrate; we run the fiscal operation.' },
+    f1t: { pt: 'API REST', en: 'REST API' },
+    f1d: { pt: 'JSON e Bearer. Sem SOAP, sem XSD.', en: 'JSON and Bearer. No SOAP, no XSD.' },
+    f2t: { pt: 'Sandbox público', en: 'Public sandbox' },
+    f2d: { pt: 'Teste sem cadastro, na mesma API da produção.', en: 'Try it without signing up, on the same API as production.' },
+    f3t: { pt: 'Webhooks assinados', en: 'Signed webhooks' },
+    f3d: { pt: 'HMAC-SHA256, com nova tentativa automática.', en: 'HMAC-SHA256, with automatic retries.' },
+    f4t: { pt: 'Conexão direta', en: 'Direct connection' },
+    f4d: { pt: 'mTLS com a Receita Federal, sem intermediário.', en: 'mTLS with Receita Federal, no middleman.' },
+    cta:     { pt: 'Falar sobre a integração', en: 'Talk about the integration' },
+    sandbox: { pt: 'Testar no sandbox', en: 'Try the sandbox' },
+    docs:    { pt: 'Documentação', en: 'Documentation' },
+    hook:    { pt: '→ webhook nfse.autorizada com o número da nota, PDF e XML', en: '→ nfse.autorizada webhook with the invoice number, PDF and XML' },
   },
   stack: {
     label: { pt: 'Stack técnico', en: 'Technical stack' },
@@ -56,35 +74,40 @@ const t = {
     desc:  { pt: 'Sem caixa-preta. Você escolhe o modelo que casa com a maturidade do seu projeto e a previsibilidade que precisa.', en: 'No black box. Choose the model that fits your project maturity and the predictability you need.' },
     p1name: { pt: 'Projeto fechado', en: 'Fixed-scope project' },
     p1desc: { pt: 'Escopo, prazo e valor definidos antes de começar. Ideal para MVPs, migrations e entregas com objetivo claro.', en: 'Scope, timeline and price set before we start. Ideal for MVPs, migrations and well-defined deliverables.' },
-    p1tags: ['MVP', 'Migrations', 'POCs'],
+    p1tags: [{ pt: 'MVP', en: 'MVP' }, { pt: 'Migrações', en: 'Migrations' }, { pt: 'POCs', en: 'POCs' }],
     p2name: { pt: 'Sprint contínuo', en: 'Continuous sprints' },
     p2desc: { pt: 'Ciclos de 2 semanas com prioridades flexíveis. Ideal para evolução de produto, manutenção e novas features sob demanda.', en: 'Two-week cycles with flexible priorities. Ideal for product evolution, maintenance and on-demand features.' },
-    p2tags: ['Evolução', 'Manutenção', 'Backlog ativo'],
+    p2tags: [{ pt: 'Evolução', en: 'Evolution' }, { pt: 'Manutenção', en: 'Maintenance' }, { pt: 'Backlog ativo', en: 'Active backlog' }],
     p3name: { pt: 'Alocação dedicada', en: 'Dedicated engineer' },
     p3desc: { pt: 'Engenheiro sênior dedicado ao seu time por período (3, 6 ou 12 meses). Ideal para produto enterprise, reforço de time e roadmap longo.', en: 'A senior engineer dedicated to your team for a period (3, 6 or 12 months). Ideal for enterprise products, team augmentation and long-term roadmaps.' },
-    p3tags: ['Enterprise', 'Dedicado', 'Long-term'],
+    p3tags: [{ pt: 'Enterprise', en: 'Enterprise' }, { pt: 'Dedicado', en: 'Dedicated' }, { pt: 'Longo prazo', en: 'Long-term' }],
     cta:   { pt: 'Discutir o modelo certo →', en: 'Discuss the right model →' },
   },
   about: {
     label: { pt: 'A empresa', en: 'The company' },
     title: { pt: 'Engenharia técnica com responsabilidade pela operação', en: 'Technical engineering with operational accountability' },
-    p1:    { pt: 'A ScantelburyDevs é uma empresa de engenharia de software especializada em sistemas críticos. Atendemos empresas que dependem de software confiável: fiscal, e-commerce, agendamento, gestão e integrações entre sistemas.', en: 'ScantelburyDevs is a software engineering company specialized in mission-critical systems. We serve companies that depend on reliable software: fiscal, e-commerce, scheduling, operations and system integrations.' },
+    p1:    { pt: 'A ScantelburyDevs é uma empresa de engenharia de software especializada em sistemas críticos, com foco em integração fiscal: é quem constrói e opera a API de NFS-e Nacional do NotaFácil. Também atendemos e-commerce, agendamento, gestão e integrações entre sistemas.', en: 'ScantelburyDevs is a software engineering company specialized in mission-critical systems, focused on fiscal integration: we build and operate the NotaFácil NFS-e Nacional API. We also work on e-commerce, scheduling, operations and system integrations.' },
     p2:    { pt: 'Operamos remotamente em todo o Brasil. Combinamos profundidade técnica, visão de produto e responsabilidade pela operação — mais que entregar código, levamos o sistema até produção e ficamos do lado quando ele está rodando.', en: 'We operate remotely across Brazil. We combine technical depth, product vision and operational accountability — beyond shipping code, we take the system to production and stay with you while it runs.' },
-    founder: { pt: 'Quem atende é quem constrói: Christophe Scantelbury, fundador, é engenheiro de software há mais de 11 anos, a maior parte em sistemas financeiros e regulados (PIX, Open Finance, prevenção à lavagem de dinheiro).', en: 'You talk to the person who builds: Christophe Scantelbury, founder, has been a software engineer for over 11 years, mostly on financial and regulated systems (PIX, Open Finance, anti-money laundering).' },
+    founderRole: { pt: 'Fundador · Engenheiro de software', en: 'Founder · Software engineer' },
+    founder: { pt: 'Quem atende é quem constrói. Mais de 11 anos de engenharia de software, a maior parte em sistemas financeiros e regulados: PIX, Open Finance e prevenção à lavagem de dinheiro.', en: 'You talk to the person who builds. Over 11 years of software engineering, mostly on financial and regulated systems: PIX, Open Finance and anti-money laundering.' },
+    factCompany: { pt: 'Empresa', en: 'Company' },
+    factHq:      { pt: 'Sede', en: 'Based in' },
+    factHqVal:   { pt: 'Blumenau, SC · atendimento remoto', en: 'Blumenau, SC, Brazil · remote' },
+    factSince:   { pt: 'Desde', en: 'Since' },
     h1:    { pt: 'Operando produtos em produção desde 2022', en: 'Operating products in production since 2022' },
     h2:    { pt: 'Especialistas em backend técnico, integrações fiscais e plataformas SaaS', en: 'Specialists in technical backend, fiscal integrations and SaaS platforms' },
     h3:    { pt: 'Responsabilidade pelo código, pela operação e pelo resultado', en: 'Accountable for code, operations and outcomes' },
   },
   contact: {
     label:     { pt: 'Próximo passo', en: 'Next step' },
-    title:     { pt: 'Agendar um diagnóstico', en: 'Book a discovery call' },
-    desc:      { pt: 'Conversa de 30 minutos para entender seu contexto, mapear o escopo e decidir se faz sentido continuar. Sem compromisso, sem proposta automática.', en: 'A 30-minute conversation to understand your context, scope the problem and decide if it makes sense to move forward. No commitment, no auto-generated proposal.' },
+    title:     { pt: 'Agendar uma conversa', en: 'Book a call' },
+    desc:      { pt: '30 minutos para entender seu contexto — integração de NFS-e ou projeto sob medida —, mapear o escopo e decidir se faz sentido continuar. Sem compromisso, sem proposta automática.', en: '30 minutes to understand your context — NFS-e integration or a custom project —, scope the problem and decide if it makes sense to move forward. No commitment, no auto-generated proposal.' },
     formTitle: { pt: 'Conte-nos sobre seu projeto', en: 'Tell us about your project' },
     nameLbl:   { pt: 'Nome', en: 'Name' },
     typeLbl:   { pt: 'Tipo de projeto', en: 'Project type' },
     msgLbl:    { pt: 'Mensagem', en: 'Message' },
     submit:    { pt: 'Iniciar conversa →', en: 'Start the conversation →' },
-    types:     { pt: ['Selecione...','Desenvolvimento de aplicação','Migração de sistema','Integração / Automação','Alocação dedicada','Outro'], en: ['Select...','Application development','System migration','Integration / Automation','Dedicated engineer','Other'] },
+    types:     { pt: ['Selecione...','Integração de NFS-e via API','Desenvolvimento de aplicação','Migração de sistema','Integração / Automação','Alocação dedicada','Outro'], en: ['Select...','NFS-e integration via API','Application development','System migration','Integration / Automation','Dedicated engineer','Other'] },
   },
 }
 
@@ -113,55 +136,86 @@ interface Message { role: 'user' | 'assistant'; content: string }
 
 function AIChatWidget({ lang }: { lang: Lang }) {
   const [open, setOpen] = useState(false)
-  const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: lang === 'pt'
+  // A saudação acompanha o idioma; `thread` guarda só o que veio depois dela.
+  const greeting: Message = {
+    role: 'assistant',
+    content: lang === 'pt'
       ? 'Olá! Sou o assistente da ScantelburyDevs. Como posso ajudar com seu projeto hoje?'
-      : "Hi! I'm the ScantelburyDevs assistant. How can I help with your project today?" }
-  ])
+      : "Hi! I'm the ScantelburyDevs assistant. How can I help with your project today?",
+  }
+  const [thread, setThread] = useState<Message[]>([])
+  const messages: Message[] = [greeting, ...thread]
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   const bottomRef = useRef<HTMLDivElement>(null)
 
+  // O chat nunca cobre o formulário de contato por conta própria:
+  //  - não abre sozinho enquanto #contact está na tela;
+  //  - se abriu sozinho e o visitante não interagiu, recolhe ao chegar no formulário.
+  const contactVisibleRef = useRef(false)
+  const [contactVisible, setContactVisible] = useState(false)
+  const autoOpenedRef = useRef(false)
+  const touchedRef = useRef(false)
+
   const { showBubble, dismissBubble } = useProactiveChat({
     isOpen: open,
-    onAutoOpen: () => { setOpen(true); trackChatOpen('auto') },
+    onAutoOpen: () => { autoOpenedRef.current = true; setOpen(true); trackChatOpen('auto') },
+    canAutoOpen: () => !contactVisibleRef.current,
+    bubbleAutoHideMs: 15000,
     storageKey: 'proactiveChat:home',
   })
 
   useEffect(() => {
+    const el = document.getElementById('contact')
+    if (!el || typeof IntersectionObserver === 'undefined') return
+    const io = new IntersectionObserver((entries) => {
+      const visible = entries[0].isIntersecting
+      contactVisibleRef.current = visible
+      setContactVisible(visible)
+      if (visible && autoOpenedRef.current && !touchedRef.current) {
+        autoOpenedRef.current = false
+        setOpen(false)
+      }
+    }, { threshold: 0.15 })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
+  useEffect(() => {
     if (open) bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages, open])
+  }, [thread, open])
 
   async function sendMessage() {
     const text = input.trim()
     if (!text || loading) return
     setInput('')
-    const updated: Message[] = [...messages, { role: 'user', content: text }]
-    setMessages(updated)
+    touchedRef.current = true
+    const updatedThread: Message[] = [...thread, { role: 'user', content: text }]
+    setThread(updatedThread)
     setLoading(true)
     try {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: updated.map(m => ({ role: m.role, content: m.content })) }),
+        body: JSON.stringify({ messages: [greeting, ...updatedThread].map(m => ({ role: m.role, content: m.content })) }),
       })
       const data = await res.json()
-      const reply = data?.reply || 'Desculpe, houve um erro. Fale pelo WhatsApp.'
-      setMessages([...updated, { role: 'assistant', content: reply }])
+      const reply = data?.reply || (lang === 'pt' ? 'Desculpe, houve um erro. Fale pelo WhatsApp.' : 'Sorry, something went wrong. Reach us on WhatsApp.')
+      setThread([...updatedThread, { role: 'assistant', content: reply }])
     } catch {
-      setMessages([...updated, { role: 'assistant', content: 'Erro de conexão. Fale conosco: (47) 99735-2380' }])
+      setThread([...updatedThread, { role: 'assistant', content: lang === 'pt' ? 'Erro de conexão. Fale conosco: (47) 99735-2380' : 'Connection error. Reach us at +55 (47) 99735-2380' }])
     }
     setLoading(false)
   }
 
   return (
     <>
-      {!open && (
-        <div className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-cyan/20 animate-ping pointer-events-none" aria-hidden="true" />
+      {!open && !contactVisible && (
+        <div className="chat-ping fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-cyan/20 pointer-events-none" aria-hidden="true" />
       )}
 
       {/* Balão teaser proativo — convida sem abrir o modal */}
-      {showBubble && !open && (
+      {showBubble && !open && !contactVisible && (
         <div className="fixed bottom-24 right-6 z-50 w-[248px] max-w-[calc(100vw-3rem)] animate-fade-up">
           <div className="relative bg-navy-mid border border-cyan/25 rounded-2xl rounded-br-sm shadow-2xl">
             <button
@@ -172,7 +226,7 @@ function AIChatWidget({ lang }: { lang: Lang }) {
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
             <button
-              onClick={() => { dismissBubble(); setOpen(true); trackChatOpen('bubble') }}
+              onClick={() => { touchedRef.current = true; dismissBubble(); setOpen(true); trackChatOpen('bubble') }}
               className="text-left px-4 py-3.5 w-full"
             >
               <p className="font-sans text-[13px] text-offwhite leading-snug">
@@ -188,9 +242,11 @@ function AIChatWidget({ lang }: { lang: Lang }) {
       )}
 
       <button
-        onClick={() => setOpen(o => { const next = !o; if (next) trackChatOpen('manual'); return next })}
+        onClick={() => { touchedRef.current = true; setOpen(o => { const next = !o; if (next) trackChatOpen('manual'); return next }) }}
         className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-cyan flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110"
-        aria-label={open ? 'Fechar chat' : 'Abrir chat com assistente'}
+        aria-label={open
+          ? (lang === 'pt' ? 'Fechar chat' : 'Close chat')
+          : (lang === 'pt' ? 'Abrir chat com assistente' : 'Open chat with the assistant')}
       >
         {open
           ? <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0A0F1E" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -200,7 +256,7 @@ function AIChatWidget({ lang }: { lang: Lang }) {
 
       {open && (
         <div
-          role="dialog" aria-label="Chat com assistente ScantelburyDevs"
+          role="dialog" aria-label={lang === 'pt' ? 'Chat com assistente ScantelburyDevs' : 'Chat with the ScantelburyDevs assistant'}
           className="fixed bottom-24 right-6 z-50 w-[360px] max-w-[calc(100vw-3rem)] flex flex-col bg-navy-mid border border-cyan/20 rounded-2xl shadow-2xl overflow-hidden"
           style={{ maxHeight: '520px' }}
         >
@@ -222,7 +278,7 @@ function AIChatWidget({ lang }: { lang: Lang }) {
               </p>
             </div>
             <a href="https://wa.me/5547997352380" target="_blank" rel="noopener noreferrer"
-              aria-label="Ir para WhatsApp"
+              aria-label={lang === 'pt' ? 'Ir para WhatsApp' : 'Go to WhatsApp'}
               onClick={() => trackContact('whatsapp_chat')}
               className="font-mono text-[9px] text-steel tracking-[0.1em] border border-white/10 px-2 py-1.5 rounded hover:border-cyan/30 hover:text-cyan transition-colors min-h-[32px] flex items-center">
               WhatsApp
@@ -243,7 +299,7 @@ function AIChatWidget({ lang }: { lang: Lang }) {
               </div>
             ))}
             {loading && (
-              <div className="flex justify-start" aria-label="Digitando...">
+              <div className="flex justify-start" role="status" aria-label={lang === 'pt' ? 'Digitando...' : 'Typing...'}>
                 <div className="bg-navy-card border border-white/[0.06] px-4 py-3 rounded-xl rounded-bl-sm">
                   <div className="flex gap-1.5 items-center h-4">
                     {[0, 150, 300].map(d => (
@@ -260,16 +316,16 @@ function AIChatWidget({ lang }: { lang: Lang }) {
           <div className="p-3 border-t border-white/[0.06] flex gap-2 flex-shrink-0">
             <input
               value={input}
-              onChange={e => setInput(e.target.value)}
+              onChange={e => { touchedRef.current = true; setInput(e.target.value) }}
               onKeyDown={e => e.key === 'Enter' && !e.shiftKey && sendMessage()}
               placeholder={lang === 'pt' ? 'Digite sua mensagem...' : 'Type your message...'}
-              aria-label="Mensagem para o assistente"
+              aria-label={lang === 'pt' ? 'Mensagem para o assistente' : 'Message to the assistant'}
               className="flex-1 bg-navy border border-white/10 rounded-lg px-3 py-2 font-sans text-[13px] text-offwhite placeholder:text-steel outline-none focus:border-cyan/40 transition-colors"
             />
             <button
               onClick={sendMessage}
               disabled={loading || !input.trim()}
-              aria-label="Enviar mensagem"
+              aria-label={lang === 'pt' ? 'Enviar mensagem' : 'Send message'}
               className="w-9 h-9 rounded-lg bg-cyan flex items-center justify-center disabled:opacity-40 transition-opacity flex-shrink-0 hover:opacity-90"
             >
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0A0F1E" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
@@ -285,10 +341,38 @@ function AIChatWidget({ lang }: { lang: Lang }) {
 
 // ── MAIN PAGE ─────────────────────────────────────────────────────
 export default function Home() {
-  const [lang, setLang] = useState<Lang>('pt')
+  const [lang, setLangState] = useState<Lang>('pt')
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeStep, setActiveStep] = useState(0)
   const tx = (obj: { pt: string; en: string }) => obj[lang]
+
+  // ── Idioma: aceita ?lang=en (link compartilhável), lembra a escolha no
+  //    navegador e mantém o atributo lang do <html> coerente com o conteúdo. ──
+  useEffect(() => {
+    let initial: Lang | null = null
+    try {
+      const fromUrl = new URLSearchParams(window.location.search).get('lang')
+      if (fromUrl === 'en' || fromUrl === 'pt') initial = fromUrl
+      else {
+        const stored = window.localStorage.getItem('lang')
+        if (stored === 'en' || stored === 'pt') initial = stored
+      }
+    } catch { /* modo privado */ }
+    if (initial && initial !== 'pt') setLangState(initial)
+  }, [])
+  useEffect(() => {
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en'
+  }, [lang])
+  function setLang(next: Lang) {
+    setLangState(next)
+    try {
+      window.localStorage.setItem('lang', next)
+      const url = new URL(window.location.href)
+      if (next === 'en') url.searchParams.set('lang', 'en')
+      else url.searchParams.delete('lang')
+      window.history.replaceState(null, '', url.toString())
+    } catch { /* modo privado */ }
+  }
 
   // ── Scroll reveal: observa elementos .reveal e .reveal-stagger ──
   useEffect(() => {
@@ -385,6 +469,16 @@ export default function Home() {
   const bookingUrl = `https://wa.me/5547997352380?text=${encodeURIComponent(
     'Olá, ScantelburyDevs. Gostaria de agendar um diagnóstico de 30 min sobre meu projeto.'
   )}`
+  const nfseUrl = `https://wa.me/5547997352380?text=${encodeURIComponent(
+    'Olá, ScantelburyDevs. Quero integrar NFS-e Nacional ao meu sistema via API.'
+  )}`
+  const NOTAFACIL_API = 'https://www.emitirnotafacil.com.br/gateway'
+  const NOTAFACIL_SANDBOX = 'https://www.emitirnotafacil.com.br/sandbox'
+  const NOTAFACIL_DOCS = 'https://www.emitirnotafacil.com.br/docs'
+  const navSections = ['nfse', 'produtos', 'services', 'pricing', 'about'] as const
+  const langLabel = (l: Lang) => (lang === 'pt'
+    ? (l === 'pt' ? 'Idioma: português' : 'Idioma: inglês')
+    : (l === 'pt' ? 'Language: Portuguese' : 'Language: English'))
 
   return (
     <div className="bg-navy text-offwhite min-h-screen overflow-x-hidden">
@@ -397,8 +491,8 @@ export default function Home() {
           </a>
 
           {/* Desktop */}
-          <div className="hidden md:flex items-center gap-7">
-            {(['services','produtos','pricing','process','about'] as const).map(s => (
+          <div className="hidden lg:flex items-center gap-7">
+            {navSections.map(s => (
               <a key={s} href={`#${s}`}
                 className="nav-link font-mono text-[13px] text-steel hover:text-offwhite tracking-[0.04em] min-h-[44px] flex items-center">
                 {tx(t.nav[s])}
@@ -411,8 +505,8 @@ export default function Home() {
             <a href="#contact"><Button size="sm">{tx(t.nav.cta)}</Button></a>
             <div className="flex gap-1 ml-2">
               {(['pt','en'] as Lang[]).map(l => (
-                <button key={l} onClick={() => setLang(l)} aria-label={`Idioma ${l.toUpperCase()}`}
-                  className={`font-mono text-[10px] tracking-[0.1em] px-2 min-h-[36px] min-w-[36px] rounded border transition-all ${lang===l ? 'bg-cyan/10 text-cyan border-cyan/30' : 'text-steel border-cyan/12 hover:text-offwhite'}`}>
+                <button key={l} onClick={() => setLang(l)} aria-label={langLabel(l)} aria-pressed={lang === l}
+                  className={`font-mono text-[10px] tracking-[0.1em] px-2 min-h-[36px] min-w-[36px] rounded border transition-all ${lang===l ? 'bg-cyan/10 text-cyan border-cyan/30' : 'text-steel border-white/10 hover:text-offwhite hover:border-white/25'}`}>
                   {l.toUpperCase()}
                 </button>
               ))}
@@ -420,14 +514,15 @@ export default function Home() {
           </div>
 
           {/* Mobile */}
-          <div className="flex md:hidden items-center gap-2">
+          <div className="flex lg:hidden items-center gap-2">
             {(['pt','en'] as Lang[]).map(l => (
-              <button key={l} onClick={() => setLang(l)} aria-label={`Idioma ${l.toUpperCase()}`}
-                className={`font-mono text-[10px] tracking-[0.1em] px-2 py-1 min-h-[36px] min-w-[36px] rounded border transition-all ${lang===l ? 'bg-cyan/10 text-cyan border-cyan/30' : 'text-steel border-cyan/12'}`}>
+              <button key={l} onClick={() => setLang(l)} aria-label={langLabel(l)} aria-pressed={lang === l}
+                className={`font-mono text-[10px] tracking-[0.1em] px-2 py-1 min-h-[40px] min-w-[40px] rounded border transition-all ${lang===l ? 'bg-cyan/10 text-cyan border-cyan/30' : 'text-steel border-white/10'}`}>
                 {l.toUpperCase()}
               </button>
             ))}
-            <button onClick={() => setMenuOpen(v => !v)} aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
+            <button onClick={() => setMenuOpen(v => !v)} aria-expanded={menuOpen}
+              aria-label={menuOpen ? (lang === 'pt' ? 'Fechar menu' : 'Close menu') : (lang === 'pt' ? 'Abrir menu' : 'Open menu')}
               className="w-11 h-11 flex flex-col items-center justify-center gap-[5px] rounded-lg border border-white/10">
               <span className={`w-4 h-[1.5px] bg-offwhite transition-all duration-200 ${menuOpen ? 'rotate-45 translate-y-[6.5px]' : ''}`} />
               <span className={`w-4 h-[1.5px] bg-offwhite transition-all duration-200 ${menuOpen ? 'opacity-0' : ''}`} />
@@ -437,8 +532,8 @@ export default function Home() {
         </div>
 
         {menuOpen && (
-          <div className="md:hidden border-t border-white/[0.06] bg-navy-mid px-5 py-4 flex flex-col gap-1">
-            {(['services','produtos','pricing','process','about'] as const).map(s => (
+          <div className="lg:hidden border-t border-white/[0.06] bg-navy-mid px-5 py-4 flex flex-col gap-1">
+            {navSections.map(s => (
               <a key={s} href={`#${s}`} onClick={() => setMenuOpen(false)}
                 className="font-mono text-[13px] text-steel hover:text-offwhite py-3.5 border-b border-white/[0.04] tracking-[0.04em] min-h-[44px] flex items-center">
                 {tx(t.nav[s])}
@@ -464,42 +559,37 @@ export default function Home() {
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-glow-cyan pointer-events-none" aria-hidden="true" />
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-navy to-transparent" aria-hidden="true" />
 
-        <div className="relative z-10 max-w-4xl w-full reveal-stagger">
-          {/* h1 com slogan triplo — Construímos. Lançamos. Operamos. */}
-          <h1 className="font-display font-[700] leading-[1.08] mb-6"
-            style={{ fontSize: 'clamp(36px, 5vw, 62px)', letterSpacing: '-0.05em' }}>
+        <div className="relative z-10 max-w-5xl w-full reveal-stagger">
+          <p className="label-tag">{tx(t.hero.eyebrow)}</p>
+
+          {/* h1 = posicionamento. O slogan "Construímos. Lançamos. Operamos." segue no rodapé. */}
+          <h1 className="font-display font-[700] leading-[1.12] md:leading-[1.1] mb-6 md:text-balance"
+            style={{ fontSize: 'clamp(28px, 4.4vw, 54px)', letterSpacing: '-0.05em' }}>
             {lang === 'pt' ? (
-              <>
-                <span className="text-offwhite">Construímos.</span>{' '}
-                <span className="text-offwhite italic">Lançamos.</span>{' '}
-                <span className="shimmer-text">Operamos.</span>
-              </>
+              <span className="text-offwhite"><span className="whitespace-nowrap">NFS-e Nacional</span> por API e integração fiscal</span>
             ) : (
-              <>
-                <span className="text-offwhite">We build.</span>{' '}
-                <span className="text-offwhite italic">We ship.</span>{' '}
-                <span className="shimmer-text">We operate.</span>
-              </>
-            )}
+              <span className="text-offwhite"><span className="whitespace-nowrap">NFS-e Nacional</span> via API and fiscal integration</span>
+            )}{' '}
+            <span className="shimmer-text">{tx(t.hero.title2)}</span>
           </h1>
 
-          <p className="font-sans text-[16px] md:text-[18px] text-steel-light max-w-lg mx-auto mb-10 leading-[1.7] font-light">
+          <p className="font-sans text-[16px] md:text-[18px] text-steel-light max-w-2xl mx-auto mb-10 leading-[1.7] font-light">
             {tx(t.hero.sub)}
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-            <a href={bookingUrl} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto"
+            <a href={nfseUrl} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto"
               onClick={() => trackLead({ source: 'whatsapp', lang })}>
               <Button size="lg" className="w-full sm:w-auto">{tx(t.hero.cta1)} →</Button>
             </a>
-            <a href="#produtos" className="w-full sm:w-auto">
-              <Button variant="outline" size="lg" className="w-full sm:w-auto">{tx(t.hero.cta2)}</Button>
+            <a href={NOTAFACIL_API} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
+              <Button variant="outline" size="lg" className="w-full sm:w-auto">{tx(t.hero.cta2)} ↗</Button>
             </a>
           </div>
         </div>
 
-        {/* Stats — flex-wrap centralizado, funciona em qualquer viewport */}
-        <div ref={heroStatsRef} className="relative z-10 flex flex-wrap justify-center gap-8 md:gap-14 mt-16 pt-10 border-t border-white/[0.06] w-full max-w-2xl" role="list" aria-label="Destaques">
+        {/* Stats — grade fixa: 2×2 no celular, 4 colunas a partir de sm (sem número órfão) */}
+        <div ref={heroStatsRef} className="relative z-10 grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-7 mt-14 pt-9 border-t border-white/[0.06] w-full max-w-3xl" role="list" aria-label={lang === 'pt' ? 'Destaques' : 'Highlights'}>
           {[
             { n: `${count5}+`, l: t.hero.stat1l },
             { n: `${count4}`,  l: t.hero.stat2l },
@@ -507,16 +597,180 @@ export default function Home() {
             { n: 'SC',         l: t.hero.stat4l },
           ].map((s, i) => (
             <div key={i} className="text-center" role="listitem">
-              <div className="font-display font-[800] text-3xl text-cyan tabular-nums">{s.n}</div>
-              <div className="font-mono text-[10px] text-steel tracking-[0.15em] uppercase mt-1.5">{tx(s.l)}</div>
+              <div className="font-display font-[800] text-[28px] md:text-3xl text-cyan tabular-nums">{s.n}</div>
+              <div className="font-mono text-[11px] text-steel tracking-[0.12em] uppercase mt-1.5">{tx(s.l)}</div>
             </div>
           ))}
         </div>
       </section>
 
+      {/* ── NFS-E API ── */}
+      <section id="nfse" className="py-20 md:py-24 px-5 md:px-12 bg-navy-card border-y border-white/[0.06]">
+        <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <div className="reveal">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-4">
+              <p className="label-tag !mb-0">{tx(t.nfse.label)}</p>
+              <span className="font-mono text-[10px] tracking-[0.08em] text-[#7BE3A6] border border-[#7BE3A6]/30 bg-[#7BE3A6]/[0.08] px-2.5 py-1 rounded">
+                {tx(t.nfse.status)}
+              </span>
+            </div>
+            <h2 className="section-title text-left">
+              {lang === 'pt'
+                ? <>Seu sistema emite <span className="whitespace-nowrap">NFS-e Nacional</span> <span className="text-cyan">com uma chamada de API.</span></>
+                : <>Your system issues <span className="whitespace-nowrap">NFS-e Nacional</span> <span className="text-cyan">with a single API call.</span></>}
+            </h2>
+            <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.7] mb-7">{tx(t.nfse.desc)}</p>
+
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+              {[
+                { t: t.nfse.f1t, d: t.nfse.f1d },
+                { t: t.nfse.f2t, d: t.nfse.f2d },
+                { t: t.nfse.f3t, d: t.nfse.f3d },
+                { t: t.nfse.f4t, d: t.nfse.f4d },
+              ].map((f, i) => (
+                <li key={i} className="bg-navy border border-white/[0.06] rounded-xl p-4">
+                  <div className="font-display font-[700] text-[14px] text-offwhite mb-1">{tx(f.t)}</div>
+                  <div className="font-sans text-[13px] text-steel leading-[1.5]">{tx(f.d)}</div>
+                </li>
+              ))}
+            </ul>
+
+            <div className="flex flex-col gap-3">
+              <a href={nfseUrl} target="_blank" rel="noopener noreferrer" className="sm:self-start"
+                onClick={() => trackLead({ source: 'whatsapp', lang })}>
+                <Button size="md" className="w-full sm:w-auto whitespace-nowrap">{tx(t.nfse.cta)} →</Button>
+              </a>
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-1">
+                <a href={NOTAFACIL_SANDBOX} target="_blank" rel="noopener noreferrer"
+                  className="font-mono text-[13px] tracking-[0.05em] text-cyan hover:text-offwhite transition-colors min-h-[44px] inline-flex items-center whitespace-nowrap">
+                  {tx(t.nfse.sandbox)} ↗
+                </a>
+                <a href={NOTAFACIL_DOCS} target="_blank" rel="noopener noreferrer"
+                  className="font-mono text-[13px] tracking-[0.05em] text-cyan hover:text-offwhite transition-colors min-h-[44px] inline-flex items-center whitespace-nowrap">
+                  {tx(t.nfse.docs)} ↗
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Exemplo real, o mesmo publicado em emitirnotafacil.com.br/gateway */}
+          <div className="reveal min-w-0 bg-navy border border-cyan/15 rounded-2xl overflow-hidden shadow-2xl">
+            <div className="flex items-center justify-between gap-3 px-4 md:px-5 py-3 border-b border-cyan/15 font-mono text-[11px] text-steel tracking-[0.04em]">
+              <span><span className="text-cyan font-bold">POST</span> /v1/nfse</span>
+              <span className="truncate">api.emitirnotafacil.com.br</span>
+            </div>
+            <pre className="m-0 px-4 md:px-5 py-5 font-mono text-[11.5px] md:text-[12.5px] leading-[1.7] text-steel-light overflow-x-auto [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.18)_transparent]" tabIndex={0}
+              aria-label={lang === 'pt' ? 'Exemplo de chamada à API' : 'API call example'}>{`curl -X POST https://api.emitirnotafacil.com.br/v1/nfse \\
+  -H "Authorization: Bearer $API_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "tomador": {
+      "cnpj": "12345678000190",
+      "razao_social": "Cliente LTDA"
+    },
+    "servico": {
+      "descricao": "Consultoria em software",
+      "valor": 1500.00,
+      "codigo_nbs": "01.01.01.10"
+    },
+    "webhook_url": "https://seusistema.com/webhooks/nfse"
+  }'`}</pre>
+            <div className="px-4 md:px-5 py-4 border-t border-white/[0.06] font-mono text-[11.5px] md:text-[12.5px] leading-[1.7] text-[#7BE3A6] break-words">
+              {'{ "nota_id": "uuid", "status": "PROCESSANDO" }'}
+            </div>
+            <p className="px-4 md:px-5 pb-4 font-mono text-[11px] md:text-[11.5px] text-steel leading-[1.6]">{tx(t.nfse.hook)}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── PRODUTOS ── */}
+      <section id="produtos" className="py-20 md:py-24 px-5 md:px-12 bg-navy border-b border-white/[0.06] relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-glow-cyan pointer-events-none -translate-y-1/3 translate-x-1/4" aria-hidden="true" />
+        <div className="max-w-[1200px] mx-auto relative">
+          {/* Header editorial assimétrico */}
+          <div className="grid grid-cols-12 gap-x-6 gap-y-6 mb-12 md:mb-16 reveal">
+            <div className="col-span-12 md:col-span-3">
+              <p className="font-mono text-[11px] text-cyan tracking-[0.2em] uppercase mb-3">
+                {lang === 'pt' ? 'Feito por nós' : 'Built by us'}
+              </p>
+              <div className="hidden md:block w-16 h-[3px] bg-cyan/60 rounded-full" aria-hidden="true" />
+            </div>
+            <div className="col-span-12 md:col-span-8 md:col-start-5 self-end">
+              <h2 className="section-title text-left mb-3">
+                {lang === 'pt' ? <>Alguns dos sistemas<br /><span className="text-cyan">que a gente construiu</span></> : <>Some of the systems<br /><span className="text-cyan">we&apos;ve built</span></>}
+              </h2>
+              <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.7] max-w-xl">
+                {lang === 'pt'
+                  ? 'Não falamos só de teoria. Construímos, lançamos e operamos software real — do sistema web ao aplicativo de celular. Estes são alguns deles.'
+                  : "We don't just talk theory. We build, ship and run real software — from web systems to mobile apps. Here are a few of them."}
+              </p>
+            </div>
+          </div>
+
+          {/* Produtos em mockup de browser — alterna texto à esquerda/direita pra ritmo */}
+          <div className="flex flex-col gap-16 md:gap-20 reveal-stagger">
+            <ProductShowcase
+              name="NotaFácil"
+              tagline={{
+                pt: 'NFS-e Nacional para MEI, ME/EPP e empresas de software. Plataforma web + API REST com conexão direta à Receita Federal, sandbox público e webhooks assinados.',
+                en: 'NFS-e Nacional for sole proprietors, small businesses and software companies. Web platform + REST API with a direct connection to Receita Federal, a public sandbox and signed webhooks.',
+              }}
+              url="https://www.emitirnotafacil.com.br"
+              priority
+              screenshot="/products/screenshots/notafacil.png"
+              techStack={['Go', 'Fiber', 'PostgreSQL', 'AWS KMS', 'Stripe']}
+              accent="cyan"
+              lang={lang}
+            />
+            <ProductShowcase
+              name="Agenda Inteligente"
+              tagline={{
+                pt: 'Agendamento online para clínicas, salões e prestadores de serviço. Reagendamento automático e WhatsApp Business integrado para confirmações.',
+                en: 'Online scheduling for clinics, salons and service pros. Smart rescheduling and WhatsApp Business integration for confirmations.',
+              }}
+              /* Sem `url`: o produto ainda não tem domínio próprio. Quando tiver, é só passar aqui. */
+              screenshot="/products/screenshots/agenda-inteligente.png"
+              techStack={['Java', 'Spring Boot', 'Next.js', 'OpenAI API']}
+              accent="violet"
+              lang={lang}
+              reverse
+            />
+            <MobileShowcase
+              name="Reino do Garcia"
+              tagline={{
+                pt: 'App de bairro que junta moradores e comércio local num só lugar: feed de notícias e ofertas, vitrine dos comerciantes e um programa de fidelidade gamificado — os "Selos do Reino". Feito para o bairro Garcia, em Blumenau.',
+                en: 'A hyperlocal neighborhood app connecting residents and local shops: news and deals feed, merchant directory and a gamified loyalty program — the "Reino stamps". Built for the Garcia district in Blumenau.',
+              }}
+              url="https://reinogarcia.com.br/"
+              screenshots={[
+                '/products/reino/reino-mural.jpg',
+                '/products/reino/reino-reino.jpg',
+                '/products/reino/reino-comercio.jpg',
+              ]}
+              techStack={['Next.js', 'NestJS', 'PostgreSQL', 'TypeORM', 'Railway']}
+              accentColor="#D4A82A"
+              statusLabel={{ pt: 'App de bairro · piloto 2026', en: 'Neighborhood app · 2026 pilot' }}
+              reverse
+              lang={lang}
+            />
+          </div>
+
+          <div className="text-center mt-12 md:mt-14">
+            <p className="font-sans text-[14px] text-steel-muted mb-4">
+              {lang === 'pt' ? 'Quer construir o próximo com a gente?' : 'Want to build the next one with us?'}
+            </p>
+            <a href="#pricing">
+              <Button variant="outline" size="md">
+                {lang === 'pt' ? 'Ver como cobramos →' : 'See how we engage →'}
+              </Button>
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* ── TRUST BAR / STACK ── */}
       <section id="stack" aria-label={lang === 'pt' ? 'Stack técnico' : 'Technical stack'}
-        className="relative py-14 md:py-16 px-5 md:px-12 bg-navy border-y border-white/[0.06] overflow-hidden">
+        className="relative py-14 md:py-16 px-5 md:px-12 bg-navy-card border-b border-white/[0.06] overflow-hidden">
         <div className="max-w-[1200px] mx-auto relative">
           <div className="text-center mb-8 md:mb-10">
             <p className="label-tag">{tx(t.stack.label)}</p>
@@ -539,7 +793,7 @@ export default function Home() {
                 <div className="marquee-track" role="list">
                   {doubled.map((tech, i) => (
                     <span key={i} role="listitem"
-                      className="font-mono text-[11px] md:text-[12px] text-steel-light bg-navy-card border border-white/[0.06] hover:border-cyan/30 hover:text-offwhite transition-colors px-3 py-1.5 rounded-md tracking-[0.04em] whitespace-nowrap">
+                      className="font-mono text-[11px] md:text-[12px] text-steel-light bg-navy border border-white/[0.06] hover:border-cyan/30 hover:text-offwhite transition-colors px-3 py-1.5 rounded-md tracking-[0.04em] whitespace-nowrap">
                       {tech}
                     </span>
                   ))}
@@ -551,7 +805,7 @@ export default function Home() {
       </section>
 
       {/* ── SERVICES ── */}
-      <section id="services" className="py-20 md:py-28 px-5 md:px-12 bg-navy-card border-y border-white/[0.06]">
+      <section id="services" className="py-20 md:py-28 px-5 md:px-12 bg-navy border-b border-white/[0.06]">
         <div className="max-w-[1200px] mx-auto grid grid-cols-12 gap-x-6 gap-y-10">
           {/* Header — alinhado à esquerda, ocupa 5 colunas no desktop */}
           <div className="col-span-12 md:col-span-5 md:sticky md:top-28 self-start reveal">
@@ -565,25 +819,107 @@ export default function Home() {
           {/* Cards — coluna oposta, 7 colunas, ritmo vertical */}
           <div className="col-span-12 md:col-span-7 md:col-start-6 flex flex-col gap-5 reveal-stagger">
             {[
-              { num: '01', name: t.services.s1name, desc: t.services.s1desc, tags: ['Web','Mobile','API REST','Observabilidade'], icon: <IconCode /> },
-              { num: '02', name: t.services.s2name, desc: t.services.s2desc, tags: ['Legacy','Cloud Migration','Database','Zero Downtime'], icon: <IconMigrate /> },
-              { num: '03', name: t.services.s3name, desc: t.services.s3desc, tags: ['ERP','Marketplaces','Pagamentos','LLMs'], icon: <IconCustom /> },
+              { num: '01', name: t.services.s1name, desc: t.services.s1desc, icon: <IconCode />, tags: [
+                { pt: 'Web', en: 'Web' }, { pt: 'Mobile', en: 'Mobile' }, { pt: 'API REST', en: 'REST API' }, { pt: 'Observabilidade', en: 'Observability' },
+              ] },
+              { num: '02', name: t.services.s2name, desc: t.services.s2desc, icon: <IconMigrate />, tags: [
+                { pt: 'Legado', en: 'Legacy' }, { pt: 'Migração para nuvem', en: 'Cloud migration' }, { pt: 'Banco de dados', en: 'Database' }, { pt: 'Zero downtime', en: 'Zero downtime' },
+              ] },
+              { num: '03', name: t.services.s3name, desc: t.services.s3desc, icon: <IconCustom />, tags: [
+                { pt: 'ERP', en: 'ERP' }, { pt: 'Marketplaces', en: 'Marketplaces' }, { pt: 'Pagamentos', en: 'Payments' }, { pt: 'Fiscal', en: 'Fiscal' }, { pt: 'LLMs', en: 'LLMs' },
+              ] },
             ].map((s, i) => (
-              <Card key={i} hover className="card-glow group p-7 md:p-8 relative bg-navy">
+              <Card key={i} hover className="card-glow group p-6 md:p-8 relative bg-navy-card">
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100 rounded-t-2xl" aria-hidden="true" />
-                <div className="flex items-start gap-5">
-                  <div className="w-12 h-12 bg-cyan/[0.08] border border-cyan/20 rounded-xl flex items-center justify-center shrink-0">{s.icon}</div>
+                {/* Celular: ícone na linha do título, texto na largura toda. Desktop: ícone em coluna. */}
+                <div className="md:flex md:items-start md:gap-5">
+                  <div className="hidden md:flex w-12 h-12 bg-cyan/[0.08] border border-cyan/20 rounded-xl items-center justify-center shrink-0">{s.icon}</div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-baseline gap-3 mb-2">
-                      <span className="font-mono text-[11px] text-cyan tracking-[0.15em]">{s.num}</span>
-                      <h3 className="font-display font-[700] text-[17px] md:text-[18px] text-offwhite leading-tight">{tx(s.name)}</h3>
+                    <div className="flex items-center md:items-baseline gap-3 mb-3 md:mb-2">
+                      <div className="md:hidden w-10 h-10 bg-cyan/[0.08] border border-cyan/20 rounded-[10px] flex items-center justify-center shrink-0">{s.icon}</div>
+                      <div className="flex flex-col md:flex-row md:items-baseline gap-0.5 md:gap-3 min-w-0">
+                        <span className="font-mono text-[11px] text-cyan tracking-[0.15em]">{s.num}</span>
+                        <h3 className="font-display font-[700] text-[17px] md:text-[18px] text-offwhite leading-tight">{tx(s.name)}</h3>
+                      </div>
                     </div>
                     <p className="font-sans text-[14px] text-steel-muted leading-[1.65] mb-5">{tx(s.desc)}</p>
-                    <div className="flex flex-wrap gap-1.5">{s.tags.map(tag => <Badge key={tag}>{tag}</Badge>)}</div>
+                    <div className="flex flex-wrap gap-1.5">{s.tags.map(tag => <Badge key={tag.pt}>{tx(tag)}</Badge>)}</div>
                   </div>
                 </div>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── PRICING / ENGAGEMENT MODELS ── */}
+      <section id="pricing" className="py-20 md:py-24 px-5 md:px-12 bg-navy-card border-b border-white/[0.06]">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="text-center mb-12 md:mb-16">
+            <p className="label-tag">{tx(t.pricing.label)}</p>
+            <h2 className="section-title">
+              {lang === 'pt' ? <>Três formas de <span className="text-cyan">trabalhar com a gente</span></> : <>Three ways to <span className="text-cyan">work with us</span></>}
+            </h2>
+            <p className="font-sans text-steel max-w-xl mx-auto text-[15px]">{tx(t.pricing.desc)}</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+            {[
+              {
+                num: '01',
+                name: t.pricing.p1name,
+                desc: t.pricing.p1desc,
+                tags: t.pricing.p1tags,
+                accent: 'from-cyan to-[#0088CC]',
+                idealLabel: { pt: 'Risco previsível', en: 'Predictable risk' },
+              },
+              {
+                num: '02',
+                name: t.pricing.p2name,
+                desc: t.pricing.p2desc,
+                tags: t.pricing.p2tags,
+                accent: 'from-[#7C6FFF] to-cyan',
+                idealLabel: { pt: 'Mais comum', en: 'Most common' },
+                featured: true,
+              },
+              {
+                num: '03',
+                name: t.pricing.p3name,
+                desc: t.pricing.p3desc,
+                tags: t.pricing.p3tags,
+                accent: 'from-[#00C85A] to-cyan',
+                idealLabel: { pt: 'Para escala', en: 'Built for scale' },
+              },
+            ].map((p) => (
+              <div key={p.num} className={`relative p-7 md:p-9 rounded-2xl bg-navy border ${p.featured ? 'border-cyan/30' : 'border-white/[0.06]'} hover:border-cyan/40 transition-colors flex flex-col`}>
+                {p.featured && (
+                  <div className="absolute -top-2.5 right-6">
+                    <span className="font-mono text-[9px] tracking-[0.18em] uppercase bg-cyan text-navy font-medium px-2.5 py-1 rounded">
+                      {tx(p.idealLabel)}
+                    </span>
+                  </div>
+                )}
+                <div className={`absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r ${p.accent} opacity-60 rounded-t-2xl`} aria-hidden="true" />
+                <div className="font-mono text-[11px] text-steel tracking-[0.18em] mb-4">{p.num}</div>
+                <h3 className="font-display font-[800] text-[20px] text-offwhite mb-3 leading-tight">{tx(p.name)}</h3>
+                <p className="font-sans text-[14px] text-steel-muted leading-[1.65] mb-5 flex-1">{tx(p.desc)}</p>
+                <div className="flex flex-wrap gap-1.5 pt-4 border-t border-white/[0.06]">
+                  {p.tags.map((tag) => <Badge key={tag.pt} variant="steel">{tx(tag)}</Badge>)}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12 md:mt-14">
+            <p className="font-sans text-[14px] text-steel-muted mb-4">
+              {lang === 'pt'
+                ? 'Não sabe qual escolher? Conversamos e definimos juntos.'
+                : "Not sure which fits? Let's talk and decide together."}
+            </p>
+            <a href={bookingUrl} target="_blank" rel="noopener noreferrer"
+              onClick={() => trackLead({ source: 'whatsapp', lang })}>
+              <Button size="md">{tx(t.pricing.cta)}</Button>
+            </a>
           </div>
         </div>
       </section>
@@ -690,7 +1026,7 @@ export default function Home() {
                   <div className="grid md:grid-cols-3 gap-8 md:gap-10">
                     <div className="md:col-span-2">
                       <div className="flex items-center gap-3 mb-4">
-                        <span className="font-mono text-xs text-cyan tracking-[0.15em]">FASE {step.n}</span>
+                        <span className="font-mono text-xs text-cyan tracking-[0.15em]">{lang === 'pt' ? 'FASE' : 'PHASE'} {step.n}</span>
                         <span className="w-1 h-1 rounded-full bg-steel/40" aria-hidden="true" />
                         <span className="font-mono text-xs text-steel-muted">{tx(step.dur)}</span>
                       </div>
@@ -730,38 +1066,33 @@ export default function Home() {
             {/* Card institucional — 5 colunas, esquerda */}
             <Card className="col-span-12 md:col-span-5 md:order-1 order-2 p-7 md:p-10 relative overflow-hidden bg-navy">
               <div className="absolute -top-10 -right-10 w-48 h-48 bg-glow-cyan pointer-events-none" aria-hidden="true" />
-              <div className="grid grid-cols-2 gap-4 mb-7">
-                {[
-                  { n: '2022', l: { pt:'Operando desde', en:'Operating since' } },
-                  { n: '3',    l: { pt:'Produtos no ar', en:'Products live' } },
-                  { n: 'BR',   l: { pt:'Atendimento remoto', en:'Remote across' } },
-                  { n: 'SC',   l: { pt:'Sede em Blumenau', en:'Based in Blumenau' } },
-                ].map(s => (
-                  <div key={s.n} className="bg-navy-card rounded-xl p-4 border border-white/[0.05]">
-                    <div className="font-display font-[800] text-[26px] text-cyan leading-none mb-1">{s.n}</div>
-                    <div className="font-mono text-[10px] text-steel tracking-[0.12em] uppercase">{tx(s.l)}</div>
-                  </div>
-                ))}
-              </div>
-              <div className="border-t border-white/[0.06] pt-5 mb-5">
-                <p className="font-mono text-[10px] text-steel tracking-[0.15em] uppercase mb-3">{lang === 'pt' ? 'Áreas de domínio' : 'Areas of expertise'}</p>
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    { pt:'Fiscal & NFS-e', en:'Fiscal & e-invoicing' },
-                    { pt:'E-commerce', en:'E-commerce' },
-                    { pt:'SaaS & APIs', en:'SaaS & APIs' },
-                    { pt:'IA aplicada', en:'Applied AI' },
-                    { pt:'Migrações', en:'Migrations' },
-                    { pt:'Integrações', en:'Integrations' },
-                  ].map(tag => (
-                    <Badge key={tag.pt}>{tx(tag)}</Badge>
-                  ))}
+              {/* Ficha de quem atende. Sem foto por enquanto: o monograma ocupa o lugar dela. */}
+              <div className="flex items-center gap-4 mb-5">
+                <div className="w-16 h-16 rounded-full bg-cyan/[0.08] border border-cyan/30 flex items-center justify-center shrink-0 font-display font-[800] text-[20px] text-cyan" aria-hidden="true">CS</div>
+                <div className="min-w-0">
+                  <p className="font-display font-[700] text-[18px] text-offwhite leading-tight">Christophe Scantelbury</p>
+                  <p className="font-mono text-[11px] text-steel tracking-[0.12em] uppercase mt-1.5">{tx(t.about.founderRole)}</p>
                 </div>
               </div>
-              <div className="border-t border-white/[0.06] pt-5">
-                <p className="font-mono text-[11px] text-steel tracking-[0.08em]">
-                  {lang === 'pt' ? '100% remoto · ' : 'Fully remote · '}CNPJ 44.967.160/0001-80
-                </p>
+              <p className="font-sans text-[14px] text-steel-light leading-[1.7] mb-6">{tx(t.about.founder)}</p>
+              <dl className="border-t border-white/[0.06] pt-5 mb-5 grid grid-cols-[88px_1fr] sm:grid-cols-[110px_1fr] gap-x-4 gap-y-2.5">
+                {[
+                  { k: tx(t.about.factCompany), v: 'Scantelbury Serviços em TI Ltda' },
+                  { k: 'CNPJ', v: '44.967.160/0001-80' },
+                  { k: tx(t.about.factHq), v: tx(t.about.factHqVal) },
+                  { k: tx(t.about.factSince), v: '2022' },
+                ].map(f => (
+                  <div key={f.k} className="contents">
+                    <dt className="font-mono text-[11px] text-steel tracking-[0.12em] uppercase pt-0.5">{f.k}</dt>
+                    <dd className="font-sans text-[13px] text-offwhite">{f.v}</dd>
+                  </div>
+                ))}
+              </dl>
+              <div className="border-t border-white/[0.06] pt-4 flex gap-6">
+                <a href="https://www.linkedin.com/company/scantelburydevs/" target="_blank" rel="noopener noreferrer"
+                  className="font-mono text-[12px] tracking-[0.05em] text-cyan hover:text-offwhite transition-colors min-h-[44px] inline-flex items-center">LinkedIn ↗</a>
+                <a href="https://github.com/christopheScantelbury" target="_blank" rel="noopener noreferrer"
+                  className="font-mono text-[12px] tracking-[0.05em] text-cyan hover:text-offwhite transition-colors min-h-[44px] inline-flex items-center">GitHub ↗</a>
               </div>
             </Card>
 
@@ -774,9 +1105,8 @@ export default function Home() {
                   : <>Technical engineering<br /><span className="text-cyan">with operational<br />accountability</span></>}
               </h2>
               <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.75] mb-4">{tx(t.about.p1)}</p>
-              <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.75] mb-4">{tx(t.about.p2)}</p>
-              <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.75] mb-8">{tx(t.about.founder)}</p>
-              <div className="flex flex-col gap-4">
+              <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.75] mb-8">{tx(t.about.p2)}</p>
+              <div className="flex flex-col gap-4 mb-8">
                 {[t.about.h1, t.about.h2, t.about.h3].map((h, i) => (
                   <div key={i} className="flex items-start gap-3.5">
                     <div className="w-1.5 h-1.5 rounded-full bg-cyan mt-2 flex-shrink-0" aria-hidden="true" />
@@ -784,163 +1114,20 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── PRODUTOS ── */}
-      <section id="produtos" className="py-20 md:py-24 px-5 md:px-12 bg-navy border-b border-white/[0.06] relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-glow-cyan pointer-events-none -translate-y-1/3 translate-x-1/4" aria-hidden="true" />
-        <div className="max-w-[1200px] mx-auto relative">
-          {/* Header editorial assimétrico */}
-          <div className="grid grid-cols-12 gap-x-6 gap-y-6 mb-12 md:mb-16 reveal">
-            <div className="col-span-12 md:col-span-3">
-              <p className="font-mono text-[11px] text-cyan tracking-[0.2em] uppercase mb-3">
-                {lang === 'pt' ? 'Feito por nós' : 'Built by us'}
-              </p>
-              <div className="hidden md:block w-16 h-[3px] bg-cyan/60 rounded-full" aria-hidden="true" />
-            </div>
-            <div className="col-span-12 md:col-span-8 md:col-start-5 self-end">
-              <h2 className="section-title text-left mb-3">
-                {lang === 'pt' ? <>Alguns dos sistemas<br /><span className="text-cyan">que a gente construiu</span></> : <>Some of the systems<br /><span className="text-cyan">we&apos;ve built</span></>}
-              </h2>
-              <p className="font-sans text-steel-light text-[15px] md:text-[16px] leading-[1.7] max-w-xl">
-                {lang === 'pt'
-                  ? 'Não falamos só de teoria. Construímos, lançamos e operamos software real — do sistema web ao aplicativo de celular. Estes são alguns deles.'
-                  : "We don't just talk theory. We build, ship and run real software — from web systems to mobile apps. Here are a few of them."}
-              </p>
-            </div>
-          </div>
-
-          {/* Produtos em mockup de browser — alterna texto à esquerda/direita pra ritmo */}
-          <div className="flex flex-col gap-16 md:gap-20 reveal-stagger">
-            <ProductShowcase
-              name="NotaFácil"
-              tagline={{
-                pt: 'Emissão de NFS-e do MEI, sem complicação. Plataforma + API REST com suporte a 5.000+ municípios, certificado A1 protegido em AWS e webhooks assinados.',
-                en: 'MEI invoice issuance, made simple. Platform + REST API supporting 5,000+ municipalities, A1 certificate stored in AWS, signed webhooks.',
-              }}
-              url="https://www.emitirnotafacil.com.br"
-              screenshot="/products/screenshots/notafacil.png"
-              techStack={['Go', 'Fiber', 'PostgreSQL', 'AWS KMS', 'Stripe']}
-              accent="cyan"
-              lang={lang}
-            />
-            <ProductShowcase
-              name="Agenda Inteligente"
-              tagline={{
-                pt: 'Agendamento online para clínicas, salões e prestadores de serviço. Reagendamento automático e WhatsApp Business integrado para confirmações.',
-                en: 'Online scheduling for clinics, salons and service pros. Smart rescheduling and WhatsApp Business integration for confirmations.',
-              }}
-              url="https://agendainteligente-aleefhenriiques-projects.vercel.app/"
-              screenshot="/products/screenshots/agenda-inteligente.png"
-              techStack={['Java', 'Spring Boot', 'Next.js', 'OpenAI API']}
-              accent="violet"
-              lang={lang}
-              reverse
-            />
-            <MobileShowcase
-              name="Reino do Garcia"
-              tagline={{
-                pt: 'App de bairro que junta moradores e comércio local num só lugar: feed de notícias e ofertas, vitrine dos comerciantes e um programa de fidelidade gamificado — os "Selos do Reino". Feito para o bairro Garcia, em Blumenau.',
-                en: 'A hyperlocal neighborhood app connecting residents and local shops: news and deals feed, merchant directory and a gamified loyalty program — the "Reino stamps". Built for the Garcia district in Blumenau.',
-              }}
-              url="https://reinogarcia.com.br/"
-              screenshots={[
-                '/products/reino/reino-mural.jpg',
-                '/products/reino/reino-reino.jpg',
-                '/products/reino/reino-comercio.jpg',
-              ]}
-              techStack={['Next.js', 'NestJS', 'PostgreSQL', 'TypeORM', 'Railway']}
-              accentColor="#D4A82A"
-              statusLabel={{ pt: 'App de bairro · piloto 2026', en: 'Neighborhood app · 2026 pilot' }}
-              reverse
-              lang={lang}
-            />
-          </div>
-
-          <div className="text-center mt-12 md:mt-14">
-            <p className="font-sans text-[14px] text-steel-muted mb-4">
-              {lang === 'pt' ? 'Quer construir o próximo com a gente?' : 'Want to build the next one with us?'}
-            </p>
-            <a href="#pricing">
-              <Button variant="outline" size="md">
-                {lang === 'pt' ? 'Ver como cobramos →' : 'See how we engage →'}
-              </Button>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* ── PRICING / ENGAGEMENT MODELS ── */}
-      <section id="pricing" className="py-20 md:py-24 px-5 md:px-12 bg-navy-card border-b border-white/[0.06]">
-        <div className="max-w-[1200px] mx-auto">
-          <div className="text-center mb-12 md:mb-16">
-            <p className="label-tag">{tx(t.pricing.label)}</p>
-            <h2 className="section-title">
-              {lang === 'pt' ? <>Três formas de <span className="text-cyan">trabalhar com a gente</span></> : <>Three ways to <span className="text-cyan">work with us</span></>}
-            </h2>
-            <p className="font-sans text-steel max-w-xl mx-auto text-[15px]">{tx(t.pricing.desc)}</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
-            {[
-              {
-                num: '01',
-                name: t.pricing.p1name,
-                desc: t.pricing.p1desc,
-                tags: t.pricing.p1tags,
-                accent: 'from-cyan to-[#0088CC]',
-                idealLabel: { pt: 'Risco previsível', en: 'Predictable risk' },
-              },
-              {
-                num: '02',
-                name: t.pricing.p2name,
-                desc: t.pricing.p2desc,
-                tags: t.pricing.p2tags,
-                accent: 'from-[#7C6FFF] to-cyan',
-                idealLabel: { pt: 'Mais comum', en: 'Most common' },
-                featured: true,
-              },
-              {
-                num: '03',
-                name: t.pricing.p3name,
-                desc: t.pricing.p3desc,
-                tags: t.pricing.p3tags,
-                accent: 'from-[#00C85A] to-cyan',
-                idealLabel: { pt: 'Para escala', en: 'Built for scale' },
-              },
-            ].map((p) => (
-              <div key={p.num} className={`relative p-7 md:p-9 rounded-2xl bg-navy border ${p.featured ? 'border-cyan/30' : 'border-white/[0.06]'} hover:border-cyan/40 transition-colors flex flex-col`}>
-                {p.featured && (
-                  <div className="absolute -top-2.5 right-6">
-                    <span className="font-mono text-[9px] tracking-[0.18em] uppercase bg-cyan text-navy font-medium px-2.5 py-1 rounded">
-                      {tx(p.idealLabel)}
-                    </span>
-                  </div>
-                )}
-                <div className={`absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r ${p.accent} opacity-60 rounded-t-2xl`} aria-hidden="true" />
-                <div className="font-mono text-[11px] text-steel tracking-[0.18em] mb-4">{p.num}</div>
-                <h3 className="font-display font-[800] text-[20px] text-offwhite mb-3 leading-tight">{tx(p.name)}</h3>
-                <p className="font-sans text-[14px] text-steel-muted leading-[1.65] mb-5 flex-1">{tx(p.desc)}</p>
-                <div className="flex flex-wrap gap-1.5 pt-4 border-t border-white/[0.06]">
-                  {p.tags.map((tag) => <Badge key={tag} variant="steel">{tag}</Badge>)}
-                </div>
+              <p className="font-mono text-[11px] text-steel tracking-[0.15em] uppercase mb-3">{lang === 'pt' ? 'Áreas de domínio' : 'Areas of expertise'}</p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { pt:'Fiscal & NFS-e', en:'Fiscal & e-invoicing' },
+                  { pt:'SaaS & APIs', en:'SaaS & APIs' },
+                  { pt:'Integrações', en:'Integrations' },
+                  { pt:'Migrações', en:'Migrations' },
+                  { pt:'E-commerce', en:'E-commerce' },
+                  { pt:'IA aplicada', en:'Applied AI' },
+                ].map(tag => (
+                  <Badge key={tag.pt}>{tx(tag)}</Badge>
+                ))}
               </div>
-            ))}
-          </div>
-
-          <div className="text-center mt-12 md:mt-14">
-            <p className="font-sans text-[14px] text-steel-muted mb-4">
-              {lang === 'pt'
-                ? 'Não sabe qual escolher? Conversamos e definimos juntos.'
-                : "Not sure which fits? Let's talk and decide together."}
-            </p>
-            <a href={bookingUrl} target="_blank" rel="noopener noreferrer"
-              onClick={() => trackLead({ source: 'whatsapp', lang })}>
-              <Button size="md">{tx(t.pricing.cta)}</Button>
-            </a>
+            </div>
           </div>
         </div>
       </section>
@@ -980,21 +1167,21 @@ export default function Home() {
                 slug: 'mvp-em-4-semanas-o-que-e-possivel',
                 title: { pt: 'MVP em 4 semanas: o que realmente é possível entregar', en: 'MVP in 4 weeks: what you can really deliver' },
                 desc:  { pt: 'O que cabe (e o que não cabe) num MVP de 4 semanas — e como definir o escopo certo.', en: 'What fits (and what doesn\'t) in a 4-week MVP — and how to scope it right.' },
-                date: '15 mai 2026',
+                date: { pt: '15 mai 2026', en: 'May 15, 2026' },
                 read: 6,
               },
               {
                 slug: 'quando-contratar-dev-freelancer-vs-empresa',
                 title: { pt: 'Freelancer ou empresa: quando cada um faz sentido', en: 'Freelancer or agency: when each makes sense' },
                 desc:  { pt: 'Como decidir entre contratar um dev freelancer ou uma empresa — e os riscos que a maioria ignora.', en: 'How to choose between hiring a freelance dev or an agency — and the risks most people ignore.' },
-                date: '12 mai 2026',
+                date: { pt: '12 mai 2026', en: 'May 12, 2026' },
                 read: 5,
               },
               {
                 slug: 'como-escolher-tecnologia-para-seu-projeto',
                 title: { pt: 'Como escolher a tecnologia certa para seu projeto', en: 'How to choose the right tech for your project' },
                 desc:  { pt: 'React ou Next.js? Go ou Node? Os critérios que usamos — sem hype e sem achismo.', en: 'React or Next.js? Go or Node? The criteria we use — no hype, no guesswork.' },
-                date: '10 mai 2026',
+                date: { pt: '10 mai 2026', en: 'May 10, 2026' },
                 read: 7,
               },
             ].map(post => (
@@ -1004,9 +1191,15 @@ export default function Home() {
                 <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                   style={{ background: 'linear-gradient(90deg, var(--accent-2), transparent)' }} aria-hidden="true" />
                 <div className="flex items-center gap-3 mb-4 font-mono text-[10px] text-steel-muted tracking-[0.12em] uppercase">
-                  <span>{post.date}</span>
+                  <span>{tx(post.date)}</span>
                   <span className="w-1 h-1 rounded-full bg-steel/40" aria-hidden="true" />
                   <span>{post.read} min</span>
+                  {lang === 'en' && (
+                    <>
+                      <span className="w-1 h-1 rounded-full bg-steel/40" aria-hidden="true" />
+                      <span>in Portuguese</span>
+                    </>
+                  )}
                 </div>
                 <h3 className="font-display font-[700] text-[16px] md:text-[17px] text-offwhite mb-3 leading-snug transition-colors duration-200 group-hover:text-[color:var(--accent-2)]">
                   {tx(post.title)}
@@ -1031,7 +1224,7 @@ export default function Home() {
             <div>
               <p className="label-tag">{tx(t.contact.label)}</p>
               <h2 className="section-title">
-                {lang === 'pt' ? <>Agendar um <span className="text-cyan">diagnóstico</span></> : <>Book a <span className="text-cyan">discovery call</span></>}
+                {lang === 'pt' ? <>Agendar uma <span className="text-cyan">conversa</span></> : <>Book a <span className="text-cyan">call</span></>}
               </h2>
               <p className="font-sans text-steel-muted text-[15px] md:text-[16px] leading-[1.7] mb-8 md:mb-10">{tx(t.contact.desc)}</p>
               <div className="flex flex-col gap-3 md:gap-4">
@@ -1043,7 +1236,8 @@ export default function Home() {
                   { href:'https://www.linkedin.com/company/scantelburydevs/', label:'LinkedIn', value:'ScantelburyDevs',
                     icon:<svg width="18" height="18" viewBox="0 0 24 24" fill="#00D4FF" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg> },
                 ].map(ch => (
-                  <a key={ch.label} href={ch.href} target="_blank" rel="noopener noreferrer" aria-label={`${ch.label}: ${ch.value}`}
+                  <a key={ch.label} href={ch.href} aria-label={`${ch.label}: ${ch.value}`}
+                    {...(ch.href.startsWith('mailto:') ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
                     onClick={() => trackContact(ch.label)}
                     className="flex items-center gap-4 p-4 bg-navy border border-white/[0.06] rounded-xl hover:border-cyan/25 hover:bg-navy-border transition-all min-h-[64px]">
                     <div className="w-10 h-10 rounded-[10px] bg-cyan/[0.08] border border-cyan/20 flex items-center justify-center flex-shrink-0">{ch.icon}</div>
@@ -1061,22 +1255,22 @@ export default function Home() {
               <form onSubmit={handleWhatsApp} className="flex flex-col gap-4 md:gap-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="name" className="font-mono text-[10px] text-steel tracking-[0.15em] uppercase block mb-2">{tx(t.contact.nameLbl)}</label>
-                    <Input id="name" name="name" placeholder={lang === 'pt' ? 'Seu nome' : 'Your name'} />
+                    <label htmlFor="name" className="font-mono text-[11px] text-steel tracking-[0.14em] uppercase block mb-2">{tx(t.contact.nameLbl)} <span aria-hidden="true">*</span></label>
+                    <Input id="name" name="name" required autoComplete="name" placeholder={lang === 'pt' ? 'Seu nome' : 'Your name'} />
                   </div>
                   <div>
-                    <label htmlFor="email" className="font-mono text-[10px] text-steel tracking-[0.15em] uppercase block mb-2">E-mail</label>
-                    <Input id="email" name="email" type="email" placeholder="email@empresa.com" />
+                    <label htmlFor="email" className="font-mono text-[11px] text-steel tracking-[0.14em] uppercase block mb-2">E-mail <span aria-hidden="true">*</span></label>
+                    <Input id="email" name="email" type="email" required autoComplete="email" placeholder={lang === 'pt' ? 'email@empresa.com' : 'email@company.com'} />
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="type" className="font-mono text-[10px] text-steel tracking-[0.15em] uppercase block mb-2">{tx(t.contact.typeLbl)}</label>
+                  <label htmlFor="type" className="font-mono text-[11px] text-steel tracking-[0.14em] uppercase block mb-2">{tx(t.contact.typeLbl)}</label>
                   <Select id="type" name="type">
-                    {t.contact.types[lang].map(o => <option key={o}>{o}</option>)}
+                    {t.contact.types[lang].map((o, i) => <option key={o} value={i === 0 ? '' : o}>{o}</option>)}
                   </Select>
                 </div>
                 <div>
-                  <label htmlFor="message" className="font-mono text-[10px] text-steel tracking-[0.15em] uppercase block mb-2">{tx(t.contact.msgLbl)}</label>
+                  <label htmlFor="message" className="font-mono text-[11px] text-steel tracking-[0.14em] uppercase block mb-2">{tx(t.contact.msgLbl)}</label>
                   <Textarea id="message" name="message" placeholder={lang === 'pt' ? 'Descreva brevemente seu desafio...' : 'Briefly describe your challenge...'} />
                 </div>
                 <Button type="submit" size="lg" className="w-full mt-1">{tx(t.contact.submit)}</Button>
@@ -1093,12 +1287,12 @@ export default function Home() {
             <div className="col-span-2 md:col-span-1">
               <Logo size="sm" className="mb-4" />
               <p className="font-sans text-[13px] text-steel-muted leading-[1.65] max-w-[260px]">
-                {lang === 'pt' ? 'Engenharia de software para sistemas críticos. Operando produtos em produção desde 2022. 100% remoto, atendemos todo o Brasil.' : 'Software engineering for mission-critical systems. Operating products in production since 2022. Fully remote, serving Brazil-wide.'}
+                {lang === 'pt' ? 'NFS-e Nacional por API e integração fiscal para empresas de software. Operando produtos em produção desde 2022. 100% remoto, atendemos todo o Brasil.' : 'NFS-e Nacional via API and fiscal integration for software companies. Operating products in production since 2022. Fully remote, serving all of Brazil.'}
               </p>
             </div>
             {[
-              { title:{pt:'Serviços',en:'Services'}, links:[{pt:'Desenvolvimento',en:'Development',href:'#services'},{pt:'Migração',en:'Migration',href:'#services'},{pt:'Integrações',en:'Integrations',href:'#services'},{pt:'Como cobramos',en:'Engagement',href:'#pricing'}] },
-              { title:{pt:'Empresa',en:'Company'}, links:[{pt:'Empresa',en:'Company',href:'#about'},{pt:'Produtos',en:'Products',href:'#produtos'},{pt:'Processo',en:'Process',href:'#process'}] },
+              { title:{pt:'Serviços',en:'Services'}, links:[{pt:'API de NFS-e Nacional',en:'NFS-e Nacional API',href:'#nfse'},{pt:'Sistema sob medida',en:'Custom software',href:'/sistema-sob-medida'},{pt:'Migração de legado',en:'Legacy migration',href:'/migracao-sistemas-legados'},{pt:'Como cobramos',en:'Engagement',href:'#pricing'}] },
+              { title:{pt:'Empresa',en:'Company'}, links:[{pt:'Empresa',en:'Company',href:'#about'},{pt:'Produtos',en:'Products',href:'#produtos'},{pt:'Trabalhos',en:'Our work',href:'/cases'},{pt:'Processo',en:'Process',href:'#process'},{pt:'Insights',en:'Insights',href:'/blog'}] },
               { title:{pt:'Contato',en:'Contact'}, links:[{pt:'WhatsApp',en:'WhatsApp',href:'https://wa.me/5547997352380'},{pt:'E-mail',en:'E-mail',href:'mailto:contato@scantelburydevs.com.br'},{pt:'LinkedIn',en:'LinkedIn',href:'https://www.linkedin.com/company/scantelburydevs/'}] },
             ].map(col => (
               <div key={col.title.pt}>

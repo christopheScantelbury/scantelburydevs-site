@@ -1,17 +1,21 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 
 export const metadata: Metadata = {
   title: 'Trabalhos que fizemos',
-  description: 'Sistemas próprios que a ScantelburyDevs construiu e mantém no ar: NotaFácil (emissão de nota fiscal pra MEI), Agenda Inteligente (agendamento online) e Reino do Garcia (app de bairro que conecta moradores e comércio local).',
+  description: 'Sistemas próprios que a ScantelburyDevs construiu e mantém no ar: NotaFácil (NFS-e Nacional por plataforma e API), Agenda Inteligente (agendamento online) e Reino do Garcia (app de bairro que conecta moradores e comércio local).',
+  alternates: { canonical: '/cases' },
 }
 
 type CaseItem = {
   slug: string
   name: string
   tagline: string
-  url: string
+  /** Endereço público. Sem ele, o card não mostra o botão "Ver no ar". */
+  url?: string
   paraQuem: string
   problema: string
   solucao: string
@@ -25,26 +29,25 @@ const cases: CaseItem[] = [
   {
     slug: 'notafacil',
     name: 'NotaFácil',
-    tagline: 'Emite nota fiscal pra MEI em segundos',
+    tagline: 'Emissão de NFS-e Nacional para MEI, ME/EPP e empresas de software',
     url: 'https://www.emitirnotafacil.com.br',
-    paraQuem: 'Pra Microempreendedor Individual e contador',
+    paraQuem: 'Pra quem emite nota de serviço — e pra quem tem um sistema que precisa emitir',
     problema:
-      'Desde 2023 o MEI brasileiro é obrigado a emitir nota fiscal de serviço. O sistema oficial do governo é confuso, lento e dá erro toda hora. Quem trabalha sozinho perde horas pra emitir 5 notas, e quem tem vários MEIs (contador) não consegue emitir em massa.',
+      'A nota fiscal de serviço virou nacional e passou a ser obrigatória: primeiro pro MEI, depois pra microempresas e empresas de pequeno porte. O emissor do governo funciona, mas exige preencher tudo de novo a cada nota. E quem tem um sistema próprio (ERP, SaaS, marketplace) precisa falar direto com a Receita Federal — XML assinado, certificado digital, regras que mudam.',
     solucao:
-      'A gente construiu um sistema que conversa direto com o governo, sem precisar abrir o portal complicado. O MEI emite uma nota em menos de 3 segundos pelo computador ou celular. Quem tem vários cadastros (contador) emite em lote, com poucos cliques.',
+      'A gente construiu uma plataforma que conversa direto com a Receita Federal. Quem emite pela tela salva os dados do cliente e emite em segundos, pelo computador ou celular. Quem tem um sistema integra pela API: manda um JSON, a gente assina, envia e devolve o resultado por webhook.',
     resultados: [
-      'Emissão em menos de 3 segundos — no portal oficial leva mais de 30 segundos',
-      'Continua funcionando mesmo quando o sistema do governo cai',
-      'Um contador pode emitir nota de vários clientes na mesma conta',
-      'Outros sistemas (de loja virtual ou gestão) conseguem emitir nota automaticamente',
+      'Emissão em menos de 3 segundos, em média',
+      'Conexão direta com a Receita Federal, sem intermediário',
+      'Várias empresas na mesma conta — útil pra contador e pra quem tem mais de um CNPJ',
+      'API REST com sandbox público: outros sistemas emitem nota automaticamente',
     ],
-    categoria: 'Programa pra emitir nota fiscal',
+    categoria: 'NFS-e Nacional · plataforma e API',
   },
   {
     slug: 'agenda-inteligente',
     name: 'Agenda Inteligente',
     tagline: 'Agendamento online que se adapta sozinho',
-    url: 'https://agendainteligente-aleefhenriiques-projects.vercel.app/',
     paraQuem: 'Pra clínica, salão de beleza, prestador de serviço',
     problema:
       'Cliente liga pra remarcar, você procura horário livre no caderno. Cliente desmarca, o horário fica vazio e ninguém preenche. Tudo no WhatsApp — uma conversa pra agendar, três pra remarcar, e na correria alguém esquece. Horário perdido é dinheiro perdido.',
@@ -85,92 +88,80 @@ const cases: CaseItem[] = [
   },
 ]
 
+/** Título de bloco numerado — mesmo padrão dos cards de serviço da home. */
+function BlockTitle({ n, children }: { n: string; children: React.ReactNode }) {
+  return (
+    <h3 className="font-display font-bold text-base text-offwhite mb-3 flex items-baseline gap-2.5">
+      <span className="font-mono text-[11px] font-normal text-cyan tracking-[0.15em]" aria-hidden="true">{n}</span>
+      {children}
+    </h3>
+  )
+}
+
 export default function CasesPage() {
   return (
     <main className="bg-navy min-h-screen text-offwhite">
-      {/* Nav */}
-      <nav className="border-b border-white/[0.06] py-5">
-        <div className="max-w-5xl mx-auto px-6 flex justify-between items-center">
-          <Link href="/" className="flex items-center gap-2.5 no-underline">
-            <svg width="28" height="28" viewBox="0 0 72 72" fill="none" aria-hidden="true">
-              <path d="M36 12L58 24V48L36 60L14 48V24L36 12Z" fill="#0A0F1E" stroke="#00D4FF" strokeWidth="2"/>
-              <rect x="22" y="24" width="20" height="4" rx="2" fill="#00D4FF"/>
-              <rect x="30" y="33" width="20" height="4" rx="2" fill="#00D4FF"/>
-              <rect x="22" y="42" width="20" height="4" rx="2" fill="#00D4FF"/>
-            </svg>
-            <span className="font-sans font-bold text-base text-offwhite">
-              Scantelbury<span className="text-cyan">Devs</span>
-            </span>
-          </Link>
-          <Link href="/sistema-sob-medida#conversar" className="font-mono text-[13px] text-cyan tracking-[0.05em] hover:text-offwhite transition-colors">
-            Falar com a gente →
-          </Link>
-        </div>
-      </nav>
+      <SiteHeader current="cases" cta={{ href: '/sistema-sob-medida#conversar', label: 'Falar com a gente' }} />
 
       {/* Header */}
       <section className="max-w-4xl mx-auto px-6 pt-16 pb-12">
-        <p className="font-mono text-xs tracking-[0.15em] text-cyan mb-3 uppercase">Trabalhos nossos</p>
-        <h1 className="font-sans text-4xl md:text-5xl font-extrabold text-offwhite mb-4 leading-tight">
+        <p className="label-tag">Trabalhos nossos</p>
+        <h1 className="section-title">
           Sistemas que a gente construiu<br />
           <span className="text-cyan">e mantém no ar.</span>
         </h1>
-        <p className="text-steel text-base max-w-xl leading-relaxed">
+        <p className="text-steel-light text-base max-w-xl leading-relaxed">
           A mesma engenharia que entrega pro seu projeto — do sistema web ao aplicativo de celular. Aqui você vê de perto: qual era o problema, o que a gente fez, e o que mudou.
         </p>
       </section>
 
       {/* Cases */}
-      <section className="max-w-4xl mx-auto px-6 pb-20 space-y-12">
+      <section className="max-w-4xl mx-auto px-6 pb-20 space-y-10">
         {cases.map((c) => (
-          <article key={c.slug} className="border border-white/[0.08] rounded-xl p-7 md:p-10 bg-gradient-to-br from-white/[0.03] to-transparent hover:border-cyan/30 transition-colors">
-            <div className="flex items-start justify-between gap-4 mb-6 flex-wrap">
-              <div>
+          <article key={c.slug} id={c.slug} className="border border-white/[0.08] rounded-2xl p-7 md:p-10 bg-navy-card hover:border-cyan/30 transition-colors scroll-mt-24">
+            <div className="flex items-start justify-between gap-4 mb-7 flex-wrap">
+              <div className="min-w-0">
                 <div className="flex items-center gap-2 mb-2 flex-wrap">
-                  <p className="font-mono text-xs text-cyan uppercase tracking-wider">{c.categoria}</p>
+                  <p className="font-mono text-[11px] text-cyan uppercase tracking-[0.12em]">{c.categoria}</p>
                   {c.badge && (
                     <span className="font-mono text-[10px] uppercase tracking-wider text-[#D4A82A] border border-[#D4A82A]/40 bg-[#D4A82A]/10 px-2 py-0.5 rounded">
                       {c.badge}
                     </span>
                   )}
                 </div>
-                <h2 className="font-sans text-3xl md:text-4xl font-extrabold text-offwhite mb-2">{c.name}</h2>
-                <p className="text-steel text-base">{c.tagline}</p>
-                <p className="text-steel/70 text-sm italic mt-1">{c.paraQuem}</p>
+                <h2 className="font-display font-bold text-[28px] md:text-[32px] tracking-tight text-offwhite mb-2 leading-tight">{c.name}</h2>
+                <p className="text-steel-light text-base">{c.tagline}</p>
+                <p className="text-steel text-sm mt-1">{c.paraQuem}</p>
               </div>
-              <a
-                href={c.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-mono text-xs text-cyan hover:text-offwhite border border-cyan/40 hover:border-offwhite px-3 py-1.5 rounded transition-colors whitespace-nowrap"
-              >
-                Ver no ar →
-              </a>
+              {c.url && (
+                <a
+                  href={c.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center min-h-[44px] font-mono text-xs text-cyan hover:text-offwhite border border-cyan/40 hover:border-offwhite px-4 rounded-lg transition-colors whitespace-nowrap"
+                >
+                  Ver no ar ↗
+                </a>
+              )}
             </div>
 
             <div className="grid md:grid-cols-2 gap-8 mb-8">
               <div>
-                <h3 className="font-sans text-base font-bold text-offwhite mb-3 flex items-center gap-2">
-                  <span className="text-2xl">😩</span> O problema
-                </h3>
-                <p className="text-steel text-sm leading-relaxed">{c.problema}</p>
+                <BlockTitle n="01">O problema</BlockTitle>
+                <p className="text-steel-light text-sm leading-relaxed">{c.problema}</p>
               </div>
               <div>
-                <h3 className="font-sans text-base font-bold text-offwhite mb-3 flex items-center gap-2">
-                  <span className="text-2xl">💡</span> O que a gente fez
-                </h3>
-                <p className="text-steel text-sm leading-relaxed">{c.solucao}</p>
+                <BlockTitle n="02">O que a gente fez</BlockTitle>
+                <p className="text-steel-light text-sm leading-relaxed">{c.solucao}</p>
               </div>
             </div>
 
             <div>
-              <h3 className="font-sans text-base font-bold text-offwhite mb-3 flex items-center gap-2">
-                <span className="text-2xl">📈</span> O que mudou
-              </h3>
+              <BlockTitle n="03">O que mudou</BlockTitle>
               <ul className="space-y-2">
                 {c.resultados.map((r, i) => (
-                  <li key={i} className="text-steel text-sm leading-relaxed flex items-start gap-3">
-                    <span className="text-cyan shrink-0 font-bold">→</span>
+                  <li key={i} className="text-steel-light text-sm leading-relaxed flex items-start gap-3">
+                    <span className="text-cyan shrink-0 font-bold" aria-hidden="true">→</span>
                     <span>{r}</span>
                   </li>
                 ))}
@@ -180,8 +171,8 @@ export default function CasesPage() {
             {/* Galeria de telas (apps mobile) */}
             {c.screenshots && c.screenshots.length > 0 && (
               <div className="mt-8 pt-8 border-t border-white/[0.06]">
-                <p className="font-mono text-xs text-[#D4A82A] uppercase tracking-wider mb-4">Telas do app</p>
-                <div className="flex gap-3 md:gap-4 overflow-x-auto pb-2 -mx-1 px-1 snap-x">
+                <p className="font-mono text-[11px] text-[#D4A82A] uppercase tracking-[0.12em] mb-4">Telas do app</p>
+                <div className="flex gap-3 md:gap-4 overflow-x-auto pb-2 -mx-1 px-1 snap-x" tabIndex={0} role="group" aria-label={`Telas do app ${c.name}`}>
                   {c.screenshots.map((src, i) => (
                     <div
                       key={i}
@@ -206,29 +197,22 @@ export default function CasesPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-white/[0.015] border-t border-white/[0.06] py-20">
+      <section className="bg-navy-card border-t border-white/[0.06] py-20">
         <div className="max-w-2xl mx-auto px-6 text-center">
-          <h2 className="font-sans text-3xl md:text-4xl font-extrabold text-offwhite mb-4 leading-tight">
-            Sua empresa pode ser <span className="text-cyan">a próxima.</span>
+          <h2 className="section-title">
+            Seu sistema pode ser <span className="text-cyan">o próximo.</span>
           </h2>
-          <p className="text-steel text-base mb-8 leading-relaxed">
+          <p className="text-steel-light text-base mb-8 leading-relaxed">
             Uma conversa de 30 minutos sem compromisso. Conta o que tá te incomodando, a gente devolve um plano simples e claro.
           </p>
-          <Link href="/sistema-sob-medida#conversar">
-            <span className="inline-block bg-cyan text-navy font-sans font-bold px-7 py-3 rounded hover:bg-cyan/80 transition-colors">
-              Quero conversar sem compromisso →
-            </span>
+          <Link href="/sistema-sob-medida#conversar"
+            className="inline-flex items-center justify-center min-h-[44px] px-6 py-3 rounded-lg bg-cyan text-navy font-mono text-[13px] font-medium tracking-[0.06em] no-underline transition-all duration-200 hover:opacity-90 hover:-translate-y-px">
+            Quero conversar sem compromisso →
           </Link>
         </div>
       </section>
 
-      <footer className="border-t border-white/[0.06] py-8">
-        <div className="max-w-5xl mx-auto px-6 text-center">
-          <p className="text-steel text-xs">
-            ScantelburyDevs · Blumenau, SC · atendimento em todo o Brasil
-          </p>
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   )
 }

@@ -1,7 +1,7 @@
 export const FAQ_ITEMS: { q: string; a: string }[] = [
   {
     q: 'Preciso entender de tecnologia para contratar?',
-    a: 'Não. Você só precisa explicar como sua empresa funciona, quais problemas enfrenta e o que gostaria de melhorar. Nós traduzimos isso para uma solução técnica. A maioria dos nossos clientes não sabe nada de tecnologia — e está tudo bem.',
+    a: 'Não. Você só precisa explicar como sua empresa funciona, quais problemas enfrenta e o que gostaria de melhorar. Nós traduzimos isso para uma solução técnica. Você não precisa saber nada de tecnologia — e está tudo bem.',
   },
   {
     q: 'A conversa inicial é gratuita?',
