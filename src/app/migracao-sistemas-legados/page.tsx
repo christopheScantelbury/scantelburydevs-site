@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
 import { Button, Input, Textarea, Select } from '@/components/ui'
 import { trackLead } from '@/lib/analytics'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 
 const WHATSAPP_URL = 'https://wa.me/5547997352380?text=Ol%C3%A1%2C+preciso+trocar+um+sistema+antigo'
 
@@ -38,25 +39,7 @@ export default function MigracaoLP() {
 
   return (
     <main className="bg-navy min-h-screen text-offwhite">
-      <nav className="border-b border-white/[0.06] py-5">
-        <div className="max-w-5xl mx-auto px-6 flex justify-between items-center">
-          <Link href="/" className="flex items-center gap-2.5 no-underline">
-            <svg width="28" height="28" viewBox="0 0 72 72" fill="none" aria-hidden="true">
-              <path d="M36 12L58 24V48L36 60L14 48V24L36 12Z" fill="#0A0F1E" stroke="#00D4FF" strokeWidth="2"/>
-              <rect x="22" y="24" width="20" height="4" rx="2" fill="#00D4FF"/>
-              <rect x="30" y="33" width="20" height="4" rx="2" fill="#00D4FF"/>
-              <rect x="22" y="42" width="20" height="4" rx="2" fill="#00D4FF"/>
-            </svg>
-            <span className="font-sans font-bold text-base text-offwhite">
-              Scantelbury<span className="text-cyan">Devs</span>
-            </span>
-          </Link>
-          <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer"
-             className="font-mono text-[13px] text-cyan tracking-[0.05em] hover:text-offwhite transition-colors">
-            WhatsApp →
-          </a>
-        </div>
-      </nav>
+      <SiteHeader variant="minimal" cta={{ href: WHATSAPP_URL, label: 'WhatsApp →', external: true }} />
 
       {/* HERO */}
       <section className="max-w-5xl mx-auto px-6 pt-16 pb-12">
@@ -296,7 +279,7 @@ export default function MigracaoLP() {
               },
               {
                 q: 'Meu sistema é muito específico do meu setor. Vocês conseguem mesmo?',
-                a: 'Sim. A gente já trocou sistema de produtora de eventos, clínica, escritório de advocacia, contabilidade, transportadora, indústria. O segredo não é conhecer seu setor — é escutar você que conhece — e traduzir isso em algo que funcione melhor.',
+                a: 'Sim. Sistema específico de setor é justamente o caso em que trocar por um programa de prateleira não resolve. O segredo não é a gente conhecer o seu setor de antemão — é escutar você, que conhece, mapear as regras que o sistema atual esconde e traduzir isso em algo que funcione melhor.',
               },
             ].map(({ q, a }, i) => (
               <details key={i} className="group border border-white/[0.08] rounded-xl p-6 bg-gradient-to-br from-white/[0.03] to-transparent hover:border-cyan/30 transition-colors">
@@ -355,14 +338,7 @@ export default function MigracaoLP() {
         </div>
       </section>
 
-      <footer className="border-t border-white/[0.06] py-8">
-        <div className="max-w-5xl mx-auto px-6 text-center">
-          <p className="text-steel text-xs">
-            ScantelburyDevs · Blumenau, SC · atendimento em todo o Brasil ·{' '}
-            <a href="https://www.scantelburydevs.com.br" className="text-cyan hover:text-offwhite">scantelburydevs.com.br</a>
-          </p>
-        </div>
-      </footer>
+      <SiteFooter variant="minimal" />
     </main>
   )
 }

@@ -23,17 +23,26 @@ export interface UseProactiveChatOptions {
   /** Callback para abrir o chat automaticamente. */
   onAutoOpen: () => void
   bubbleDelayMs?: number
+  /** Se definido, o balão se recolhe sozinho depois desse tempo (o botão do chat continua). */
+  bubbleAutoHideMs?: number
   autoOpenDelayMs?: number
   /** Fração da página rolada (0–1) exigida para o auto-open. */
   scrollThreshold?: number
   /** Chave de sessão — use uma por página pra não colidir (home vs LP). */
   storageKey?: string
+  /**
+   * Veto de última hora ao auto-open (ex.: o formulário de contato está na
+   * tela e o chat o cobriria). Se retornar false, tenta de novo no próximo scroll.
+   */
+  canAutoOpen?: () => boolean
 }
 
 export function useProactiveChat({
   isOpen,
   onAutoOpen,
+  canAutoOpen,
   bubbleDelayMs = 5000,
+  bubbleAutoHideMs,
   autoOpenDelayMs = 25000,
   scrollThreshold = 0.4,
   storageKey = 'proactiveChat',
@@ -44,9 +53,11 @@ export function useProactiveChat({
   const doneRef = useRef(false)
   const isOpenRef = useRef(isOpen)
   const onAutoOpenRef = useRef(onAutoOpen)
+  const canAutoOpenRef = useRef(canAutoOpen)
 
   useEffect(() => { isOpenRef.current = isOpen }, [isOpen])
   useEffect(() => { onAutoOpenRef.current = onAutoOpen }, [onAutoOpen])
+  useEffect(() => { canAutoOpenRef.current = canAutoOpen }, [canAutoOpen])
 
   function markDone() {
     doneRef.current = true
@@ -86,6 +97,7 @@ export function useProactiveChat({
     const tryAutoOpen = () => {
       if (doneRef.current || isOpenRef.current) return
       if (elapsed && scrolledFraction() >= scrollThreshold) {
+        if (canAutoOpenRef.current && !canAutoOpenRef.current()) return
         markDone()
         setShowBubble(false)
         onAutoOpenRef.current()
@@ -99,6 +111,10 @@ export function useProactiveChat({
       if (!doneRef.current && !isOpenRef.current) setShowBubble(true)
     }, bubbleDelayMs)
 
+    const bubbleHideTimer = bubbleAutoHideMs
+      ? window.setTimeout(() => setShowBubble(false), bubbleDelayMs + bubbleAutoHideMs)
+      : undefined
+
     const openTimer = window.setTimeout(() => {
       elapsed = true
       tryAutoOpen()
@@ -108,6 +124,7 @@ export function useProactiveChat({
 
     return () => {
       window.clearTimeout(bubbleTimer)
+      if (bubbleHideTimer) window.clearTimeout(bubbleHideTimer)
       window.clearTimeout(openTimer)
       window.removeEventListener('scroll', onScroll)
     }

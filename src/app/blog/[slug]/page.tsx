@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation'
 import { marked } from 'marked'
 import { getAllPosts, getPostBySlug } from '@/lib/posts'
 import { NewsletterCapture } from '@/components/NewsletterCapture'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 
 interface Props {
   params: { slug: string }
@@ -38,28 +40,13 @@ export default function PostPage({ params }: Props) {
 
   return (
     <main className="bg-navy min-h-screen text-offwhite">
-      {/* Nav */}
-      <nav className="border-b border-white/[0.06] py-5">
-        <div className="max-w-3xl mx-auto px-6 flex justify-between items-center">
-          <Link href="/" className="flex items-center gap-2.5 no-underline">
-            <svg width="28" height="28" viewBox="0 0 72 72" fill="none">
-              <path d="M36 12L58 24V48L36 60L14 48V24L36 12Z" fill="#0A0F1E" stroke="#00D4FF" strokeWidth="2"/>
-              <rect x="22" y="24" width="20" height="4" rx="2" fill="#00D4FF"/>
-              <rect x="30" y="33" width="20" height="4" rx="2" fill="#00D4FF"/>
-              <rect x="22" y="42" width="20" height="4" rx="2" fill="#00D4FF"/>
-            </svg>
-            <span className="font-sans font-bold text-base text-offwhite">
-              Scantelbury<span className="text-cyan">Devs</span>
-            </span>
-          </Link>
-          <Link href="/blog" className="font-mono text-[13px] text-steel hover:text-offwhite transition-colors tracking-[0.04em]">
-            ← Insights
-          </Link>
-        </div>
-      </nav>
+      <SiteHeader current="blog" />
 
       {/* Article */}
-      <article className="max-w-3xl mx-auto px-6 pt-14 pb-24">
+      <article className="max-w-3xl mx-auto px-6 pt-10 pb-24">
+        <Link href="/blog" className="inline-flex items-center min-h-[44px] mb-4 font-mono text-[13px] text-steel hover:text-offwhite transition-colors tracking-[0.04em] no-underline">
+          ← Insights
+        </Link>
         {/* Tags */}
         <div className="flex gap-2 mb-5 flex-wrap">
           {post.tags.map(tag => (
@@ -70,12 +57,12 @@ export default function PostPage({ params }: Props) {
         </div>
 
         {/* Title */}
-        <h1 className="font-sans text-3xl md:text-4xl font-extrabold text-offwhite mb-5 leading-tight">
+        <h1 className="font-display text-[26px] md:text-[34px] font-bold tracking-tight text-offwhite mb-5 leading-[1.2]">
           {post.title}
         </h1>
 
         {/* Meta */}
-        <div className="flex gap-4 mb-12 font-mono text-xs text-steel/60">
+        <div className="flex gap-4 mb-12 font-mono text-xs text-steel">
           <span>{formatDate(post.date)}</span>
           <span>·</span>
           <span>{post.readTime} min de leitura</span>
@@ -96,14 +83,16 @@ export default function PostPage({ params }: Props) {
             Precisando de ajuda com seu projeto?
           </p>
           <p className="text-steel text-sm mb-5">
-            A ScantelburyDevs constrói, lança e opera software em produção.
+            A ScantelburyDevs constrói, lança e opera software em produção — de integração fiscal a sistemas sob medida.
           </p>
           <Link href="/#contact"
-            className="inline-block px-6 py-2.5 rounded-lg bg-cyan text-navy font-bold text-sm no-underline hover:bg-cyan/90 transition-colors">
-            Falar com a equipe →
+            className="inline-flex items-center min-h-[44px] px-6 rounded-lg bg-cyan text-navy font-mono text-[13px] font-medium tracking-[0.06em] no-underline hover:opacity-90 transition-opacity">
+            Falar com a gente →
           </Link>
         </div>
       </article>
+
+      <SiteFooter />
     </main>
   )
 }

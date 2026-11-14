@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'ScantelburyDevs',
     short_name: 'ScantelburyDevs',
-    description: 'Engenharia de software para sistemas críticos. Construímos, lançamos e operamos.',
+    description: 'NFS-e Nacional por API e integração fiscal para empresas de software. Construímos, lançamos e operamos.',
     start_url: '/',
     display: 'standalone',
     background_color: '#0A0F1E',
