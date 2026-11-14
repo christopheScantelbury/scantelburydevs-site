@@ -23,7 +23,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             // size — auditoria: sm e md com min-w adequado para toque
             'text-[11px] px-4 min-w-[44px]': size === 'sm',
             'text-[13px] px-6 py-3': size === 'md',
-            'text-[14px] px-8 py-3.5': size === 'lg',
+            'text-[14px] px-5 sm:px-8 py-3.5': size === 'lg',
           },
           className
         )}

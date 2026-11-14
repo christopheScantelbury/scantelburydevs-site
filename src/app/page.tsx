@@ -106,7 +106,7 @@ const t = {
     nameLbl:   { pt: 'Nome', en: 'Name' },
     typeLbl:   { pt: 'Tipo de projeto', en: 'Project type' },
     msgLbl:    { pt: 'Mensagem', en: 'Message' },
-    submit:    { pt: 'Iniciar conversa →', en: 'Start the conversation →' },
+    submit:    { pt: 'Iniciar conversa →', en: 'Start the conversation →' },
     types:     { pt: ['Selecione...','Integração de NFS-e via API','Desenvolvimento de aplicação','Migração de sistema','Integração / Automação','Alocação dedicada','Outro'], en: ['Select...','NFS-e integration via API','Application development','System migration','Integration / Automation','Dedicated engineer','Other'] },
   },
 }
@@ -580,10 +580,10 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             <a href={nfseUrl} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto"
               onClick={() => trackLead({ source: 'whatsapp', lang })}>
-              <Button size="lg" className="w-full sm:w-auto">{tx(t.hero.cta1)} →</Button>
+              <Button size="lg" className="w-full sm:w-auto">{tx(t.hero.cta1)}{' '}→</Button>
             </a>
             <a href={NOTAFACIL_API} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
-              <Button variant="outline" size="lg" className="w-full sm:w-auto">{tx(t.hero.cta2)} ↗</Button>
+              <Button variant="outline" size="lg" className="w-full sm:w-auto">{tx(t.hero.cta2)}{' '}↗</Button>
             </a>
           </div>
         </div>
@@ -638,7 +638,7 @@ export default function Home() {
             <div className="flex flex-col gap-3">
               <a href={nfseUrl} target="_blank" rel="noopener noreferrer" className="sm:self-start"
                 onClick={() => trackLead({ source: 'whatsapp', lang })}>
-                <Button size="md" className="w-full sm:w-auto whitespace-nowrap">{tx(t.nfse.cta)} →</Button>
+                <Button size="md" className="w-full sm:w-auto whitespace-nowrap">{tx(t.nfse.cta)}{' '}→</Button>
               </a>
               <div className="flex flex-wrap items-center gap-x-6 gap-y-1">
                 <a href={NOTAFACIL_SANDBOX} target="_blank" rel="noopener noreferrer"
